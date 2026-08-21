@@ -145,6 +145,23 @@ npm run test:android:browserstack
 npm run test:ios:browserstack
 ```
 
+## GitHub Actions
+
+The `Android E2E` and `iOS E2E` workflows run independently against BrowserStack. Add these
+repository secrets before running them:
+
+- `BROWSERSTACK_USERNAME`
+- `BROWSERSTACK_ACCESS_KEY`
+- `BROWSERSTACK_ANDROID_APP_URL`
+- `BROWSERSTACK_IOS_APP_URL`
+
+Both workflows are started manually from the Actions tab.
+
+The `Pull Request Checks` workflow runs automatically for pull requests targeting `main` and
+checks dependencies, TypeScript, and formatting on every pull request update. Configure this
+workflow as a required status check in the branch protection rules for `main` to block merges
+until it passes.
+
 Quality checks:
 
 ```bash
