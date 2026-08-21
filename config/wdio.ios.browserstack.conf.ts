@@ -6,6 +6,7 @@ export const config: WebdriverIO.Config = {
     user: process.env.BROWSERSTACK_USERNAME,
     key: process.env.BROWSERSTACK_ACCESS_KEY,
     hostname: 'hub.browserstack.com',
+    port: 443,
 
     services: [
         [
@@ -23,8 +24,8 @@ export const config: WebdriverIO.Config = {
             platformName: 'iOS',
             'appium:automationName': 'XCUITest',
             'bstack:options': {
-                deviceName: 'iPhone 16',
-                osVersion: '18',
+                deviceName: 'iPhone 17 Pro Max',
+                osVersion: '26',
                 realMobile: true,
             },
         },
@@ -32,8 +33,8 @@ export const config: WebdriverIO.Config = {
             platformName: 'iOS',
             'appium:automationName': 'XCUITest',
             'bstack:options': {
-                deviceName: 'iPhone 15 Pro Max',
-                osVersion: '17',
+                deviceName: 'iPhone 17 Pro',
+                osVersion: '26',
                 realMobile: true,
             },
         },

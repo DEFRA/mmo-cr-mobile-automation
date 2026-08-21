@@ -37,6 +37,7 @@ describe('iOS home page', () => {
         await expect(HomePage.tableRowVessel(0, 'ACHILLES')).toBeDisplayed();
         await expect(HomePage.tableRowStatus(0, 'Submitted')).toBeDisplayed();
         await expect(HomePage.tableRowCreatedBy(0, 'J.Smith')).toBeDisplayed();
+        await HomePage.pagination.scrollIntoView();
         await expect(HomePage.pagination).toBeDisplayed();
         await expect(HomePage.currentPage).toBeDisplayed();
     });
