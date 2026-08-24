@@ -37,8 +37,17 @@ describe('iOS home page', () => {
         await expect(HomePage.tableRowVessel(0, 'ACHILLES')).toBeDisplayed();
         await expect(HomePage.tableRowStatus(0, 'Submitted')).toBeDisplayed();
         await expect(HomePage.tableRowCreatedBy(0, 'J.Smith')).toBeDisplayed();
-        await HomePage.pagination.scrollIntoView();
-        await expect(HomePage.pagination).toBeDisplayed();
+
+        const pagination = await HomePage.pagination;
+        await pagination.waitForExist();
+
+        if (!(await pagination.isDisplayed())) {
+            await browser.execute('mobile: scrollToElement', {
+                element: await pagination.elementId,
+            });
+        }
+
+        await pagination.waitForDisplayed({ timeout: 10000 });
         await expect(HomePage.currentPage).toBeDisplayed();
     });
 
