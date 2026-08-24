@@ -2,11 +2,25 @@ export abstract class CommonBasePage {
     protected abstract readonly appId: string;
 
     async openApp() {
-        await driver.activateApp(this.appId);
-        await driver.waitUntil(async () => (await driver.getPageSource()).length > 0, {
-            timeout: 20000,
-            timeoutMsg: 'App did not finish launching.',
-        });
+        let lastError: unknown;
+
+        for (let attempt = 1; attempt <= 3; attempt++) {
+            try {
+                await driver.activateApp(this.appId);
+                await driver.waitUntil(async () => (await driver.getPageSource()).length > 0, {
+                    timeout: 20000,
+                    timeoutMsg: 'App did not finish launching.',
+                });
+                return;
+            } catch (error) {
+                lastError = error;
+                if (attempt < 3) {
+                    await new Promise((resolve) => setTimeout(resolve, attempt * 2000));
+                }
+            }
+        }
+
+        throw lastError ?? new Error(`Failed to activate app ${this.appId}.`);
     }
 
     async close() {

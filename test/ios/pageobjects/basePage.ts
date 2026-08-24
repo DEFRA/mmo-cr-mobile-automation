@@ -1,7 +1,7 @@
 import { CommonBasePage } from '../../common/commonBasePage';
 
 export class BasePage extends CommonBasePage {
-    protected readonly appId = process.env.IOS_BUNDLE_ID ?? 'com.recordyourcatch.app';
+    protected readonly appId = process.env.IOS_BUNDLE_ID ?? 'mmo.catchrecordingdev.ios';
 
     get languageToggle() {
         return $('~Header.languageToggle');
