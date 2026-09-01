@@ -1,7 +1,6 @@
 import { BaseCatchRecordPage } from './baseCatchRecordPage';
 
 export class TripTodayPage extends BaseCatchRecordPage {
-
     get referenceNumber() {
         return $('~CatchRecord.tripToday.referenceNumber');
     }
@@ -11,11 +10,13 @@ export class TripTodayPage extends BaseCatchRecordPage {
     }
 
     get yesOptionText() {
-        return $('~Select yes if you\'re recording today\'s trip now.');
+        return $("~Select yes if you're recording today's trip now.");
     }
 
     get noOptionText() {
-        return $('~Select no if you\'re recording a trip from another day — you\'ll then enter the dates.');
+        return $(
+            "~Select no if you're recording a trip from another day — you'll then enter the dates.",
+        );
     }
 
     get radioGroup() {

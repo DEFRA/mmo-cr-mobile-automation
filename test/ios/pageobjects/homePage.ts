@@ -93,6 +93,21 @@ export class HomePage extends BasePage {
         await this.tableRowDate(rowIndex).click();
     }
 
+    async clickCreateRecordButton() {
+        const button = await this.createRecordButton;
+
+        await button.waitForDisplayed({ timeout: 15000 });
+
+        if (!(await button.isDisplayed())) {
+            await browser.execute('mobile: scrollToElement', {
+                element: await button.elementId,
+            });
+        }
+
+        await button.waitForDisplayed({ timeout: 10000 });
+        await button.click();
+    }
+
     async goToNotifications() {
         await this.notificationsTab.click();
     }

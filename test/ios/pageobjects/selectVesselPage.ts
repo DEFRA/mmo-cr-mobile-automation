@@ -1,7 +1,6 @@
 import { BaseCatchRecordPage } from './baseCatchRecordPage';
 
 export class SelectVesselPage extends BaseCatchRecordPage {
-
     get selectVesselHeading() {
         return $('~Select the vessel for this trip');
     }

@@ -1,7 +1,6 @@
 import { BaseCatchRecordPage } from './baseCatchRecordPage';
 
 export class SelectGearPage extends BaseCatchRecordPage {
-
     get referenceNumber() {
         return $('~CatchRecord.selectGear.referenceNumber');
     }
@@ -35,7 +34,9 @@ export class SelectGearPage extends BaseCatchRecordPage {
     }
 
     get timesShotField() {
-        return $('//XCUIElementTypeTextField[@name="CatchRecord.selectGear.variable.seine nets (not specified).timesShot"]');
+        return $(
+            '//XCUIElementTypeTextField[@name="CatchRecord.selectGear.variable.seine nets (not specified).timesShot"]',
+        );
     }
 
     get saveContinueButton() {

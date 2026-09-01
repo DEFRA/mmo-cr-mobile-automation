@@ -1,7 +1,6 @@
 import { BaseCatchRecordPage } from './baseCatchRecordPage';
 
 export class GearMeasurementsPage extends BaseCatchRecordPage {
-
     get referenceNumber() {
         return $('~CatchRecord.gearMeasurements.referenceNumber');
     }

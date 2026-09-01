@@ -1,7 +1,6 @@
 import { BaseCatchRecordPage } from './baseCatchRecordPage';
 
 export class TripDateDeparturePage extends BaseCatchRecordPage {
-
     get referenceNumber() {
         return $('~CatchRecord.tripDate.departure.referenceNumber');
     }

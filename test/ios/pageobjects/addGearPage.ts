@@ -1,7 +1,6 @@
 import { BaseCatchRecordPage } from './baseCatchRecordPage';
 
 export class AddGearPage extends BaseCatchRecordPage {
-
     get referenceNumber() {
         return $('~CatchRecord.addGear.referenceNumber');
     }

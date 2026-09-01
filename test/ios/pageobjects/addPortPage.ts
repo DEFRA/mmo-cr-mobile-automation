@@ -1,7 +1,6 @@
 import { BaseCatchRecordPage } from './baseCatchRecordPage';
 
 export class AddPortPage extends BaseCatchRecordPage {
-
     get referenceNumber() {
         return $('~CatchRecord.addPort.referenceNumber');
     }
@@ -11,7 +10,9 @@ export class AddPortPage extends BaseCatchRecordPage {
     }
 
     get emptyStateText() {
-        return $('~No ports added yet. Enter a port name or the nearest port to where you left and will return.');
+        return $(
+            '~No ports added yet. Enter a port name or the nearest port to where you left and will return.',
+        );
     }
 
     get searchLabel() {

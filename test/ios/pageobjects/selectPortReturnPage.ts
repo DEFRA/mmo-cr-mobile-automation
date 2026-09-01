@@ -1,7 +1,6 @@
 import { BaseCatchRecordPage } from './baseCatchRecordPage';
 
 export class SelectPortReturnPage extends BaseCatchRecordPage {
-
     get referenceNumber() {
         return $('~CatchRecord.selectPort.return.referenceNumber');
     }
