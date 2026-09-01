@@ -18,4 +18,12 @@ export class BasePage extends CommonBasePage {
     get settingsTab() {
         return $('~TabBar.settings');
     }
+
+    selector(name: string) {
+        return $(`~${name}`);
+    }
+
+    textField(name: string) {
+        return $(`//XCUIElementTypeTextField[@name="${name}"]`);
+    }
 }
