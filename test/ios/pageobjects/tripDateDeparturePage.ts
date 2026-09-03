@@ -45,10 +45,6 @@ export class TripDateDeparturePage extends BaseCatchRecordPage {
         return $('~CatchRecord.tripDate.departure.saveContinue');
     }
 
-    selector(name: string) {
-        return $(`~${name}`);
-    }
-
     async enterDepartureDate(day: string, month: string, year: string) {
         await this.dayField.setValue(day);
         await this.monthField.setValue(month);

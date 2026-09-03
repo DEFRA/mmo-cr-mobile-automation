@@ -96,9 +96,9 @@ export class HomePage extends BasePage {
     async clickCreateRecordButton() {
         const button = await this.createRecordButton;
 
-        await button.waitForDisplayed({ timeout: 15000 });
-
-        if (!(await button.isDisplayed())) {
+        try {
+            await button.waitForDisplayed({ timeout: 4000 });
+        } catch {
             await browser.execute('mobile: scrollToElement', {
                 element: await button.elementId,
             });

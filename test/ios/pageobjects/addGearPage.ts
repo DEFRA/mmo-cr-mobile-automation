@@ -29,10 +29,6 @@ export class AddGearPage extends BaseCatchRecordPage {
         return $('~CatchRecord.addGear.saveContinue');
     }
 
-    selector(name: string) {
-        return $(`~${name}`);
-    }
-
     async enterGearSearch(term: string) {
         await this.searchField.setValue(term);
     }

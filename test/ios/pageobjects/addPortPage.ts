@@ -23,10 +23,6 @@ export class AddPortPage extends BaseCatchRecordPage {
         return $('//XCUIElementTypeTextField[@name="CatchRecord.addPort.search"]');
     }
 
-    selector(name: string) {
-        return $(`~${name}`);
-    }
-
     get saveContinueButton() {
         return $('~CatchRecord.addPort.saveContinue');
     }

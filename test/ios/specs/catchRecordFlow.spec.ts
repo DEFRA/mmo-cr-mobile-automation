@@ -1,3 +1,4 @@
+import AddPortPage from '../pageobjects/addPortPage';
 import GearMeasurementsPage from '../pageobjects/gearMeasurementsPage';
 import HomePage from '../pageobjects/homePage';
 import SelectGearPage from '../pageobjects/selectGearPage';
@@ -11,6 +12,42 @@ import TripTodayPage from '../pageobjects/tripTodayPage';
 
 const testEmail = process.env.IOS_TEST_EMAIL;
 const testPassword = process.env.IOS_TEST_PASSWORD;
+
+const getDateParts = (date: Date) => ({
+    day: String(date.getDate()).padStart(2, '0'),
+    month: String(date.getMonth() + 1).padStart(2, '0'),
+    year: String(date.getFullYear()),
+});
+
+const startNewCatchRecord = async () => {
+    await HomePage.clickCreateRecordButton();
+    await expect(SelectVesselPage.selectVesselHeading).toBeDisplayed();
+    await expect(AddPortPage.heading).toBeDisplayed();
+    await AddPortPage.enterPortSearch('Peterhead');
+    await AddPortPage.continueToNextStep();
+};
+
+const enterTripDatesWithin24Hours = async (departureDate = new Date()) => {
+    const returnDate = new Date(departureDate.getTime() + 23 * 60 * 60 * 1000);
+    const departureParts = getDateParts(departureDate);
+    const returnParts = getDateParts(returnDate);
+
+    await SelectVesselPage.selectVessel('ACHILLES');
+    await TripTodayPage.selectTripToday('no');
+    await TripTodayPage.continueToNextStep();
+
+    await expect(TripDateDeparturePage.heading).toBeDisplayed();
+    await TripDateDeparturePage.enterDepartureDate(
+        departureParts.day,
+        departureParts.month,
+        departureParts.year,
+    );
+    await TripDateDeparturePage.continueToNextStep();
+
+    await expect(TripDateReturnPage.heading).toBeDisplayed();
+    await TripDateReturnPage.enterReturnDate(returnParts.day, returnParts.month, returnParts.year);
+    await TripDateReturnPage.continueToNextStep();
+};
 
 describe('iOS catch record flow', () => {
     beforeEach(async () => {
@@ -26,43 +63,26 @@ describe('iOS catch record flow', () => {
     });
 
     afterEach(async () => {
-        await HomePage.close();
+        //await HomePage.close();
     });
 
-    it('opens the trip today screen from the home page', async () => {
-        await HomePage.clickCreateRecordButton();
+    it('opens the vessel selection screen immediately after create record', async () => {
+        await startNewCatchRecord();
 
-        await expect(TripTodayPage.questionHeading).toBeDisplayed();
-        await expect(TripTodayPage.yesOption).toBeDisplayed();
-        await expect(TripTodayPage.noOption).toBeDisplayed();
+        await expect(SelectVesselPage.achillesVesselOption).toBeDisplayed();
+        await expect(SelectVesselPage.herculesVesselOption).toBeDisplayed();
     });
 
     it('moves through the trip date flow and reaches departure port selection', async () => {
-        await HomePage.clickCreateRecordButton();
-        await TripTodayPage.selectTripToday('no');
-        await TripTodayPage.continueToNextStep();
-
-        await expect(TripDateDeparturePage.heading).toBeDisplayed();
-        await TripDateDeparturePage.enterDepartureDate('20', '08', '2026');
-        await TripDateDeparturePage.continueToNextStep();
-
-        await expect(TripDateReturnPage.heading).toBeDisplayed();
-        await TripDateReturnPage.enterReturnDate('22', '08', '2026');
-        await TripDateReturnPage.continueToNextStep();
+        await startNewCatchRecord();
+        await enterTripDatesWithin24Hours();
 
         await expect(SelectPortDeparturePage.heading).toBeDisplayed();
     });
 
     it('completes the catch record flow through the gear measurements screen', async () => {
-        await HomePage.clickCreateRecordButton();
-        await TripTodayPage.selectTripToday('no');
-        await TripTodayPage.continueToNextStep();
-
-        await TripDateDeparturePage.enterDepartureDate('20', '08', '2026');
-        await TripDateDeparturePage.continueToNextStep();
-
-        await TripDateReturnPage.enterReturnDate('22', '08', '2026');
-        await TripDateReturnPage.continueToNextStep();
+        await startNewCatchRecord();
+        await enterTripDatesWithin24Hours();
 
         await SelectPortDeparturePage.selectPeterhead();
         await SelectPortDeparturePage.continueToNextStep();

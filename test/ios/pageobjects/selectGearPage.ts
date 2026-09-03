@@ -47,10 +47,6 @@ export class SelectGearPage extends BaseCatchRecordPage {
         return $('~CatchRecord.selectGear.addAnother');
     }
 
-    selector(name: string) {
-        return $(`~${name}`);
-    }
-
     async selectSeineNets() {
         await this.seineNetsOption.click();
     }

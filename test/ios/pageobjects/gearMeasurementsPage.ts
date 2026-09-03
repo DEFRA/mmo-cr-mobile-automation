@@ -25,10 +25,6 @@ export class GearMeasurementsPage extends BaseCatchRecordPage {
         return $('~CatchRecord.gearMeasurements.saveContinue');
     }
 
-    selector(name: string) {
-        return $(`~${name}`);
-    }
-
     async enterMeshSize(value: string) {
         await this.meshSizeField.setValue(value);
     }
