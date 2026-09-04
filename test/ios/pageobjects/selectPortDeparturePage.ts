@@ -21,8 +21,18 @@ export class SelectPortDeparturePage extends BaseCatchRecordPage {
         return $('~CatchRecord.selectPort.departure.option.peterhead');
     }
 
+    portOption(portName: string) {
+        return this.selector(`CatchRecord.selectPort.departure.option.${portName.toLowerCase()}`);
+    }
+
     get saveContinueButton() {
         return $('~CatchRecord.selectPort.departure.saveContinue');
+    }
+
+    get validationError() {
+        return $(
+            '//XCUIElementTypeStaticText[contains(@label, "Select a port") or contains(@value, "Select a port")]',
+        );
     }
 
     get addAnotherPortButton() {

@@ -16,19 +16,35 @@ export class AddPortPage extends BaseCatchRecordPage {
     }
 
     get searchLabel() {
-        return $('~CatchRecord.addPort.search');
+        return $('//XCUIElementTypeStaticText[starts-with(@value, "Add port to vessel ")][last()]');
     }
 
     get searchField() {
-        return $('//XCUIElementTypeTextField[@name="CatchRecord.addPort.search"]');
+        return $('//XCUIElementTypeTextField[@placeholderValue="Type to search (minimum 2 characters)"]');
     }
 
     get saveContinueButton() {
         return $('~CatchRecord.addPort.saveContinue');
     }
 
+    portResult(portName: string) {
+        return $(`~SearchDropdownField.result.${portName}`);
+    }
+
     async enterPortSearch(term: string) {
         await this.searchField.setValue(term);
+    }
+
+    async selectPort(portName: string) {
+        await this.enterPortSearch(portName);
+
+        const result = this.portResult(portName);
+        await result.waitForExist({ timeout: 10000 });
+        await browser.execute('mobile: scrollToElement', {
+            element: await result.elementId,
+        });
+        await result.waitForDisplayed({ timeout: 10000 });
+        await result.click();
     }
 
     async continueToNextStep() {
