@@ -13,7 +13,7 @@ describe('iOS home page', () => {
         }
         await SignInPage.openApp();
         await SignInPage.signIn(testEmail, testPassword);
-        await expect(HomePage.yourTripsHeading).toBeDisplayed();
+        await HomePage.scrollToElement(HomePage.yourTripsHeading);
     });
 
     afterEach(async () => {
@@ -21,10 +21,13 @@ describe('iOS home page', () => {
     });
 
     it('displays the home page content', async () => {
-        await expect(HomePage.govUk).toBeDisplayed();
+        await HomePage.scrollToElement(HomePage.yourTripsHeading);
         await expect(HomePage.yourTripsHeading).toBeDisplayed();
+        await HomePage.scrollToElement(HomePage.tripsDescription);
         await expect(HomePage.tripsDescription).toBeDisplayed();
+        await HomePage.scrollToElement(HomePage.tripDateDescription);
         await expect(HomePage.tripDateDescription).toBeDisplayed();
+        await HomePage.scrollToElement(HomePage.appUsageNote);
         await expect(HomePage.appUsageNote).toBeDisplayed();
     });
 

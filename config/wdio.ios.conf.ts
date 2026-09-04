@@ -32,6 +32,7 @@ export const config: WebdriverIO.Config = {
             'appium:app': join(appsDir, appFile),
             'appium:orientation': 'PORTRAIT',
             'appium:noReset': noReset,
+            'appium:autoDismissAlerts': true,
             'appium:newCommandTimeout': 240,
         },
     ],

@@ -67,6 +67,14 @@ export class HomePage extends BasePage {
         return $('//XCUIElementTypeScrollView');
     }
 
+    async scrollToElement(element: ReturnType<typeof $>) {
+        await element.waitForExist({ timeout: 20000 });
+        await browser.execute('mobile: scrollToElement', {
+            element: await element.elementId,
+        });
+        await element.waitForDisplayed({ timeout: 10000 });
+    }
+
     tableRowDate(rowIndex: number) {
         return $(`~Home.table.row.${rowIndex}.date`);
     }
