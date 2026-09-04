@@ -21,6 +21,12 @@ export class SelectVesselPage extends BaseCatchRecordPage {
         return $('~CatchRecord.selectVessel.saveContinue');
     }
 
+    get vesselValidationError() {
+        return $(
+            '//XCUIElementTypeStaticText[contains(@label, "Select a vessel") or contains(@value, "Select a vessel")]',
+        );
+    }
+
     async selectVessel(vesselName: 'ACHILLES' | 'HERCULES') {
         const vesselOption =
             vesselName === 'ACHILLES' ? this.achillesVesselOption : this.herculesVesselOption;

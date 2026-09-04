@@ -35,6 +35,12 @@ export class TripTodayPage extends BaseCatchRecordPage {
         return $('~CatchRecord.tripToday.saveContinue');
     }
 
+    get validationError() {
+        return $(
+            '//XCUIElementTypeStaticText[@name="Select whether your trip started and finished today"]',
+        );
+    }
+
     async selectTripToday(option: 'yes' | 'no') {
         const selectedOption = option === 'yes' ? this.yesOption : this.noOption;
 

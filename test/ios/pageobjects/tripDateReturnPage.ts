@@ -45,6 +45,10 @@ export class TripDateReturnPage extends BaseCatchRecordPage {
         return $('~CatchRecord.tripDate.return.saveContinue');
     }
 
+    get validationError() {
+        return $('//XCUIElementTypeStaticText[@name="catchRecord.tripDate.validation.none"]');
+    }
+
     async enterReturnDate(day: string, month: string, year: string) {
         await this.dayField.setValue(day);
         await this.monthField.setValue(month);
