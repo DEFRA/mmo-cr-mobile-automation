@@ -22,7 +22,9 @@ export class AddGearPage extends BaseCatchRecordPage {
     }
 
     get searchField() {
-        return $('//XCUIElementTypeTextField[@placeholderValue="Type to search (minimum 2 characters)"]');
+        return $(
+            '//XCUIElementTypeTextField[@placeholderValue="Type to search (minimum 2 characters)"]',
+        );
     }
 
     get saveContinueButton() {
@@ -38,15 +40,7 @@ export class AddGearPage extends BaseCatchRecordPage {
     }
 
     async selectGear(gearName: string) {
-        await this.enterGearSearch(gearName);
-
-        const result = this.gearResult(gearName);
-        await result.waitForExist({ timeout: 10000 });
-        await browser.execute('mobile: scrollToElement', {
-            element: await result.elementId,
-        });
-        await result.waitForDisplayed({ timeout: 10000 });
-        await result.click();
+        await this.searchAndSelect(this.searchField, gearName, this.gearResult(gearName));
     }
 
     async continueToNextStep() {

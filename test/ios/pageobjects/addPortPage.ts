@@ -20,7 +20,9 @@ export class AddPortPage extends BaseCatchRecordPage {
     }
 
     get searchField() {
-        return $('//XCUIElementTypeTextField[@placeholderValue="Type to search (minimum 2 characters)"]');
+        return $(
+            '//XCUIElementTypeTextField[@placeholderValue="Type to search (minimum 2 characters)"]',
+        );
     }
 
     get saveContinueButton() {
@@ -36,15 +38,7 @@ export class AddPortPage extends BaseCatchRecordPage {
     }
 
     async selectPort(portName: string) {
-        await this.enterPortSearch(portName);
-
-        const result = this.portResult(portName);
-        await result.waitForExist({ timeout: 10000 });
-        await browser.execute('mobile: scrollToElement', {
-            element: await result.elementId,
-        });
-        await result.waitForDisplayed({ timeout: 10000 });
-        await result.click();
+        await this.searchAndSelect(this.searchField, portName, this.portResult(portName));
     }
 
     async continueToNextStep() {

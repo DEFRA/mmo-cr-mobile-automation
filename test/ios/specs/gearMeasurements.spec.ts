@@ -1,40 +1,14 @@
 import AddGearPage from '../pageobjects/addGearPage';
-import AddPortPage from '../pageobjects/addPortPage';
 import CatchLocationPage from '../pageobjects/catchLocationPage';
 import GearMeasurementsPage from '../pageobjects/gearMeasurementsPage';
-import HomePage from '../pageobjects/homePage';
-import SelectPortDeparturePage from '../pageobjects/selectPortDeparturePage';
-import SelectPortReturnPage from '../pageobjects/selectPortReturnPage';
 import SelectGearPage from '../pageobjects/selectGearPage';
-import SelectVesselPage from '../pageobjects/selectVesselPage';
-import SignInPage from '../pageobjects/signInPage';
-import TripTodayPage from '../pageobjects/tripTodayPage';
+import { signInAndOpenCreateRecord, selectVesselAndTripToday, completePortJourney } from '../support/journeySteps';
 
 describe('iOS gear measurements page', () => {
-    const testEmail = process.env.IOS_TEST_EMAIL;
-    const testPassword = process.env.IOS_TEST_PASSWORD;
-
     beforeEach(async () => {
-        if (!testEmail || !testPassword) {
-            throw new Error(
-                'IOS_TEST_EMAIL and IOS_TEST_PASSWORD must be set in .env to run Gear measurements tests.',
-            );
-        }
-
-        await SignInPage.openApp();
-        await SignInPage.signIn(testEmail, testPassword);
-        await HomePage.scrollToElement(HomePage.createRecordButton);
-        await HomePage.clickCreateRecordButton();
-        await SelectVesselPage.achillesVesselOption.click();
-        await SelectVesselPage.saveContinueButton.click();
-        await TripTodayPage.yesOption.click();
-        await TripTodayPage.saveContinueButton.click();
-        await AddPortPage.selectPort('Peterhead');
-        await AddPortPage.continueToNextStep();
-        await SelectPortDeparturePage.peterheadOption.click();
-        await SelectPortDeparturePage.continueToNextStep();
-        await SelectPortReturnPage.peterheadOption.click();
-        await SelectPortReturnPage.continueToNextStep();
+        await signInAndOpenCreateRecord();
+        await selectVesselAndTripToday('ACHILLES', 'yes');
+        await completePortJourney('Peterhead');
         await AddGearPage.selectGear('Seine nets (not specified)');
         await AddGearPage.continueToNextStep();
         await expect(GearMeasurementsPage.heading).toBeDisplayed();

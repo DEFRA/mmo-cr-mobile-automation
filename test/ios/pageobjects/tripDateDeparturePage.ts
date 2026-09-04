@@ -1,13 +1,7 @@
-import { BaseCatchRecordPage } from './baseCatchRecordPage';
+import { TripDatePage } from './tripDatePage';
 
-export class TripDateDeparturePage extends BaseCatchRecordPage {
-    get referenceNumber() {
-        return $('~CatchRecord.tripDate.departure.referenceNumber');
-    }
-
-    get heading() {
-        return $('~CatchRecord.tripDate.departure.heading');
-    }
+export class TripDateDeparturePage extends TripDatePage {
+    protected readonly prefix = 'CatchRecord.tripDate.departure';
 
     get dateContainer() {
         return $('~When did you leave for your trip?');
@@ -17,46 +11,8 @@ export class TripDateDeparturePage extends BaseCatchRecordPage {
         return $('~Enter the date you departed. For example, 31/03/2020');
     }
 
-    get dayLabel() {
-        return $('~Day');
-    }
-
-    get dayField() {
-        return $('//XCUIElementTypeTextField[@name="Day"]');
-    }
-
-    get monthLabel() {
-        return $('~Month');
-    }
-
-    get monthField() {
-        return $('//XCUIElementTypeTextField[@name="Month"]');
-    }
-
-    get yearLabel() {
-        return $('~Year');
-    }
-
-    get yearField() {
-        return $('//XCUIElementTypeTextField[@name="Year"]');
-    }
-
-    get saveContinueButton() {
-        return $('~CatchRecord.tripDate.departure.saveContinue');
-    }
-
-    get validationError() {
-        return $('//XCUIElementTypeStaticText[@name="catchRecord.tripDate.validation.none"]');
-    }
-
     async enterDepartureDate(day: string, month: string, year: string) {
-        await this.dayField.setValue(day);
-        await this.monthField.setValue(month);
-        await this.yearField.setValue(year);
-    }
-
-    async continueToNextStep() {
-        await this.saveContinueButton.click();
+        await this.enterDate(day, month, year);
     }
 }
 

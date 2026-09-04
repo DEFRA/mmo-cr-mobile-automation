@@ -1,14 +1,10 @@
 import AddPortPage from '../pageobjects/addPortPage';
-import HomePage from '../pageobjects/homePage';
 import SelectVesselPage from '../pageobjects/selectVesselPage';
-import SignInPage from '../pageobjects/signInPage';
 import SubmissionNudgePage from '../pageobjects/submissionNudgePage';
 import TripDateDeparturePage from '../pageobjects/tripDateDeparturePage';
 import TripDateReturnPage from '../pageobjects/tripDateReturnPage';
 import TripTodayPage from '../pageobjects/tripTodayPage';
-
-const testEmail = process.env.IOS_TEST_EMAIL;
-const testPassword = process.env.IOS_TEST_PASSWORD;
+import { signInAndOpenCreateRecord } from '../support/journeySteps';
 
 function datePartsFromToday(daysAgo: number) {
     const date = new Date();
@@ -26,22 +22,8 @@ const vesselName = ['ACHILLES', 'HERCULES'];
 vesselName.forEach((vessel) => {
     describe(`iOS trip today page for vessel ${vessel}`, () => {
         beforeEach(async () => {
-            if (!testEmail || !testPassword) {
-                throw new Error(
-                    'IOS_TEST_EMAIL and IOS_TEST_PASSWORD must be set in .env to run Trip today tests.',
-                );
-            }
-
-            await SignInPage.openApp();
-            await SignInPage.signIn(testEmail, testPassword);
-            await HomePage.scrollToElement(HomePage.createRecordButton);
-            await HomePage.clickCreateRecordButton();
-            if (vessel === 'ACHILLES') {
-                await SelectVesselPage.achillesVesselOption.click();
-            } else {
-                await SelectVesselPage.herculesVesselOption.click();
-            }
-            await SelectVesselPage.saveContinueButton.click();
+            await signInAndOpenCreateRecord();
+            await SelectVesselPage.selectVessel(vessel as 'ACHILLES' | 'HERCULES');
             await expect(TripTodayPage.questionHeading).toBeDisplayed();
         });
 

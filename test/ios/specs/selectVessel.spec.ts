@@ -1,23 +1,11 @@
 import HomePage from '../pageobjects/homePage';
 import SelectVesselPage from '../pageobjects/selectVesselPage';
-import SignInPage from '../pageobjects/signInPage';
 import TripTodayPage from '../pageobjects/tripTodayPage';
-
-const testEmail = process.env.IOS_TEST_EMAIL;
-const testPassword = process.env.IOS_TEST_PASSWORD;
+import { signInAndOpenCreateRecord } from '../support/journeySteps';
 
 describe('iOS select vessel page', () => {
     beforeEach(async () => {
-        if (!testEmail || !testPassword) {
-            throw new Error(
-                'IOS_TEST_EMAIL and IOS_TEST_PASSWORD must be set in .env to run Select vessel tests.',
-            );
-        }
-
-        await SignInPage.openApp();
-        await SignInPage.signIn(testEmail, testPassword);
-        await HomePage.scrollToElement(HomePage.createRecordButton);
-        await HomePage.clickCreateRecordButton();
+        await signInAndOpenCreateRecord();
         await expect(SelectVesselPage.selectVesselHeading).toBeDisplayed();
     });
 

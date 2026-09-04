@@ -15,8 +15,20 @@ export class RecordSpeciesWeightsPage extends BaseCatchRecordPage {
         );
     }
 
-    get europeanLobsterOption() {
-        return $('~CatchRecord.recordSpeciesWeights.option.european lobster (lbe)');
+    speciesOption(speciesName: string) {
+        return $(`~CatchRecord.recordSpeciesWeights.option.${speciesName.toLowerCase()}`);
+    }
+
+    weightAboveField(speciesName: string) {
+        return $(`~CatchRecord.recordSpeciesWeights.weightAbove.${speciesName.toLowerCase()}`);
+    }
+
+    addWeightBelowButton(speciesName: string) {
+        return $(`~CatchRecord.recordSpeciesWeights.addBelow.${speciesName.toLowerCase()}`);
+    }
+
+    addWeightDiscardedButton(speciesName: string) {
+        return $(`~CatchRecord.recordSpeciesWeights.addDiscarded.${speciesName.toLowerCase()}`);
     }
 
     get addSpeciesButton() {
@@ -31,25 +43,16 @@ export class RecordSpeciesWeightsPage extends BaseCatchRecordPage {
         return $('~CatchRecord.recordSpeciesWeights.saveContinue');
     }
 
-    async selectSpecies(speciesName: string) {
-        const normalized = speciesName.toLowerCase();
-        const candidates = [
-            this.selector(`CatchRecord.recordSpeciesWeights.option.${normalized}`),
-            this.selector(`CatchRecord.recordSpeciesWeights.option.${speciesName}`),
-            this.selector(speciesName),
-            this.selector(
-                `CatchRecord.recordSpeciesWeights.option.${normalized.replace(/\s+/g, '')}`,
-            ),
-        ];
-
-        for (const candidate of candidates) {
-            if (await candidate.isExisting()) {
-                await candidate.click();
-                return;
-            }
+    async enterWeight(speciesName: string, value: string) {
+        const option = this.speciesOption(speciesName);
+        await option.waitForDisplayed({ timeout: 10000 });
+        if (!(await option.isSelected())) {
+            await option.click();
         }
 
-        throw new Error(`Could not find species option: ${speciesName}`);
+        const field = this.weightAboveField(speciesName);
+        await field.waitForDisplayed({ timeout: 10000 });
+        await field.setValue(value);
     }
 
     async addSpecies() {

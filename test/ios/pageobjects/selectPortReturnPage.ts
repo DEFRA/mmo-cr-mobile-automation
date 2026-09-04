@@ -21,6 +21,10 @@ export class SelectPortReturnPage extends BaseCatchRecordPage {
         return $('~CatchRecord.selectPort.return.option.peterhead');
     }
 
+    portOption(portName: string) {
+        return this.selector(`CatchRecord.selectPort.return.option.${portName.toLowerCase()}`);
+    }
+
     get saveContinueButton() {
         return $('~CatchRecord.selectPort.return.saveContinue');
     }
@@ -30,22 +34,10 @@ export class SelectPortReturnPage extends BaseCatchRecordPage {
     }
 
     async selectPort(portName: string) {
-        const normalized = portName.toLowerCase();
-        const candidates = [
-            this.selector(`CatchRecord.selectPort.return.option.${normalized}`),
-            this.selector(`CatchRecord.selectPort.return.option.${portName}`),
-            this.selector(portName),
-            this.selector(`CatchRecord.selectPort.return.option.${normalized.replace(/\s+/g, '')}`),
-        ];
-
-        for (const candidate of candidates) {
-            if (await candidate.isExisting()) {
-                await candidate.click();
-                return;
-            }
-        }
-
-        throw new Error(`Could not find return port option: ${portName}`);
+        await this.clickFirstExisting(
+            this.optionCandidates('CatchRecord.selectPort.return.option', portName),
+            `Could not find return port option: ${portName}`,
+        );
     }
 
     async selectPeterhead() {

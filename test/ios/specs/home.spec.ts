@@ -1,18 +1,9 @@
 import HomePage from '../pageobjects/homePage';
-import SignInPage from '../pageobjects/signInPage';
-
-const testEmail = process.env.IOS_TEST_EMAIL;
-const testPassword = process.env.IOS_TEST_PASSWORD;
+import { signIn } from '../support/journeySteps';
 
 describe('iOS home page', () => {
     beforeEach(async () => {
-        if (!testEmail || !testPassword) {
-            throw new Error(
-                'IOS_TEST_EMAIL and IOS_TEST_PASSWORD must be set in .env to run Home page tests.',
-            );
-        }
-        await SignInPage.openApp();
-        await SignInPage.signIn(testEmail, testPassword);
+        await signIn();
         await HomePage.scrollToElement(HomePage.yourTripsHeading);
     });
 

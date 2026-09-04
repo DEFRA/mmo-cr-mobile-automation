@@ -1,31 +1,13 @@
 import AddPortPage from '../pageobjects/addPortPage';
-import CatchLocationPage from '../pageobjects/catchLocationPage';
-import HomePage from '../pageobjects/homePage';
+import AddGearPage from '../pageobjects/addGearPage';
 import SelectPortDeparturePage from '../pageobjects/selectPortDeparturePage';
 import SelectPortReturnPage from '../pageobjects/selectPortReturnPage';
-import SelectVesselPage from '../pageobjects/selectVesselPage';
-import SignInPage from '../pageobjects/signInPage';
-import TripTodayPage from '../pageobjects/tripTodayPage';
+import { signInAndOpenCreateRecord, selectVesselAndTripToday } from '../support/journeySteps';
 
 describe('iOS add port page', () => {
-    const testEmail = process.env.IOS_TEST_EMAIL;
-    const testPassword = process.env.IOS_TEST_PASSWORD;
-
     beforeEach(async () => {
-        if (!testEmail || !testPassword) {
-            throw new Error(
-                'IOS_TEST_EMAIL and IOS_TEST_PASSWORD must be set in .env to run Add port tests.',
-            );
-        }
-
-        await SignInPage.openApp();
-        await SignInPage.signIn(testEmail, testPassword);
-        await HomePage.scrollToElement(HomePage.createRecordButton);
-        await HomePage.clickCreateRecordButton();
-        await SelectVesselPage.achillesVesselOption.click();
-        await SelectVesselPage.saveContinueButton.click();
-        await TripTodayPage.yesOption.click();
-        await TripTodayPage.saveContinueButton.click();
+        await signInAndOpenCreateRecord();
+        await selectVesselAndTripToday('ACHILLES', 'yes');
         await expect(AddPortPage.heading).toBeDisplayed();
     });
 
@@ -119,7 +101,7 @@ describe('iOS add port page', () => {
         await expect(SelectPortReturnPage.peterheadOption).toBeSelected();
     });
 
-    it('continues from selected return port to catch location', async () => {
+    it('continues from selected return port to add gear', async () => {
         await AddPortPage.selectPort('Peterhead');
         await AddPortPage.continueToNextStep();
 
@@ -130,6 +112,6 @@ describe('iOS add port page', () => {
         await SelectPortReturnPage.peterheadOption.click();
         await SelectPortReturnPage.continueToNextStep();
 
-        await expect(CatchLocationPage.heading).toBeDisplayed();
+        await expect(AddGearPage.heading).toBeDisplayed();
     });
 });

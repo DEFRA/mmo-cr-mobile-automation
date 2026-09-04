@@ -40,24 +40,10 @@ export class SelectPortDeparturePage extends BaseCatchRecordPage {
     }
 
     async selectPort(portName: string) {
-        const normalized = portName.toLowerCase();
-        const candidates = [
-            this.selector(`CatchRecord.selectPort.departure.option.${normalized}`),
-            this.selector(`CatchRecord.selectPort.departure.option.${portName}`),
-            this.selector(portName),
-            this.selector(
-                `CatchRecord.selectPort.departure.option.${normalized.replace(/\s+/g, '')}`,
-            ),
-        ];
-
-        for (const candidate of candidates) {
-            if (await candidate.isExisting()) {
-                await candidate.click();
-                return;
-            }
-        }
-
-        throw new Error(`Could not find departure port option: ${portName}`);
+        await this.clickFirstExisting(
+            this.optionCandidates('CatchRecord.selectPort.departure.option', portName),
+            `Could not find departure port option: ${portName}`,
+        );
     }
 
     async selectPeterhead() {
