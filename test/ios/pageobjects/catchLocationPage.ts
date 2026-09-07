@@ -36,9 +36,7 @@ export class CatchLocationPage extends BaseCatchRecordPage {
     }
 
     get firstAreaLabel() {
-        return $(
-            '(//XCUIElementTypeOther[@name="Map pin"]/following-sibling::*[1])[1]',
-        );
+        return $('(//XCUIElementTypeOther[@name="Map pin"]/following-sibling::*[1])[1]');
     }
 
     async selectArea(area: string) {

@@ -1,10 +1,6 @@
 import { BasePage } from './basePage';
 
 export class HomePage extends BasePage {
-    get govUk() {
-        return $('~GOV.UK');
-    }
-
     get yourTripsHeading() {
         return $('~Your trips');
     }
@@ -51,8 +47,20 @@ export class HomePage extends BasePage {
         return $('~Home.pagination.showing');
     }
 
+    get howToRecordLink() {
+        return $('~Home.howToRecord');
+    }
+
+    get whatYouNeedToDoHeading() {
+        return $('~What you need to do');
+    }
+
     get statusHelpLink() {
         return $('~Understanding catch record statuses');
+    }
+
+    get unsentStatusDescription() {
+        return $('~Saved on your device and not yet submitted.');
     }
 
     get createRecordButton() {
@@ -99,6 +107,14 @@ export class HomePage extends BasePage {
 
     async openTrip(rowIndex: number) {
         await this.tableRowDate(rowIndex).click();
+    }
+
+    async openHowToRecord() {
+        await this.howToRecordLink.click();
+    }
+
+    async openStatusHelp() {
+        await this.statusHelpLink.click();
     }
 
     async clickCreateRecordButton() {

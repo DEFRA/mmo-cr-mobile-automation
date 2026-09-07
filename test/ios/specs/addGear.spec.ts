@@ -1,12 +1,16 @@
 import AddGearPage from '../pageobjects/addGearPage';
 import GearMeasurementsPage from '../pageobjects/gearMeasurementsPage';
-import { signInAndOpenCreateRecord, selectVesselAndTripToday, completePortJourney } from '../support/journeySteps';
+import {
+    signInAndOpenCreateRecord,
+    selectVesselAndTripToday,
+    completePortJourney,
+} from '../support/journeySteps';
 
 describe('iOS add gear page', () => {
     beforeEach(async () => {
         await signInAndOpenCreateRecord();
         await selectVesselAndTripToday('ACHILLES', 'yes');
-        await completePortJourney('Peterhead');
+        await completePortJourney('Peterhead', 'yes');
         await expect(AddGearPage.heading).toBeDisplayed();
     });
 

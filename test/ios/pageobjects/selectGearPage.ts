@@ -18,15 +18,15 @@ export class SelectGearPage extends BaseCatchRecordPage {
     }
 
     get seineNetsOption() {
-        return $('~CatchRecord.selectGear.option.seine nets (not specified)');
+        return $('~CatchRecord.selectGear.option.sx');
     }
 
     get seineNetsLabel() {
         return $('~Seine nets (not specified)');
     }
 
-    get meshDetailText() {
-        return $('~12mm mesh');
+    meshDetailText(meshSize: string) {
+        return $(`~Mesh size (mm): ${meshSize}`);
     }
 
     get timesShotLabel() {
@@ -34,9 +34,7 @@ export class SelectGearPage extends BaseCatchRecordPage {
     }
 
     get timesShotField() {
-        return $(
-            '//XCUIElementTypeTextField[@name="CatchRecord.selectGear.variable.seine nets (not specified).timesShot"]',
-        );
+        return $('//XCUIElementTypeTextField[@name="CatchRecord.selectGear.variable.sx.timesShot"]');
     }
 
     get saveContinueButton() {

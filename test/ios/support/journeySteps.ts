@@ -1,5 +1,6 @@
 import AddGearPage from '../pageobjects/addGearPage';
 import AddPortPage from '../pageobjects/addPortPage';
+import ConfirmSamePortPage from '../pageobjects/confirmSamePortPage';
 import GearMeasurementsPage from '../pageobjects/gearMeasurementsPage';
 import HomePage from '../pageobjects/homePage';
 import SelectGearPage from '../pageobjects/selectGearPage';
@@ -35,10 +36,20 @@ export async function selectVesselAndTripToday(
     await TripTodayPage.continueToNextStep();
 }
 
-/** Completes departure/return port selection for the given port, landing on the add gear page. */
-export async function completePortJourney(portName: string) {
+/** Confirms same-port for the given port; 'yes' lands on add gear, 'no' requires separate departure/return selection. */
+export async function completePortJourney(portName: string, option: 'yes' | 'no') {
     await AddPortPage.selectPort(portName);
     await AddPortPage.continueToNextStep();
+    await expect(ConfirmSamePortPage.headingForPort(portName)).toBeDisplayed();
+
+    if (option === 'yes') {
+        await ConfirmSamePortPage.yesOption.click();
+        await ConfirmSamePortPage.continueToNextStep();
+        return;
+    }
+
+    await ConfirmSamePortPage.noOption.click();
+    await ConfirmSamePortPage.continueToNextStep();
     await SelectPortDeparturePage.portOption(portName).click();
     await SelectPortDeparturePage.continueToNextStep();
     await SelectPortReturnPage.portOption(portName).click();

@@ -16,7 +16,7 @@
         "format": "prettier --write .",
         "format:check": "prettier --check .",
         "typecheck": "tsc --noEmit",
-        "report": "allure generate allure-results --clean && allure open"
+        "generate:report": "allure generate allure-results --clean && allure open"
     },
     "devDependencies": {
         "@types/node": "^26.2.0",
