@@ -24,16 +24,7 @@ export const config: WebdriverIO.Config = {
             platformName: 'iOS',
             'appium:automationName': 'XCUITest',
             'bstack:options': {
-                deviceName: 'iPhone 17 Pro Max',
-                osVersion: '26',
-                realMobile: true,
-            },
-        },
-        {
-            platformName: 'iOS',
-            'appium:automationName': 'XCUITest',
-            'bstack:options': {
-                deviceName: 'iPhone 17 Pro',
+                deviceName: 'iPhone 17',
                 osVersion: '26',
                 realMobile: true,
             },
@@ -54,6 +45,7 @@ export const config: WebdriverIO.Config = {
 mergeCommonCapabilities(config, {
     'appium:options': {
         orientation: 'PORTRAIT',
+        autoDismissAlerts: true,
     },
     'bstack:options': {
         projectName: 'iOS Appium WDIO',
