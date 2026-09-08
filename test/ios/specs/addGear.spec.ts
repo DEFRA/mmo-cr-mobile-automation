@@ -38,7 +38,7 @@ describe('iOS add gear page', () => {
         await AddGearPage.enterGearSearch('S');
         await expect(gearResult).not.toBeDisplayed();
 
-        await AddGearPage.enterGearSearch('Se');
+        await AddGearPage.enterGearSearch('Seine nets');
         await gearResult.waitForDisplayed({ timeout: 10000 });
         await browser.execute('mobile: scrollToElement', {
             element: await gearResult.elementId,

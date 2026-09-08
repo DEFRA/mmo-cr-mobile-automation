@@ -12,8 +12,7 @@ describe('iOS catch location page', () => {
         await signInAndOpenCreateRecord();
         await selectVesselAndTripToday('ACHILLES', 'yes');
         await completePortJourney('Peterhead', 'yes');
-        await completeGearJourney('Seine nets (not specified)', '12', '2');
-        await expect(CatchLocationPage.heading).toBeDisplayed();
+        await completeGearJourney('Seine nets (not specified)', '12', '2');        await expect(CatchLocationPage.heading).toBeDisplayed();
     });
 
     afterEach(async () => {
@@ -39,6 +38,9 @@ describe('iOS catch location page', () => {
     it('stays on catch location when continuing without selecting an area', async () => {
         await CatchLocationPage.continueToNextStep();
 
+        await browser.execute('mobile: scrollToElement', {
+            element: await CatchLocationPage.heading.elementId,
+        });
         await expect(CatchLocationPage.heading).toBeDisplayed();
     });
 

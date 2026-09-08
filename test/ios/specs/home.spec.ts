@@ -20,6 +20,8 @@ describe('iOS home page', () => {
         await expect(HomePage.tripDateDescription).toBeDisplayed();
         await HomePage.scrollToElement(HomePage.appUsageNote);
         await expect(HomePage.appUsageNote).toBeDisplayed();
+        await HomePage.scrollToElement(HomePage.warningBox);
+        await expect(HomePage.warningBox).toBeDisplayed();
     });
 
     it.only('opens the how to record guidance', async () => {

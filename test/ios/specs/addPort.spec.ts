@@ -5,6 +5,13 @@ import SelectPortDeparturePage from '../pageobjects/selectPortDeparturePage';
 import SelectPortReturnPage from '../pageobjects/selectPortReturnPage';
 import { signInAndOpenCreateRecord, selectVesselAndTripToday } from '../support/journeySteps';
 
+async function addPortAndDeclineSamePort(portName: string) {
+    await AddPortPage.selectPort(portName);
+    await AddPortPage.continueToNextStep();
+    await ConfirmSamePortPage.noOption.click();
+    await ConfirmSamePortPage.continueToNextStep();
+}
+
 describe('iOS add port page', () => {
     beforeEach(async () => {
         await signInAndOpenCreateRecord();
@@ -47,8 +54,7 @@ describe('iOS add port page', () => {
     });
 
     it('requires a departure port selection and supports adding another port', async () => {
-        await AddPortPage.selectPort('Peterhead');
-        await AddPortPage.continueToNextStep();
+        await addPortAndDeclineSamePort('Peterhead');
 
         await expect(SelectPortDeparturePage.heading).toBeDisplayed();
         await expect(SelectPortDeparturePage.peterheadOption).toBeDisplayed();
@@ -64,10 +70,9 @@ describe('iOS add port page', () => {
     });
 
     it('allows the user to add multiple ports', async () => {
-        await AddPortPage.selectPort('Peterhead');
-        await AddPortPage.continueToNextStep();
-        await SelectPortDeparturePage.addAnotherPortButton.click();
+        await addPortAndDeclineSamePort('Peterhead');
 
+        await SelectPortDeparturePage.addAnotherPortButton.click();
         await expect(AddPortPage.heading).toBeDisplayed();
         await AddPortPage.selectPort('Fraserburgh');
         await AddPortPage.continueToNextStep();
@@ -78,8 +83,7 @@ describe('iOS add port page', () => {
     });
 
     it('navigates to return port selection after choosing a departure port', async () => {
-        await AddPortPage.selectPort('Peterhead');
-        await AddPortPage.continueToNextStep();
+        await addPortAndDeclineSamePort('Peterhead');
 
         await SelectPortDeparturePage.peterheadOption.click();
         await SelectPortDeparturePage.continueToNextStep();
@@ -88,8 +92,7 @@ describe('iOS add port page', () => {
     });
 
     it('allows the user to select a return port', async () => {
-        await AddPortPage.selectPort('Peterhead');
-        await AddPortPage.continueToNextStep();
+        await addPortAndDeclineSamePort('Peterhead');
 
         await SelectPortDeparturePage.peterheadOption.click();
         await SelectPortDeparturePage.continueToNextStep();

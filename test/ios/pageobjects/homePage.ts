@@ -67,6 +67,10 @@ export class HomePage extends BasePage {
         return $('~Home.createRecordButton');
     }
 
+    get warningBox() {
+        return $('~Home.warningBox');
+    }
+
     get contactDefraLink() {
         return $('~Contact Defra');
     }
