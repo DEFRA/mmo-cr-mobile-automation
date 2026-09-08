@@ -26,9 +26,7 @@ export class AddSpeciesPage extends BaseCatchRecordPage {
     }
 
     get searchField() {
-        return $(
-            '//XCUIElementTypeTextField[contains(@placeholderValue, "Type to search")]',
-        );
+        return $('//XCUIElementTypeTextField[contains(@placeholderValue, "Type to search")]');
     }
 
     get mistakenLink() {
@@ -44,7 +42,7 @@ export class AddSpeciesPage extends BaseCatchRecordPage {
     }
 
     speciesResult(speciesName: string) {
-        return $(`~SearchDropdownField.result.${speciesName}`);
+        return $(`-ios predicate string:name == "SearchDropdownField.result.${speciesName}"`);
     }
 
     async enterSpeciesSearch(term: string) {

@@ -1,13 +1,17 @@
 import CatchLocationPage from '../pageobjects/catchLocationPage';
 import SelectGearPage from '../pageobjects/selectGearPage';
-import { signInAndOpenCreateRecord, selectVesselAndTripToday, completePortJourney, completeGearJourney } from '../support/journeySteps';
-
+import {
+    signInAndOpenCreateRecord,
+    selectVesselAndTripToday,
+    completePortJourney,
+    completeGearJourney,
+} from '../support/journeySteps';
 
 describe('iOS catch location page', () => {
     beforeEach(async () => {
         await signInAndOpenCreateRecord();
         await selectVesselAndTripToday('ACHILLES', 'yes');
-        await completePortJourney('Peterhead');
+        await completePortJourney('Peterhead', 'yes');
         await completeGearJourney('Seine nets (not specified)', '12', '2');
         await expect(CatchLocationPage.heading).toBeDisplayed();
     });
@@ -35,6 +39,9 @@ describe('iOS catch location page', () => {
     it('stays on catch location when continuing without selecting an area', async () => {
         await CatchLocationPage.continueToNextStep();
 
+        await browser.execute('mobile: scrollToElement', {
+            element: await CatchLocationPage.heading.elementId,
+        });
         await expect(CatchLocationPage.heading).toBeDisplayed();
     });
 

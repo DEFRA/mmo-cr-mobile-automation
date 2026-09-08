@@ -1,12 +1,16 @@
 import AddGearPage from '../pageobjects/addGearPage';
 import GearMeasurementsPage from '../pageobjects/gearMeasurementsPage';
-import { signInAndOpenCreateRecord, selectVesselAndTripToday, completePortJourney } from '../support/journeySteps';
+import {
+    signInAndOpenCreateRecord,
+    selectVesselAndTripToday,
+    completePortJourney,
+} from '../support/journeySteps';
 
 describe('iOS add gear page', () => {
     beforeEach(async () => {
         await signInAndOpenCreateRecord();
         await selectVesselAndTripToday('ACHILLES', 'yes');
-        await completePortJourney('Peterhead');
+        await completePortJourney('Peterhead', 'yes');
         await expect(AddGearPage.heading).toBeDisplayed();
     });
 
@@ -34,7 +38,7 @@ describe('iOS add gear page', () => {
         await AddGearPage.enterGearSearch('S');
         await expect(gearResult).not.toBeDisplayed();
 
-        await AddGearPage.enterGearSearch('Se');
+        await AddGearPage.enterGearSearch('Seine nets');
         await gearResult.waitForDisplayed({ timeout: 10000 });
         await browser.execute('mobile: scrollToElement', {
             element: await gearResult.elementId,

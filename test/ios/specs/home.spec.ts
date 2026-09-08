@@ -20,6 +20,21 @@ describe('iOS home page', () => {
         await expect(HomePage.tripDateDescription).toBeDisplayed();
         await HomePage.scrollToElement(HomePage.appUsageNote);
         await expect(HomePage.appUsageNote).toBeDisplayed();
+        await HomePage.scrollToElement(HomePage.warningBox);
+        await expect(HomePage.warningBox).toBeDisplayed();
+    });
+
+    it.only('opens the how to record guidance', async () => {
+        await HomePage.scrollToElement(HomePage.howToRecordLink);
+        await expect(HomePage.howToRecordLink).toBeDisplayed();
+
+        await HomePage.openHowToRecord();
+
+        await expect(HomePage.whatYouNeedToDoHeading).toBeDisplayed();
+
+        await HomePage.openHowToRecord();
+
+        await expect(HomePage.whatYouNeedToDoHeading).not.toBeDisplayed();
     });
 
     it('displays the trip table and pagination', async () => {
@@ -49,5 +64,19 @@ describe('iOS home page', () => {
         await expect(HomePage.homeTab).toBeDisplayed();
         await expect(HomePage.notificationsTab).toBeDisplayed();
         await expect(HomePage.settingsTab).toBeDisplayed();
+    });
+
+    it('opens and closes the catch record status help section', async () => {
+        await HomePage.scrollToElement(HomePage.howToRecordLink);
+        await expect(HomePage.howToRecordLink).toBeDisplayed();
+        await expect(HomePage.statusHelpLink).toBeDisplayed();
+
+        await HomePage.openStatusHelp();
+
+        await expect(HomePage.unsentStatusDescription).toBeDisplayed();
+
+        await HomePage.openStatusHelp();
+
+        await expect(HomePage.unsentStatusDescription).not.toBeDisplayed();
     });
 });
