@@ -24,7 +24,7 @@ describe('iOS home page', () => {
         await expect(HomePage.warningBox).toBeDisplayed();
     });
 
-    it.only('opens the how to record guidance', async () => {
+    it('opens the how to record guidance', async () => {
         await HomePage.scrollToElement(HomePage.howToRecordLink);
         await expect(HomePage.howToRecordLink).toBeDisplayed();
 
