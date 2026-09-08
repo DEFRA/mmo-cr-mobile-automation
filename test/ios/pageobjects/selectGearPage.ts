@@ -34,7 +34,9 @@ export class SelectGearPage extends BaseCatchRecordPage {
     }
 
     get timesShotField() {
-        return $('//XCUIElementTypeTextField[@name="CatchRecord.selectGear.variable.sx.timesShot"]');
+        return $(
+            '//XCUIElementTypeTextField[@name="CatchRecord.selectGear.variable.sx.timesShot"]',
+        );
     }
 
     get saveContinueButton() {

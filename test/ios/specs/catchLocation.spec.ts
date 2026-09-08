@@ -12,7 +12,8 @@ describe('iOS catch location page', () => {
         await signInAndOpenCreateRecord();
         await selectVesselAndTripToday('ACHILLES', 'yes');
         await completePortJourney('Peterhead', 'yes');
-        await completeGearJourney('Seine nets (not specified)', '12', '2');        await expect(CatchLocationPage.heading).toBeDisplayed();
+        await completeGearJourney('Seine nets (not specified)', '12', '2');
+        await expect(CatchLocationPage.heading).toBeDisplayed();
     });
 
     afterEach(async () => {

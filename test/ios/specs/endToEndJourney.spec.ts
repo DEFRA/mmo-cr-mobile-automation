@@ -101,7 +101,10 @@ describe('iOS end-to-end catch record journey', () => {
         await AddSpeciesPage.continueToNextStep();
 
         await expect(RecordSpeciesWeightsPage.heading).toBeDisplayed();
-        await RecordSpeciesWeightsPage.enterWeight(endToEndJourneyData.species, endToEndJourneyData.weight);
+        await RecordSpeciesWeightsPage.enterWeight(
+            endToEndJourneyData.species,
+            endToEndJourneyData.weight,
+        );
         await browser.execute('mobile: scrollToElement', {
             element: await RecordSpeciesWeightsPage.saveContinueButton.elementId,
         });
