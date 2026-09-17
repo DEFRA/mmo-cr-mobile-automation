@@ -1,4 +1,5 @@
 import CatchLocationPage from '../pageobjects/catchLocationPage';
+import CatchLocationManualEntryPage from '../pageobjects/catchLocationManualEntryPage';
 import SelectGearPage from '../pageobjects/selectGearPage';
 import {
     signInAndOpenCreateRecord,
@@ -49,5 +50,28 @@ describe('iOS catch location page', () => {
         await CatchLocationPage.backButton.click();
 
         await expect(SelectGearPage.heading).toBeDisplayed();
+    });
+
+    it('displays the Other button for manual entry', async () => {
+        await browser.execute('mobile: scrollToElement', {
+            element: await CatchLocationPage.otherButton.elementId,
+        });
+        await expect(CatchLocationPage.otherButton).toBeDisplayed();
+    });
+
+    it('opens the manual entry page from the Other button', async () => {
+        await CatchLocationPage.openManualEntry();
+
+        await expect(CatchLocationManualEntryPage.heading).toBeDisplayed();
+        await expect(CatchLocationManualEntryPage.searchField).toBeDisplayed();
+    });
+
+    it('returns to catch location from manual entry back button', async () => {
+        await CatchLocationPage.openManualEntry();
+        await expect(CatchLocationManualEntryPage.heading).toBeDisplayed();
+
+        await CatchLocationManualEntryPage.backButton.click();
+
+        await expect(CatchLocationPage.heading).toBeDisplayed();
     });
 });

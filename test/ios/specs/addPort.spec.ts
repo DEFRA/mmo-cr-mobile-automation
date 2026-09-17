@@ -37,7 +37,7 @@ describe('iOS add port page', () => {
         await expect(AddPortPage.emptyStateText).toBeDisplayed();
     });
 
-    it('selects a matching port and updates the search field', async () => {
+    it('shows no dropdown for one character but reveals selectable matches for two', async () => {
         const portResult = AddPortPage.portResult('Fraserburgh');
 
         await AddPortPage.enterPortSearch('F');
@@ -45,6 +45,8 @@ describe('iOS add port page', () => {
 
         await AddPortPage.enterPortSearch('Fr');
         await portResult.waitForDisplayed({ timeout: 10000 });
+        await expect(portResult).toBeDisplayed();
+
         await browser.execute('mobile: scrollToElement', {
             element: await portResult.elementId,
         });

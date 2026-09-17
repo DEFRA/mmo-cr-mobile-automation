@@ -71,6 +71,14 @@ export class HomePage extends BasePage {
         return $('~Home.warningBox');
     }
 
+    get bannerTitle() {
+        return $('~Important');
+    }
+
+    get bannerText() {
+        return $('~The Catch Records service will be available from 1 October 2026.');
+    }
+
     get contactDefraLink() {
         return $('~Contact Defra');
     }

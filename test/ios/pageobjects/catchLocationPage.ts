@@ -25,6 +25,10 @@ export class CatchLocationPage extends BaseCatchRecordPage {
         return $('~CatchRecord.catchLocation.selectedArea');
     }
 
+    get otherButton() {
+        return $('~CatchRecord.catchLocation.otherButton');
+    }
+
     get saveContinueButton() {
         return $('~CatchRecord.catchLocation.saveContinue');
     }
@@ -41,6 +45,11 @@ export class CatchLocationPage extends BaseCatchRecordPage {
 
     async selectArea(area: string) {
         await this.mapPin(area).click();
+    }
+
+    async openManualEntry() {
+        await this.otherButton.waitForDisplayed({ timeout: 10000 });
+        await this.otherButton.click();
     }
 
     async selectFirstArea() {
