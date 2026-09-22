@@ -43,6 +43,37 @@ export class CatchLocationPage extends BaseCatchRecordPage {
         return $('(//XCUIElementTypeOther[@name="Map pin"]/following-sibling::*[1])[1]');
     }
 
+    get mapPins() {
+        return $$('//XCUIElementTypeOther[@name="Map pin"]');
+    }
+
+    /** Counts the ICES Statistical Rectangles currently rendered on the map. */
+    async visibleAreaCount() {
+        await this.map.waitForDisplayed({ timeout: 10000 });
+        const pins = await this.mapPins;
+        return pins.length;
+    }
+
+    // UNVERIFIED: pinch scale/velocity not confirmed against a live iOS session.
+    async zoomOut() {
+        await this.map.waitForDisplayed({ timeout: 10000 });
+        await browser.execute('mobile: pinch', {
+            elementId: await this.map.elementId,
+            scale: 0.5,
+            velocity: -1,
+        });
+    }
+
+    // UNVERIFIED: pinch scale/velocity not confirmed against a live iOS session.
+    async zoomIn() {
+        await this.map.waitForDisplayed({ timeout: 10000 });
+        await browser.execute('mobile: pinch', {
+            elementId: await this.map.elementId,
+            scale: 2,
+            velocity: 1,
+        });
+    }
+
     async selectArea(area: string) {
         await this.mapPin(area).click();
     }

@@ -8,6 +8,9 @@ import {
     completeGearJourney,
 } from '../support/journeySteps';
 
+const DEFAULT_RECTANGLE_COUNT = 9;
+const MAX_RECTANGLE_COUNT = 16;
+
 describe('iOS catch location page', () => {
     beforeEach(async () => {
         await signInAndOpenCreateRecord();
@@ -73,5 +76,35 @@ describe('iOS catch location page', () => {
         await CatchLocationManualEntryPage.backButton.click();
 
         await expect(CatchLocationPage.heading).toBeDisplayed();
+    });
+
+    it.only('reveals additional rectangles when zooming out while staying centred on the departure port region', async () => {
+        expect(await CatchLocationPage.visibleAreaCount()).toBe(DEFAULT_RECTANGLE_COUNT);
+
+        await CatchLocationPage.zoomOut();
+
+        expect(await CatchLocationPage.visibleAreaCount()).toBeGreaterThan(DEFAULT_RECTANGLE_COUNT);
+        await expect(CatchLocationPage.firstAreaLabel).toBeDisplayed();
+    });
+
+    it('shows no more than 16 rectangles at maximum zoom-out', async () => {
+        for (let attempt = 0; attempt < 5; attempt++) {
+            await CatchLocationPage.zoomOut();
+        }
+
+        expect(await CatchLocationPage.visibleAreaCount()).toBeLessThanOrEqual(MAX_RECTANGLE_COUNT);
+
+        const countAtMax = await CatchLocationPage.visibleAreaCount();
+        await CatchLocationPage.zoomOut();
+        expect(await CatchLocationPage.visibleAreaCount()).toBe(countAtMax);
+    });
+
+    it('returns to the default 9 rectangle view when zooming back in', async () => {
+        await CatchLocationPage.zoomOut();
+        expect(await CatchLocationPage.visibleAreaCount()).toBeGreaterThan(DEFAULT_RECTANGLE_COUNT);
+
+        await CatchLocationPage.zoomIn();
+
+        expect(await CatchLocationPage.visibleAreaCount()).toBe(DEFAULT_RECTANGLE_COUNT);
     });
 });

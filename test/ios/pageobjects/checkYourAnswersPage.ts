@@ -14,11 +14,14 @@ export class CheckYourAnswersPage extends BaseCatchRecordPage {
     }
 
     get gearSection() {
-        return $('~CatchRecord.checkYourAnswers.section.gear');
+        return $(
+            '-ios predicate string:name BEGINSWITH "CatchRecord.checkYourAnswers.section.gear."',
+        );
     }
 
+    // Species has no section header of its own; it is a "Species" field nested under the gear section.
     get speciesCaughtSection() {
-        return $('~CatchRecord.checkYourAnswers.section.speciesCaught');
+        return $('-ios predicate string:name == "Species"');
     }
 
     vesselValue(value: string) {
@@ -74,27 +77,37 @@ export class CheckYourAnswersPage extends BaseCatchRecordPage {
     }
 
     get changeStatisticalAreaButton() {
-        return $('~CatchRecord.checkYourAnswers.change.trip.statisticalArea');
+        return $(
+            '-ios predicate string:name BEGINSWITH "CatchRecord.checkYourAnswers.change.gear." AND name ENDSWITH ".statisticalArea"',
+        );
     }
 
     get changeGearNameButton() {
-        return $('~CatchRecord.checkYourAnswers.change.gear.name');
+        return $(
+            '-ios predicate string:name BEGINSWITH "CatchRecord.checkYourAnswers.change.gear." AND name ENDSWITH ".name" AND NOT (name CONTAINS ".speciesCaught.")',
+        );
     }
 
     get changeMeshSizeButton() {
-        return $('~CatchRecord.checkYourAnswers.change.gear.measurement.meshSize');
+        return $(
+            '-ios predicate string:name BEGINSWITH "CatchRecord.checkYourAnswers.change.gear." AND name ENDSWITH ".measurement.meshSize"',
+        );
     }
 
     get changeTimesShotButton() {
-        return $('~CatchRecord.checkYourAnswers.change.gear.variableMeasurement.timesShot');
+        return $(
+            '-ios predicate string:name BEGINSWITH "CatchRecord.checkYourAnswers.change.gear." AND name ENDSWITH ".variableMeasurement.timesShot"',
+        );
     }
 
     get changeSpeciesNameButton() {
-        return $('~CatchRecord.checkYourAnswers.change.speciesCaught.European lobster (LBE).name');
+        return $('-ios predicate string:name CONTAINS ".speciesCaught." AND name ENDSWITH ".name"');
     }
 
     get changeWeightAboveButton() {
-        return $('~CatchRecord.checkYourAnswers.change.speciesCaught.European lobster (LBE).above');
+        return $(
+            '-ios predicate string:name CONTAINS ".speciesCaught." AND name ENDSWITH ".above"',
+        );
     }
 
     async continueToNextStep() {

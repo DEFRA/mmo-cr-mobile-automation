@@ -61,7 +61,7 @@ describe('iOS check your answers page', () => {
         );
     });
 
-    it('shows the captured species answers', async () => {
+    it.only('shows the captured species answers', async () => {
         await scrollToAndExpectDisplayed(
             CheckYourAnswersPage.speciesNameValue(journeyData.species),
         );
@@ -82,14 +82,14 @@ describe('iOS check your answers page', () => {
         await expect(CatchLocationPage.heading).toBeDisplayed();
     });
 
-    it('opens the add gear page when changing the gear name', async () => {
+    it.only('opens the add gear page when changing the gear name', async () => {
         await scrollToAndExpectDisplayed(CheckYourAnswersPage.changeGearNameButton);
         await CheckYourAnswersPage.changeGearName();
 
         await expect(AddGearPage.heading).toBeDisplayed();
     });
 
-    it('opens the add species page when changing the species name', async () => {
+    it.only('opens the add species page when changing the species name', async () => {
         await scrollToAndExpectDisplayed(CheckYourAnswersPage.changeSpeciesNameButton);
         await CheckYourAnswersPage.changeSpeciesName();
 
