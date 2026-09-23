@@ -1,16 +1,12 @@
 import { BasePage } from './basePage';
 
 export class SignInPage extends BasePage {
-    get languageToggle() {
-        return $('//android.widget.TextView[@text="CYM"]');
-    }
-
     get crownLogo() {
         return $('~GOV.UK Crown Logo');
     }
 
     get heading() {
-        return $('//android.widget.TextView[@text="Sign in"]');
+        return $('//android.widget.TextView[@text="Sign in" and @heading="true"]');
     }
 
     // No resource-id/content-desc on the field; disambiguate by the password attribute.
@@ -54,10 +50,6 @@ export class SignInPage extends BasePage {
         await this.enterEmail(email);
         await this.enterPassword(password);
         await this.signInButton.click();
-    }
-
-    async switchToWelsh() {
-        await this.languageToggle.click();
     }
 
     async openForgottenPassword() {

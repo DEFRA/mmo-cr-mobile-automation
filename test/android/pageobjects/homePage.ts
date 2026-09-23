@@ -1,12 +1,8 @@
 import { BasePage } from './basePage';
 
 export class HomePage extends BasePage {
-    get govUkLogo() {
-        return $('~GOV.UK');
-    }
-
-    get languageToggle() {
-        return $('//android.widget.TextView[@text="CYM"]');
+    get bannerTitle() {
+        return $('//android.widget.TextView[@text="Important"]');
     }
 
     get bannerText() {
@@ -134,10 +130,6 @@ export class HomePage extends BasePage {
 
     async goToSettings() {
         await this.settingsTab.click();
-    }
-
-    async switchToWelsh() {
-        await this.languageToggle.click();
     }
 }
 

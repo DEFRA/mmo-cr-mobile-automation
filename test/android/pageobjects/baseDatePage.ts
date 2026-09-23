@@ -1,0 +1,52 @@
+import { BasePage } from './basePage';
+
+export abstract class BaseDatePage extends BasePage {
+    get dayLabel() {
+        return $('//android.widget.TextView[@text="Day"]');
+    }
+
+    get dayField() {
+        return $('(//android.widget.EditText)[1]');
+    }
+
+    get monthLabel() {
+        return $('//android.widget.TextView[@text="Month"]');
+    }
+
+    get monthField() {
+        return $('(//android.widget.EditText)[2]');
+    }
+
+    get yearLabel() {
+        return $('//android.widget.TextView[@text="Year"]');
+    }
+
+    get yearField() {
+        return $('(//android.widget.EditText)[3]');
+    }
+
+    async enterDay(day: string) {
+        await this.dayField.waitForDisplayed({ timeout: 10000 });
+        await this.dayField.setValue(day);
+    }
+
+    async enterMonth(month: string) {
+        await this.monthField.setValue(month);
+    }
+
+    async enterYear(year: string) {
+        await this.yearField.setValue(year);
+    }
+
+    async enterDate(day: string, month: string, year: string) {
+        await this.enterDay(day);
+        await this.enterMonth(month);
+        await this.enterYear(year);
+    }
+
+    /** Enter a full date and tap Save and continue in one step. */
+    async enterDateAndContinue(day: string, month: string, year: string) {
+        await this.enterDate(day, month, year);
+        await this.saveAndContinue();
+    }
+}

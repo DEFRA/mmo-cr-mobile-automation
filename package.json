@@ -9,9 +9,13 @@
     },
     "scripts": {
         "test:android": "wdio run ./config/wdio.android.conf.ts",
+        "test:android:spec": "wdio run ./config/wdio.android.conf.ts --spec",
         "test:android:browserstack": "wdio run ./config/wdio.android.browserstack.conf.ts",
+        "test:android:browserstack:spec": "wdio run ./config/wdio.android.browserstack.conf.ts --spec",
         "test:ios": "wdio run ./config/wdio.ios.conf.ts",
+        "test:ios:spec": "wdio run ./config/wdio.ios.conf.ts --spec",
         "test:ios:browserstack": "wdio run ./config/wdio.ios.browserstack.conf.ts",
+        "test:ios:browserstack:spec": "wdio run ./config/wdio.ios.browserstack.conf.ts --spec",
         "postinstall": "tsx scripts/patch-webdriver.ts",
         "format": "prettier --write .",
         "format:check": "prettier --check .",
