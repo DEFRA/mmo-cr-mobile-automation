@@ -44,7 +44,6 @@ export abstract class BaseDatePage extends BasePage {
         await this.enterYear(year);
     }
 
-    /** Enter a full date and tap Save and continue in one step. */
     async enterDateAndContinue(day: string, month: string, year: string) {
         await this.enterDate(day, month, year);
         await this.saveAndContinue();

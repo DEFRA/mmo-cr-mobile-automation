@@ -9,7 +9,6 @@ export class SignInPage extends BasePage {
         return $('//android.widget.TextView[@text="Sign in" and @heading="true"]');
     }
 
-    // No resource-id/content-desc on the field; disambiguate by the password attribute.
     get emailField() {
         return $('//android.widget.EditText[@password="false"]');
     }

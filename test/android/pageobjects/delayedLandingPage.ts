@@ -15,8 +15,6 @@ export class DelayedLandingPage extends BasePage {
         return $('//android.view.View[@checkable="true"][.//android.widget.TextView[@text="No"]]');
     }
 
-    // --- Actions ---
-
     async selectYes() {
         await this.yesOption.waitForDisplayed({ timeout: 10000 });
         await this.yesOption.click();

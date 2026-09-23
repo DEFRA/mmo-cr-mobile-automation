@@ -1,7 +1,6 @@
 import { BasePage } from './basePage';
 
 export class SelectedSpeciesPage extends BasePage {
-    /** Dynamic heading, e.g. "Which species did you catch with seine nets..." */
     get heading() {
         return $(
             '//android.widget.TextView[contains(@text, "Which species did you catch") and @heading="true"]',
@@ -12,16 +11,11 @@ export class SelectedSpeciesPage extends BasePage {
         return $('//android.widget.TextView[contains(@text, "Select all the species you caught")]');
     }
 
-    // --- Species List Items ---
-
-    /** Get the checkbox row for a specific species (e.g. "Brown crab (TBC)"). */
     speciesItemRow(speciesName: string) {
         return $(
             `//android.view.View[@checkable="true" and .//android.widget.TextView[@text="${speciesName}"]]`,
         );
     }
-
-    // --- Expanded Details (Visible when a species is checked/expanded) ---
 
     get retainedWeightLabel() {
         return $('//android.widget.TextView[@text="Weight above minimum size retained (kg)"]');
@@ -65,17 +59,12 @@ export class SelectedSpeciesPage extends BasePage {
         return $('//android.widget.Button[@text="Remove a species"]');
     }
 
-    // --- Bottom Actions ---
-
     get addSpeciesButton() {
         return $(
             '//android.view.View[@clickable="true"][.//android.widget.TextView[@text="Add a species"]]',
         );
     }
 
-    // --- Actions ---
-
-    /** Select or unselect a species checkbox to expand/collapse it. */
     async selectSpeciesCheckbox(speciesName: string) {
         const row = this.speciesItemRow(speciesName);
         await row.waitForDisplayed({ timeout: 10000 });

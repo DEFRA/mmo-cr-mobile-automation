@@ -15,23 +15,18 @@ export class DeparturePortPage extends BasePage {
         return $('//android.view.View[@checkable="true"][.//android.widget.TextView[@text="No"]]');
     }
 
-    /** Dynamic text confirming the port, e.g. "Was Hastings the port or the closest port you set off from and returned to?" */
     get portConfirmationText() {
         return $(
             '//android.widget.TextView[contains(@text, "the port or the closest port you set off from")]',
         );
     }
 
-    // --- Port selection state (shown after selecting "No") ---
-
-    /** Select a port radio button by name (e.g. "Hastings", "Dover"). */
     portOption(portName: string) {
         return $(
             `//android.view.View[@checkable="true"][.//android.widget.TextView[@text="${portName}"]]`,
         );
     }
 
-    /** Returns all port radio-button Views so you can iterate or count them. */
     get allPortOptions() {
         return $$('//android.view.View[@checkable="true"]');
     }
@@ -41,8 +36,6 @@ export class DeparturePortPage extends BasePage {
             '//android.view.View[@clickable="true"][.//android.widget.TextView[@text="Add port"]]',
         );
     }
-
-    // --- Add port state (shown after clicking "Add port") ---
 
     get portSearchLabel() {
         return $(
@@ -54,28 +47,21 @@ export class DeparturePortPage extends BasePage {
         return $('//android.widget.EditText');
     }
 
-    /** Validation error shown when submitting without selecting or entering a port. */
     get validationError() {
         return $('//android.widget.TextView[@text="Select a port or choose one from the list"]');
     }
 
-    // --- Autocomplete suggestions (shown while typing in the search field) ---
-
-    /** Select a port suggestion from the autocomplete dropdown by name. */
     portSuggestion(portName: string) {
         return $(
             `//android.view.View[@clickable="true"][.//android.widget.TextView[@text="${portName}"]]`,
         );
     }
 
-    /** Returns all visible port suggestion items. */
     get allPortSuggestions() {
         return $$(
             '//android.widget.ScrollView//android.view.View[@clickable="true"][.//android.widget.Button]',
         );
     }
-
-    // --- Actions ---
 
     async selectYes() {
         await this.yesOption.waitForDisplayed({ timeout: 10000 });
@@ -108,7 +94,6 @@ export class DeparturePortPage extends BasePage {
         await this.saveAndContinue();
     }
 
-    /** Select a port by name and tap Save and continue. */
     async selectPortAndContinue(portName: string) {
         await this.selectPort(portName);
         await this.saveAndContinue();
@@ -119,13 +104,11 @@ export class DeparturePortPage extends BasePage {
         await this.portSearchField.setValue(portName);
     }
 
-    /** Type a port name and tap Save and continue. */
     async enterPortNameAndContinue(portName: string) {
         await this.enterPortName(portName);
         await this.saveAndContinue();
     }
 
-    /** Type a search term, wait for an autocomplete suggestion, and tap it. */
     async searchAndSelectPort(searchText: string, portName: string) {
         await this.enterPortName(searchText);
         const suggestion = this.portSuggestion(portName);
@@ -133,7 +116,6 @@ export class DeparturePortPage extends BasePage {
         await suggestion.click();
     }
 
-    /** Type, select a suggestion, and tap Save and continue in one step. */
     async searchSelectAndContinue(searchText: string, portName: string) {
         await this.searchAndSelectPort(searchText, portName);
         await this.saveAndContinue();

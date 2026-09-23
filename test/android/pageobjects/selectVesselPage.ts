@@ -7,13 +7,18 @@ export class SelectVesselPage extends BasePage {
         );
     }
 
+    vesselOption(vesselName: string) {
+        return $(
+            `//android.view.View[@checkable="true"][.//android.widget.TextView[@text="${vesselName}"]]`,
+        );
+    }
+
     async selectVessel(vesselName: string) {
         const option = this.vesselOption(vesselName);
         await option.waitForDisplayed({ timeout: 10000 });
         await option.click();
     }
 
-    /** Select a vessel and tap Save and continue in one step. */
     async selectVesselAndContinue(vesselName: string) {
         await this.selectVessel(vesselName);
         await this.saveAndContinue();

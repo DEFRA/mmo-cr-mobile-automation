@@ -23,16 +23,10 @@ export class BasePage extends CommonBasePage {
         );
     }
 
-    /**
-     * The dynamic catch record reference that appears at the top of most form pages.
-     */
     get catchRecordReference() {
         return $('//android.widget.ScrollView/android.widget.TextView[@drawing-order="0"]');
     }
 
-    /**
-     * The primary 'Save and continue' button used across almost all form pages.
-     */
     get saveAndContinueButton() {
         return $(
             '//android.view.View[@clickable="true"][.//android.widget.TextView[@text="Save and continue"]]',
@@ -47,9 +41,6 @@ export class BasePage extends CommonBasePage {
         await this.backButton.click();
     }
 
-    /**
-     * Clicks the 'Save and continue' button present on most pages.
-     */
     async saveAndContinue() {
         await this.saveAndContinueButton.waitForDisplayed({ timeout: 10000 });
         await this.saveAndContinueButton.click();

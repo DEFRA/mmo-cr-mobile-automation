@@ -17,12 +17,6 @@ export class SubmissionSuccessPage extends BasePage {
         );
     }
 
-    // --- Actions ---
-
-    /**
-     * Extracts and returns the generated catch record reference ID.
-     * Example text: "Your catch record reference A1234520260923134524"
-     */
     async getRecordReference(): Promise<string> {
         await this.referenceText.waitForDisplayed({ timeout: 10000 });
         const text = await this.referenceText.getText();
@@ -34,9 +28,6 @@ export class SubmissionSuccessPage extends BasePage {
         return text;
     }
 
-    /**
-     * Clicks the button to return to the list of catch records.
-     */
     async clickViewRecords() {
         await this.viewRecordsButton.waitForDisplayed({ timeout: 10000 });
         await this.viewRecordsButton.click();
