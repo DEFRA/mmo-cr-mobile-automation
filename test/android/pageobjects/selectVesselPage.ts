@@ -8,9 +8,7 @@ export class SelectVesselPage extends BasePage {
     }
 
     vesselOption(vesselName: string) {
-        return $(
-            `//android.view.View[@checkable="true"][.//android.widget.TextView[@text="${vesselName}"]]`,
-        );
+        return $(`//android.widget.TextView[@text="${vesselName}"]`);
     }
 
     async selectVessel(vesselName: string) {

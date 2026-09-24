@@ -15,7 +15,7 @@ export class GearPage extends BasePage {
 
     gearOption(gearName: string) {
         return $(
-            `//android.view.View[@clickable="true" or @checkable="true"][.//android.widget.TextView[@text="${gearName}"]]`,
+            `//android.view.View[@clickable="true" or @checkable="true"][.//android.widget.TextView[contains(@text, "${gearName}")]]`,
         );
     }
 
