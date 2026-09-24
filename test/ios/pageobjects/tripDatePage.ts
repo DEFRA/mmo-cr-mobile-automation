@@ -1,6 +1,5 @@
 import { BaseCatchRecordPage } from './baseCatchRecordPage';
 
-/** Shared day/month/year date fields used by the departure and return trip date pages. */
 export abstract class TripDatePage extends BaseCatchRecordPage {
     protected abstract readonly prefix: string;
 

@@ -19,7 +19,6 @@ export class CheckYourAnswersPage extends BaseCatchRecordPage {
         );
     }
 
-    // Species has no section header of its own; it is a "Species" field nested under the gear section.
     get speciesCaughtSection() {
         return $('-ios predicate string:name == "Species"');
     }

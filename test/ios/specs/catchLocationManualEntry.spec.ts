@@ -8,9 +8,7 @@ import {
     completeGearJourney,
 } from '../support/journeySteps';
 
-// Valid statistical sub area code from the app's subrectangles reference data (near Peterhead).
 const VALID_SUB_AREA = '44E83';
-// Code absent from the reference dataset.
 const INVALID_SUB_AREA = '99Z99';
 
 describe('iOS catch location statistical sub area manual entry', () => {
@@ -26,7 +24,6 @@ describe('iOS catch location statistical sub area manual entry', () => {
         await CatchLocationPage.close();
     });
 
-    // Scenario 1: Display manual entry field
     it('displays the type-ahead field after selecting Other', async () => {
         await browser.execute('mobile: scrollToElement', {
             element: await CatchLocationPage.otherButton.elementId,
@@ -37,7 +34,6 @@ describe('iOS catch location statistical sub area manual entry', () => {
         await expect(CatchLocationManualEntryPage.searchField).toBeDisplayed();
     });
 
-    // Scenario 2: Display matching results
     it('shows matching results with code, coordinates and ICES rectangle', async () => {
         await CatchLocationPage.openManualEntry();
         await CatchLocationManualEntryPage.searchForArea('44E8');
@@ -53,7 +49,6 @@ describe('iOS catch location statistical sub area manual entry', () => {
         ).toBeDisplayed();
     });
 
-    // Scenario 3: Auto-populate coordinates
     it('auto-populates coordinates as the code is entered', async () => {
         await CatchLocationPage.openManualEntry();
 
@@ -64,7 +59,6 @@ describe('iOS catch location statistical sub area manual entry', () => {
         await expect(CatchLocationManualEntryPage.coordinates).toBeDisplayed();
     });
 
-    // Scenario 4: Select a suggested area
     it('populates the field and advances after selecting a suggested area', async () => {
         await CatchLocationPage.openManualEntry();
         await CatchLocationManualEntryPage.selectArea(VALID_SUB_AREA);
@@ -78,7 +72,6 @@ describe('iOS catch location statistical sub area manual entry', () => {
         await expect(AddSpeciesPage.heading).toBeDisplayed();
     });
 
-    // Scenario 5: Invalid statistical sub area
     it('shows a validation error for a code not in the reference dataset', async () => {
         await CatchLocationPage.openManualEntry();
         await CatchLocationManualEntryPage.searchForArea(INVALID_SUB_AREA);

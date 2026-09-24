@@ -23,27 +23,22 @@ export class CatchLocationManualEntryPage extends BaseCatchRecordPage {
         return $('~CatchRecord.catchLocationManualEntry.saveContinue');
     }
 
-    /** Type-ahead dropdown result for a statistical sub area code (SearchDropdownField convention). */
     areaResult(code: string) {
         return $(`~SearchDropdownField.result.${code}`);
     }
 
-    // UNVERIFIED: coordinates sub-element id within a result not confirmed against a live iOS session.
     resultCoordinates(code: string) {
         return $(`~SearchDropdownField.result.${code}.coordinates`);
     }
 
-    // UNVERIFIED: ICES rectangle sub-element id within a result not confirmed against a live iOS session.
     resultIcesRectangle(code: string) {
         return $(`~SearchDropdownField.result.${code}.icesRectangle`);
     }
 
-    // UNVERIFIED: auto-populated coordinates field id not confirmed against a live iOS session.
     get coordinates() {
         return $('~CatchRecord.catchLocationManualEntry.coordinates');
     }
 
-    // UNVERIFIED: validation error id/text not confirmed against a live iOS session.
     get validationError() {
         return $('~Enter a valid statistical sub area code.');
     }

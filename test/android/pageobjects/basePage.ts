@@ -45,7 +45,6 @@ export class BasePage extends CommonBasePage {
         try {
             await this.saveAndContinueButton.waitForDisplayed({ timeout: 2000 });
         } catch (error) {
-            // Scroll down if the element is not visible within 2 seconds
             await $('android=new UiScrollable(new UiSelector().scrollable(true)).scrollForward()');
             await this.saveAndContinueButton.waitForDisplayed({ timeout: 10000 });
         }

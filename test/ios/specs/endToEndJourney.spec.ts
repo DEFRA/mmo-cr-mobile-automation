@@ -15,7 +15,7 @@ import SubmissionConfirmationPage from '../pageobjects/submissionConfirmationPag
 import SubmissionSuccessPage from '../pageobjects/submissionSuccessPage';
 import TripTodayPage from '../pageobjects/tripTodayPage';
 
-/** Test data for the full end-to-end catch record submission journey. */
+
 const endToEndJourneyData = {
     vessel: 'ACHILLES' as const,
     tripToday: 'yes' as const,

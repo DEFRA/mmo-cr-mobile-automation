@@ -15,7 +15,7 @@ import SignInPage from '../pageobjects/signInPage';
 import TripTodayPage from '../pageobjects/tripTodayPage';
 import { getIosTestCredentials } from './testCredentials';
 
-/** Signs in with the configured test credentials. */
+
 export async function signIn() {
     const { email, password } = getIosTestCredentials();
 
@@ -23,14 +23,14 @@ export async function signIn() {
     await SignInPage.signIn(email, password);
 }
 
-/** Signs in and opens the create-record flow, landing on the select vessel page. */
+
 export async function signInAndOpenCreateRecord() {
     await signIn();
     await HomePage.scrollToElement(HomePage.createRecordButton);
     await HomePage.clickCreateRecordButton();
 }
 
-/** Selects a vessel and answers the trip-today question, landing on the add port page. */
+
 export async function selectVesselAndTripToday(
     vessel: 'ACHILLES' | 'HERCULES',
     tripToday: 'yes' | 'no',
@@ -40,7 +40,7 @@ export async function selectVesselAndTripToday(
     await TripTodayPage.continueToNextStep();
 }
 
-/** Confirms same-port for the given port; 'yes' lands on add gear, 'no' requires separate departure/return selection. */
+
 export async function completePortJourney(portName: string, option: 'yes' | 'no') {
     await AddPortPage.selectPort(portName);
     await AddPortPage.continueToNextStep();
@@ -60,7 +60,7 @@ export async function completePortJourney(portName: string, option: 'yes' | 'no'
     await SelectPortReturnPage.continueToNextStep();
 }
 
-/** Completes gear, measurements and times-shot for the given gear, landing on the catch location page. */
+
 export async function completeGearJourney(gearName: string, meshSize: string, timesShot: string) {
     await AddGearPage.selectGear(gearName);
     await AddGearPage.continueToNextStep();
@@ -71,21 +71,21 @@ export async function completeGearJourney(gearName: string, meshSize: string, ti
     await SelectGearPage.continueToNextStep();
 }
 
-/** Scrolls the given element into view so it can be interacted with. */
+
 async function scrollIntoView(element: ReturnType<typeof $>) {
     await browser.execute('mobile: scrollToElement', {
         element: await element.elementId,
     });
 }
 
-/** Selects a catch area and continues to the add species page. */
+
 export async function completeCatchLocation(area: string) {
     await CatchLocationPage.selectArea(area);
     await scrollIntoView(CatchLocationPage.saveContinueButton);
     await CatchLocationPage.continueToNextStep();
 }
 
-/** Selects a species, records its live weight and continues to the landing storage page. */
+
 export async function completeSpeciesJourney(species: string, weight: string) {
     await AddSpeciesPage.selectSpecies(species);
     await scrollIntoView(AddSpeciesPage.saveContinueButton);
@@ -108,7 +108,7 @@ export interface CatchRecordJourneyData {
     landingStorage: 'yes' | 'no';
 }
 
-/** Runs the create-record flow through to the add species page. */
+
 export async function completeRecordUpToAddSpecies(data: CatchRecordJourneyData) {
     await signInAndOpenCreateRecord();
     await selectVesselAndTripToday(data.vessel, 'yes');
@@ -117,7 +117,7 @@ export async function completeRecordUpToAddSpecies(data: CatchRecordJourneyData)
     await completeCatchLocation(data.catchArea);
 }
 
-/** Runs the create-record flow through to the check your answers page. */
+
 export async function completeRecordUpToCheckYourAnswers(data: CatchRecordJourneyData) {
     await completeRecordUpToAddSpecies(data);
     await completeSpeciesJourney(data.species, data.weight);

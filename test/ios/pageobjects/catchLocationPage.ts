@@ -47,14 +47,12 @@ export class CatchLocationPage extends BaseCatchRecordPage {
         return $$('//XCUIElementTypeOther[@name="Map pin"]');
     }
 
-    /** Counts the ICES Statistical Rectangles currently rendered on the map. */
     async visibleAreaCount() {
         await this.map.waitForDisplayed({ timeout: 10000 });
         const pins = await this.mapPins;
         return pins.length;
     }
 
-    // UNVERIFIED: pinch scale/velocity not confirmed against a live iOS session.
     async zoomOut() {
         await this.map.waitForDisplayed({ timeout: 10000 });
         await browser.execute('mobile: pinch', {
@@ -64,7 +62,6 @@ export class CatchLocationPage extends BaseCatchRecordPage {
         });
     }
 
-    // UNVERIFIED: pinch scale/velocity not confirmed against a live iOS session.
     async zoomIn() {
         await this.map.waitForDisplayed({ timeout: 10000 });
         await browser.execute('mobile: pinch', {
@@ -115,7 +112,6 @@ export class CatchLocationPage extends BaseCatchRecordPage {
                 await this.selectedArea.waitForDisplayed({ timeout: 2000 });
                 return;
             } catch {
-                // Try another random point when the tap lands outside a selectable area.
             }
         }
 

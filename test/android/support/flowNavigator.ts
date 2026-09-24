@@ -17,10 +17,6 @@ import delayedLandingPage from '../pageobjects/delayedLandingPage';
 
 export type DateData = { day: string; month: string; year: string };
 
-/**
- * FlowNavigator exposes modular steps for the catch record journey.
- * Call these methods in sequence from your test specs, passing data explicitly.
- */
 export class FlowNavigator {
     async startCatchRecord() {
         await logStep('Starting catch record journey');
