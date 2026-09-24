@@ -22,6 +22,8 @@ describe('iOS home page', () => {
         await expect(HomePage.appUsageNote).toBeDisplayed();
         await HomePage.scrollToElement(HomePage.warningBox);
         await expect(HomePage.warningBox).toBeDisplayed();
+        await expect(HomePage.bannerTitle).toBeDisplayed();
+        await expect(HomePage.bannerText).toBeDisplayed();
     });
 
     it('opens the how to record guidance', async () => {

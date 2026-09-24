@@ -25,6 +25,10 @@ export class CatchLocationPage extends BaseCatchRecordPage {
         return $('~CatchRecord.catchLocation.selectedArea');
     }
 
+    get otherButton() {
+        return $('~CatchRecord.catchLocation.otherButton');
+    }
+
     get saveContinueButton() {
         return $('~CatchRecord.catchLocation.saveContinue');
     }
@@ -39,8 +43,41 @@ export class CatchLocationPage extends BaseCatchRecordPage {
         return $('(//XCUIElementTypeOther[@name="Map pin"]/following-sibling::*[1])[1]');
     }
 
+    get mapPins() {
+        return $$('//XCUIElementTypeOther[@name="Map pin"]');
+    }
+
+    async visibleAreaCount() {
+        await this.map.waitForDisplayed({ timeout: 10000 });
+        const pins = await this.mapPins;
+        return pins.length;
+    }
+
+    async zoomOut() {
+        await this.map.waitForDisplayed({ timeout: 10000 });
+        await browser.execute('mobile: pinch', {
+            elementId: await this.map.elementId,
+            scale: 0.5,
+            velocity: -1,
+        });
+    }
+
+    async zoomIn() {
+        await this.map.waitForDisplayed({ timeout: 10000 });
+        await browser.execute('mobile: pinch', {
+            elementId: await this.map.elementId,
+            scale: 2,
+            velocity: 1,
+        });
+    }
+
     async selectArea(area: string) {
         await this.mapPin(area).click();
+    }
+
+    async openManualEntry() {
+        await this.otherButton.waitForDisplayed({ timeout: 10000 });
+        await this.otherButton.click();
     }
 
     async selectFirstArea() {
@@ -74,9 +111,7 @@ export class CatchLocationPage extends BaseCatchRecordPage {
             try {
                 await this.selectedArea.waitForDisplayed({ timeout: 2000 });
                 return;
-            } catch {
-                // Try another random point when the tap lands outside a selectable area.
-            }
+            } catch {}
         }
 
         throw new Error('Could not select a random catch location.');

@@ -77,8 +77,6 @@ export abstract class CommonBasePage {
             if (/save password|password/i.test(alertText)) {
                 await this.dismissAlert();
             }
-        } catch {
-            // The prompt is optional and may not appear on every simulator run.
-        }
+        } catch {}
     }
 }

@@ -13,7 +13,6 @@ export class BaseCatchRecordPage extends BasePage {
         return this.selector('New catch record');
     }
 
-    /** Types into a search field and clicks the matching SearchDropdownField result. */
     protected async searchAndSelect(
         searchField: ReturnType<typeof $>,
         term: string,
@@ -28,7 +27,6 @@ export class BaseCatchRecordPage extends BasePage {
         await result.click();
     }
 
-    /** Builds fallback accessibility-id candidates for a radio/checkbox option. */
     protected optionCandidates(prefix: string, name: string) {
         const normalized = name.toLowerCase();
         return [
@@ -39,7 +37,6 @@ export class BaseCatchRecordPage extends BasePage {
         ];
     }
 
-    /** Clicks the first candidate that exists, or throws notFoundMessage. */
     protected async clickFirstExisting(
         candidates: ReturnType<typeof $>[],
         notFoundMessage: string,
