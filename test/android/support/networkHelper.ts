@@ -18,7 +18,7 @@ export class NetworkHelper {
         await logStep('Going OFFLINE (Disabling all network connections)');
         // @ts-ignore
         if (typeof driver.setNetworkConnection === 'function') {
-            await driver.setNetworkConnection({ type: 0 });
+            await driver.setNetworkConnection(0 as any);
         } else {
             console.warn(
                 'setNetworkConnection is not available on this driver. Ensure you are running on Android.',
@@ -33,7 +33,7 @@ export class NetworkHelper {
         await logStep('Going ONLINE (Enabling Wifi and Cellular Data)');
         // @ts-ignore
         if (typeof driver.setNetworkConnection === 'function') {
-            await driver.setNetworkConnection({ type: 6 });
+            await driver.setNetworkConnection(6 as any);
         }
     }
 
@@ -44,7 +44,7 @@ export class NetworkHelper {
         await logStep('Enabling Airplane Mode');
         // @ts-ignore
         if (typeof driver.setNetworkConnection === 'function') {
-            await driver.setNetworkConnection({ type: 1 });
+            await driver.setNetworkConnection(1 as any);
         }
     }
 }
