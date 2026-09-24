@@ -78,7 +78,7 @@ describe('Catch Record End-to-End Journey', () => {
         await expect(homePage.heading).toBeDisplayed();
     });
 
-    it.only('should successfully complete a catch record (Offline Happy Path)', async () => {
+    it('should successfully complete a catch record (Offline Happy Path)', async () => {
         const { email, password } = getAndroidTestCredentials();
 
         // 1. Sign In (must be online initially)
