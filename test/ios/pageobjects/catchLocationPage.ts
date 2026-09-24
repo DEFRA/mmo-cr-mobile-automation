@@ -111,8 +111,7 @@ export class CatchLocationPage extends BaseCatchRecordPage {
             try {
                 await this.selectedArea.waitForDisplayed({ timeout: 2000 });
                 return;
-            } catch {
-            }
+            } catch {}
         }
 
         throw new Error('Could not select a random catch location.');

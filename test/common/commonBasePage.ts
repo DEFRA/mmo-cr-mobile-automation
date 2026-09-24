@@ -77,7 +77,6 @@ export abstract class CommonBasePage {
             if (/save password|password/i.test(alertText)) {
                 await this.dismissAlert();
             }
-        } catch {
-        }
+        } catch {}
     }
 }

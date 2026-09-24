@@ -15,7 +15,6 @@ import SubmissionConfirmationPage from '../pageobjects/submissionConfirmationPag
 import SubmissionSuccessPage from '../pageobjects/submissionSuccessPage';
 import TripTodayPage from '../pageobjects/tripTodayPage';
 
-
 const endToEndJourneyData = {
     vessel: 'ACHILLES' as const,
     tripToday: 'yes' as const,

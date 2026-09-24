@@ -15,7 +15,6 @@ import SignInPage from '../pageobjects/signInPage';
 import TripTodayPage from '../pageobjects/tripTodayPage';
 import { getIosTestCredentials } from './testCredentials';
 
-
 export async function signIn() {
     const { email, password } = getIosTestCredentials();
 
@@ -23,13 +22,11 @@ export async function signIn() {
     await SignInPage.signIn(email, password);
 }
 
-
 export async function signInAndOpenCreateRecord() {
     await signIn();
     await HomePage.scrollToElement(HomePage.createRecordButton);
     await HomePage.clickCreateRecordButton();
 }
-
 
 export async function selectVesselAndTripToday(
     vessel: 'ACHILLES' | 'HERCULES',
@@ -39,7 +36,6 @@ export async function selectVesselAndTripToday(
     await TripTodayPage.selectTripToday(tripToday);
     await TripTodayPage.continueToNextStep();
 }
-
 
 export async function completePortJourney(portName: string, option: 'yes' | 'no') {
     await AddPortPage.selectPort(portName);
@@ -60,7 +56,6 @@ export async function completePortJourney(portName: string, option: 'yes' | 'no'
     await SelectPortReturnPage.continueToNextStep();
 }
 
-
 export async function completeGearJourney(gearName: string, meshSize: string, timesShot: string) {
     await AddGearPage.selectGear(gearName);
     await AddGearPage.continueToNextStep();
@@ -71,20 +66,17 @@ export async function completeGearJourney(gearName: string, meshSize: string, ti
     await SelectGearPage.continueToNextStep();
 }
 
-
 async function scrollIntoView(element: ReturnType<typeof $>) {
     await browser.execute('mobile: scrollToElement', {
         element: await element.elementId,
     });
 }
 
-
 export async function completeCatchLocation(area: string) {
     await CatchLocationPage.selectArea(area);
     await scrollIntoView(CatchLocationPage.saveContinueButton);
     await CatchLocationPage.continueToNextStep();
 }
-
 
 export async function completeSpeciesJourney(species: string, weight: string) {
     await AddSpeciesPage.selectSpecies(species);
@@ -108,7 +100,6 @@ export interface CatchRecordJourneyData {
     landingStorage: 'yes' | 'no';
 }
 
-
 export async function completeRecordUpToAddSpecies(data: CatchRecordJourneyData) {
     await signInAndOpenCreateRecord();
     await selectVesselAndTripToday(data.vessel, 'yes');
@@ -116,7 +107,6 @@ export async function completeRecordUpToAddSpecies(data: CatchRecordJourneyData)
     await completeGearJourney(data.gear, data.meshSize, data.timesShot);
     await completeCatchLocation(data.catchArea);
 }
-
 
 export async function completeRecordUpToCheckYourAnswers(data: CatchRecordJourneyData) {
     await completeRecordUpToAddSpecies(data);
