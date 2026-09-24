@@ -75,13 +75,10 @@ export class FlowNavigator {
         await returnPortPage.searchSelectAndContinue(returnPort, returnPort);
     }
 
-    async selectAreas(catchArea: string, catchSubArea: string) {
-        await logStep(`Selecting catch area: ${catchArea} and sub-area: ${catchSubArea}`);
+    async selectAreas(catchArea: string) {
+        await logStep(`Selecting catch area: ${catchArea}`);
         await catchAreaPage.heading.waitForDisplayed();
         await catchAreaPage.selectAreaAndContinue(catchArea);
-
-        await catchSubAreaPage.heading.waitForDisplayed();
-        await catchSubAreaPage.selectSubAreaAndContinue(catchSubArea);
     }
 
     async selectGear(gearName: string, meshSize: string | number, shots: string | number) {
@@ -93,6 +90,7 @@ export class FlowNavigator {
         await gearMeasurementPage.enterMeshSizeAndContinue(meshSize);
 
         await selectedGearsPage.heading.waitForDisplayed();
+        await selectedGearsPage.selectGearCheckbox(gearName);
         await selectedGearsPage.enterShots(shots);
         await selectedGearsPage.saveAndContinue();
     }
@@ -110,6 +108,7 @@ export class FlowNavigator {
         await speciesPage.searchSelectAndContinue(speciesName, speciesName);
 
         await selectedSpeciesPage.heading.waitForDisplayed();
+        await selectedSpeciesPage.selectSpeciesCheckbox(speciesName);
         await selectedSpeciesPage.enterRetainedWeight(retainedWeight);
 
         await selectedSpeciesPage.clickAddBelowMinWeight();

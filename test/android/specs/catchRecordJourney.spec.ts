@@ -44,9 +44,9 @@ describe('Catch Record End-to-End Journey', () => {
 
         await flowNavigator.selectGear('Seine nets', 10, 10);
 
-        await flowNavigator.selectAreas('38E95', '38E99');
+        await flowNavigator.selectAreas('38E95');
 
-        await flowNavigator.selectSpecies('Brown crab (TBC)', 10, 10, 10);
+        await flowNavigator.selectSpecies('Brown crab (TBC)', 5, 1, 1);
 
         await flowNavigator.selectDelayedLanding(false);
 
