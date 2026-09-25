@@ -1,4 +1,5 @@
 import { BasePage } from './basePage';
+import { logStep, logWarn, logError } from '../../common/logger';
 
 export class HomePage extends BasePage {
     get yourTripsHeading() {
@@ -71,20 +72,20 @@ export class HomePage extends BasePage {
         return $('~Home.warningBox');
     }
 
+    get bannerTitle() {
+        return $('~Important');
+    }
+
+    get bannerText() {
+        return $('~The Catch Records service will be available from 1 October 2026.');
+    }
+
     get contactDefraLink() {
         return $('~Contact Defra');
     }
 
     get tripsScrollView() {
         return $('//XCUIElementTypeScrollView');
-    }
-
-    async scrollToElement(element: ReturnType<typeof $>) {
-        await element.waitForExist({ timeout: 20000 });
-        await browser.execute('mobile: scrollToElement', {
-            element: await element.elementId,
-        });
-        await element.waitForDisplayed({ timeout: 10000 });
     }
 
     tableRowDate(rowIndex: number) {
@@ -110,41 +111,37 @@ export class HomePage extends BasePage {
     }
 
     async openTrip(rowIndex: number) {
+        logStep('openTrip');
         await this.tableRowDate(rowIndex).click();
     }
 
     async openHowToRecord() {
+        logStep('openHowToRecord');
         await this.howToRecordLink.click();
     }
 
     async openStatusHelp() {
+        logStep('openStatusHelp');
         await this.statusHelpLink.click();
     }
 
     async clickCreateRecordButton() {
-        const button = await this.createRecordButton;
-
-        try {
-            await button.waitForDisplayed({ timeout: 4000 });
-        } catch {
-            await browser.execute('mobile: scrollToElement', {
-                element: await button.elementId,
-            });
-        }
-
-        await button.waitForDisplayed({ timeout: 10000 });
-        await button.click();
+        logStep('clickCreateRecordButton');
+        await this.scrollAndClickIfExisting(this.createRecordButton);
     }
 
     async goToNotifications() {
+        logStep('goToNotifications');
         await this.notificationsTab.click();
     }
 
     async goToSettings() {
+        logStep('goToSettings');
         await this.settingsTab.click();
     }
 
     async switchToWelsh() {
+        logStep('switchToWelsh');
         await this.languageToggle.click();
     }
 }

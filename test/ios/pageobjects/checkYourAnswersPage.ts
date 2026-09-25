@@ -1,4 +1,5 @@
 import { BaseCatchRecordPage } from './baseCatchRecordPage';
+import { logStep, logWarn, logError } from '../../common/logger';
 
 export class CheckYourAnswersPage extends BaseCatchRecordPage {
     get referenceNumber() {
@@ -14,11 +15,13 @@ export class CheckYourAnswersPage extends BaseCatchRecordPage {
     }
 
     get gearSection() {
-        return $('~CatchRecord.checkYourAnswers.section.gear');
+        return $(
+            '-ios predicate string:name BEGINSWITH "CatchRecord.checkYourAnswers.section.gear."',
+        );
     }
 
     get speciesCaughtSection() {
-        return $('~CatchRecord.checkYourAnswers.section.speciesCaught');
+        return $('-ios predicate string:name == "Species"');
     }
 
     vesselValue(value: string) {
@@ -74,66 +77,86 @@ export class CheckYourAnswersPage extends BaseCatchRecordPage {
     }
 
     get changeStatisticalAreaButton() {
-        return $('~CatchRecord.checkYourAnswers.change.trip.statisticalArea');
+        return $(
+            '-ios predicate string:name BEGINSWITH "CatchRecord.checkYourAnswers.change.gear." AND name ENDSWITH ".statisticalArea"',
+        );
     }
 
     get changeGearNameButton() {
-        return $('~CatchRecord.checkYourAnswers.change.gear.name');
+        return $(
+            '-ios predicate string:name BEGINSWITH "CatchRecord.checkYourAnswers.change.gear." AND name ENDSWITH ".name" AND NOT (name CONTAINS ".speciesCaught.")',
+        );
     }
 
     get changeMeshSizeButton() {
-        return $('~CatchRecord.checkYourAnswers.change.gear.measurement.meshSize');
+        return $(
+            '-ios predicate string:name BEGINSWITH "CatchRecord.checkYourAnswers.change.gear." AND name ENDSWITH ".measurement.meshSize"',
+        );
     }
 
     get changeTimesShotButton() {
-        return $('~CatchRecord.checkYourAnswers.change.gear.variableMeasurement.timesShot');
+        return $(
+            '-ios predicate string:name BEGINSWITH "CatchRecord.checkYourAnswers.change.gear." AND name ENDSWITH ".variableMeasurement.timesShot"',
+        );
     }
 
     get changeSpeciesNameButton() {
-        return $('~CatchRecord.checkYourAnswers.change.speciesCaught.European lobster (LBE).name');
+        return $('-ios predicate string:name CONTAINS ".speciesCaught." AND name ENDSWITH ".name"');
     }
 
     get changeWeightAboveButton() {
-        return $('~CatchRecord.checkYourAnswers.change.speciesCaught.European lobster (LBE).above');
+        return $(
+            '-ios predicate string:name CONTAINS ".speciesCaught." AND name ENDSWITH ".above"',
+        );
     }
 
     async continueToNextStep() {
+        logStep('continueToNextStep');
         await this.saveContinueButton.click();
     }
 
     async changeTripVessel() {
+        logStep('changeTripVessel');
         await this.changeTripVesselButton.click();
     }
 
     async changeDeparturePort() {
+        logStep('changeDeparturePort');
         await this.changeDeparturePortButton.click();
     }
 
     async changeReturnPort() {
+        logStep('changeReturnPort');
         await this.changeReturnPortButton.click();
     }
 
     async changeStatisticalArea() {
+        logStep('changeStatisticalArea');
         await this.changeStatisticalAreaButton.click();
     }
 
     async changeGearName() {
+        logStep('changeGearName');
         await this.changeGearNameButton.click();
     }
 
     async changeMeshSize() {
+        logStep('changeMeshSize');
         await this.changeMeshSizeButton.click();
     }
 
     async changeTimesShot() {
+        logStep('changeTimesShot');
         await this.changeTimesShotButton.click();
     }
 
     async changeSpeciesName() {
+        logStep('changeSpeciesName');
         await this.changeSpeciesNameButton.click();
     }
 
     async changeWeightAbove() {
+        logStep('changeWeightAbove');
         await this.changeWeightAboveButton.click();
     }
 }

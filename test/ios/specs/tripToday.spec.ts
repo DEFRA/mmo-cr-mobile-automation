@@ -5,6 +5,7 @@ import TripDateDeparturePage from '../pageobjects/tripDateDeparturePage';
 import TripDateReturnPage from '../pageobjects/tripDateReturnPage';
 import TripTodayPage from '../pageobjects/tripTodayPage';
 import { signInAndOpenCreateRecord } from '../support/journeySteps';
+import { logStep, logInfo } from '../../common/logger';
 
 function datePartsFromToday(daysAgo: number) {
     const date = new Date();
@@ -22,21 +23,25 @@ const vesselName = ['ACHILLES', 'HERCULES'];
 vesselName.forEach((vessel) => {
     describe(`iOS trip today page for vessel ${vessel}`, () => {
         beforeEach(async () => {
+            logStep('beforeEach');
             await signInAndOpenCreateRecord();
             await SelectVesselPage.selectVessel(vessel as 'ACHILLES' | 'HERCULES');
             await expect(TripTodayPage.questionHeading).toBeDisplayed();
         });
 
         afterEach(async () => {
+            logStep('afterEach');
             await TripTodayPage.close();
         });
 
         it('shows the yes and no options', async () => {
+            logStep('shows the yes and no options');
             await expect(TripTodayPage.yesOption).toBeDisplayed();
             await expect(TripTodayPage.noOption).toBeDisplayed();
         });
 
         it('shows a validation error when continuing without selecting yes or no', async () => {
+            logStep('shows a validation error when continuing without selecting yes or no');
             await TripTodayPage.continueToNextStep();
 
             await expect(TripTodayPage.questionHeading).toBeDisplayed();
@@ -44,6 +49,7 @@ vesselName.forEach((vessel) => {
         });
 
         it('goes directly to add port when yes is selected', async () => {
+            logStep('goes directly to add port when yes is selected');
             await TripTodayPage.selectTripToday('yes');
             await TripTodayPage.continueToNextStep();
 
@@ -51,6 +57,7 @@ vesselName.forEach((vessel) => {
         });
 
         it('shows departure date validation when no is selected without a date', async () => {
+            logStep('shows departure date validation when no is selected without a date');
             await TripTodayPage.selectTripToday('no');
             await TripTodayPage.continueToNextStep();
 
@@ -62,6 +69,7 @@ vesselName.forEach((vessel) => {
         });
 
         it('goes to return date and then add port after entering valid dates', async () => {
+            logStep('goes to return date and then add port after entering valid dates');
             await TripTodayPage.selectTripToday('no');
             await TripTodayPage.continueToNextStep();
             const departureDate = datePartsFromToday(1);
@@ -85,6 +93,7 @@ vesselName.forEach((vessel) => {
         });
 
         it('shows an error when the trip ended more than 24 hours ago', async () => {
+            logStep('shows an error when the trip ended more than 24 hours ago');
             await TripTodayPage.selectTripToday('no');
             await TripTodayPage.continueToNextStep();
             const departureDate = datePartsFromToday(3);
@@ -111,6 +120,7 @@ vesselName.forEach((vessel) => {
         });
 
         it('allows correcting the trip end date from the submission nudge', async () => {
+            logStep('allows correcting the trip end date from the submission nudge');
             await TripTodayPage.selectTripToday('no');
             await TripTodayPage.continueToNextStep();
             const departureDate = datePartsFromToday(3);

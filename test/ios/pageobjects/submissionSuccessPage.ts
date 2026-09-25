@@ -1,4 +1,5 @@
 import { BaseCatchRecordPage } from './baseCatchRecordPage';
+import { logStep, logWarn, logError } from '../../common/logger';
 
 export class SubmissionSuccessPage extends BaseCatchRecordPage {
     get panel() {
@@ -46,6 +47,7 @@ export class SubmissionSuccessPage extends BaseCatchRecordPage {
     }
 
     async viewYourCatchRecords() {
+        logStep('viewYourCatchRecords');
         await this.viewRecordsButton.click();
     }
 }

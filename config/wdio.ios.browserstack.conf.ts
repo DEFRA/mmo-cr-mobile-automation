@@ -1,10 +1,12 @@
 import { baseConfig, cleanReports, mergeCommonCapabilities } from './wdio.base.conf';
+import { logInfo } from '../test/common/logger';
 
 export const config: WebdriverIO.Config = {
     ...baseConfig,
 
     user: process.env.BROWSERSTACK_USERNAME,
     key: process.env.BROWSERSTACK_ACCESS_KEY,
+    protocol: 'https',
     hostname: 'hub.browserstack.com',
     port: 443,
 
@@ -33,8 +35,9 @@ export const config: WebdriverIO.Config = {
 
     maxInstances: 10,
 
-    onPrepare: () => {
+    onPrepare: async () => {
         cleanReports();
+        await logInfo('BrowserStack iOS session starting...');
     },
 
     specs: ['../test/ios/specs/**/*.spec.ts'],
@@ -48,9 +51,9 @@ mergeCommonCapabilities(config, {
         autoDismissAlerts: true,
     },
     'bstack:options': {
-        projectName: 'iOS Appium WDIO',
-        buildName: 'browserstack build',
-        sessionName: 'WDIO iOS Appium Tests',
+        projectName: 'mmo-cr-mobile-automation',
+        buildName: 'iOS Catch Recording',
+        sessionName: 'iOS E2E Tests',
         debug: true,
         networkLogs: true,
     },

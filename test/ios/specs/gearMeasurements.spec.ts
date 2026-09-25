@@ -2,6 +2,7 @@ import AddGearPage from '../pageobjects/addGearPage';
 import CatchLocationPage from '../pageobjects/catchLocationPage';
 import GearMeasurementsPage from '../pageobjects/gearMeasurementsPage';
 import SelectGearPage from '../pageobjects/selectGearPage';
+import { logStep, logInfo } from '../../common/logger';
 import {
     signInAndOpenCreateRecord,
     selectVesselAndTripToday,
@@ -10,6 +11,7 @@ import {
 
 describe('iOS gear measurements page', () => {
     beforeEach(async () => {
+        logStep('beforeEach');
         await signInAndOpenCreateRecord();
         await selectVesselAndTripToday('ACHILLES', 'yes');
         await completePortJourney('Peterhead', 'yes');
@@ -19,10 +21,12 @@ describe('iOS gear measurements page', () => {
     });
 
     afterEach(async () => {
+        logStep('afterEach');
         await GearMeasurementsPage.close();
     });
 
     it('displays the gear measurement controls', async () => {
+        logStep('displays the gear measurement controls');
         await expect(GearMeasurementsPage.wholeNumbersText).toBeDisplayed();
         await expect(GearMeasurementsPage.meshSizeLabel).toBeDisplayed();
         await expect(GearMeasurementsPage.meshSizeField).toBeDisplayed();
@@ -30,12 +34,14 @@ describe('iOS gear measurements page', () => {
     });
 
     it('accepts a mesh size value', async () => {
+        logStep('accepts a mesh size value');
         await GearMeasurementsPage.enterMeshSize('12');
 
         await expect(GearMeasurementsPage.meshSizeField).toHaveAttribute('value', '12');
     });
 
     it('saves a whole mesh size and continues to select gear', async () => {
+        logStep('saves a whole mesh size and continues to select gear');
         await GearMeasurementsPage.enterMeshSize('12');
         await expect(GearMeasurementsPage.meshSizeField).toHaveAttribute('value', '12');
 
@@ -50,6 +56,7 @@ describe('iOS gear measurements page', () => {
     });
 
     it('accepts a whole times-shot value and allows adding another gear', async () => {
+        logStep('accepts a whole times-shot value and allows adding another gear');
         await GearMeasurementsPage.enterMeshSize('12');
         await GearMeasurementsPage.continueToNextStep();
 
@@ -67,6 +74,7 @@ describe('iOS gear measurements page', () => {
     });
 
     it('saves the selected gear and continues to catch location', async () => {
+        logStep('saves the selected gear and continues to catch location');
         await GearMeasurementsPage.enterMeshSize('12');
         await GearMeasurementsPage.continueToNextStep();
 
@@ -79,6 +87,7 @@ describe('iOS gear measurements page', () => {
     });
 
     it('stays on the page when continuing without a mesh size', async () => {
+        logStep('stays on the page when continuing without a mesh size');
         await GearMeasurementsPage.continueToNextStep();
 
         await expect(GearMeasurementsPage.heading).toBeDisplayed();
@@ -86,6 +95,7 @@ describe('iOS gear measurements page', () => {
     });
 
     it('does not advance with a decimal mesh size', async () => {
+        logStep('does not advance with a decimal mesh size');
         await GearMeasurementsPage.enterMeshSize('12.5');
         await GearMeasurementsPage.continueToNextStep();
 

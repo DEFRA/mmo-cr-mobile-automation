@@ -1,11 +1,14 @@
 import { baseConfig, cleanReports, mergeCommonCapabilities } from './wdio.base.conf';
+import { logInfo } from '../test/common/logger';
 
 export const config: WebdriverIO.Config = {
     ...baseConfig,
 
     user: process.env.BROWSERSTACK_USERNAME,
     key: process.env.BROWSERSTACK_ACCESS_KEY,
+    protocol: 'https',
     hostname: 'hub.browserstack.com',
+    port: 443,
 
     services: [
         [
@@ -23,8 +26,8 @@ export const config: WebdriverIO.Config = {
             platformName: 'Android',
             'appium:automationName': 'UiAutomator2',
             'bstack:options': {
-                deviceName: 'Samsung Galaxy S24',
-                osVersion: '14.0',
+                deviceName: 'Samsung Galaxy S26 Ultra',
+                osVersion: '16.0',
                 realMobile: true,
             },
         },
@@ -32,8 +35,8 @@ export const config: WebdriverIO.Config = {
             platformName: 'Android',
             'appium:automationName': 'UiAutomator2',
             'bstack:options': {
-                deviceName: 'Google Pixel 8 Pro',
-                osVersion: '14.0',
+                deviceName: 'Samsung Galaxy S24',
+                osVersion: '16.0',
                 realMobile: true,
             },
         },
@@ -41,8 +44,9 @@ export const config: WebdriverIO.Config = {
 
     maxInstances: 10,
 
-    onPrepare: () => {
+    onPrepare: async () => {
         cleanReports();
+        await logInfo('BrowserStack Android session starting...');
     },
 
     specs: ['../test/android/specs/**/*.spec.ts'],
@@ -55,9 +59,10 @@ mergeCommonCapabilities(config, {
         orientation: 'PORTRAIT',
     },
     'bstack:options': {
-        projectName: 'Android Appium WDIO',
-        buildName: 'browserstack build',
-        sessionName: 'WDIO Appium Tests',
+        projectName: 'mmo-cr-mobile-automation',
+        buildName: 'Android Catch Recording',
+        sessionName: 'Android E2E Tests',
+        deviceOrientation: 'portrait',
         debug: true,
         networkLogs: true,
     },

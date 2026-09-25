@@ -1,4 +1,5 @@
 import { BaseCatchRecordPage } from './baseCatchRecordPage';
+import { logStep, logWarn, logError } from '../../common/logger';
 
 export class SubmissionConfirmationPage extends BaseCatchRecordPage {
     get referenceNumber() {
@@ -46,10 +47,12 @@ export class SubmissionConfirmationPage extends BaseCatchRecordPage {
     }
 
     async confirmSubmission() {
+        logStep('confirmSubmission');
         await this.confirmCheckbox.click();
     }
 
     async acceptAndSubmit() {
+        logStep('acceptAndSubmit');
         await this.acceptButton.click();
     }
 }

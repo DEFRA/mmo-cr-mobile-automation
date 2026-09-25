@@ -1,4 +1,5 @@
 import { BaseCatchRecordPage } from './baseCatchRecordPage';
+import { logStep, logWarn, logError } from '../../common/logger';
 
 export class SelectPortDeparturePage extends BaseCatchRecordPage {
     get referenceNumber() {
@@ -40,6 +41,7 @@ export class SelectPortDeparturePage extends BaseCatchRecordPage {
     }
 
     async selectPort(portName: string) {
+        logStep('port selection');
         await this.clickFirstExisting(
             this.optionCandidates('CatchRecord.selectPort.departure.option', portName),
             `Could not find departure port option: ${portName}`,

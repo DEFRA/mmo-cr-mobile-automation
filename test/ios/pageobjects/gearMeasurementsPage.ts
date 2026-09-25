@@ -1,4 +1,5 @@
 import { BaseCatchRecordPage } from './baseCatchRecordPage';
+import { logStep, logWarn, logError } from '../../common/logger';
 
 export class GearMeasurementsPage extends BaseCatchRecordPage {
     get referenceNumber() {
@@ -26,10 +27,12 @@ export class GearMeasurementsPage extends BaseCatchRecordPage {
     }
 
     async enterMeshSize(value: string) {
+        logStep('enterMeshSize');
         await this.meshSizeField.setValue(value);
     }
 
     async continueToNextStep() {
+        logStep('continueToNextStep');
         await this.saveContinueButton.click();
     }
 }
