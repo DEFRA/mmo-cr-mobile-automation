@@ -50,9 +50,9 @@ mergeCommonCapabilities(config, {
         autoDismissAlerts: true,
     },
     'bstack:options': {
-        projectName: 'iOS Appium WDIO',
-        buildName: 'browserstack build',
-        sessionName: 'WDIO iOS Appium Tests',
+        projectName: 'mmo-cr-mobile-automation',
+        buildName: 'iOS Catch Recording',
+        sessionName: 'iOS E2E Tests',
         debug: true,
         networkLogs: true,
     },
