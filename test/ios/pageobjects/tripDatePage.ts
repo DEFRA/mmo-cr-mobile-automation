@@ -1,4 +1,5 @@
 import { BaseCatchRecordPage } from './baseCatchRecordPage';
+import { logStep, logWarn, logError } from '../../common/logger';
 
 export abstract class TripDatePage extends BaseCatchRecordPage {
     protected abstract readonly prefix: string;
@@ -44,6 +45,7 @@ export abstract class TripDatePage extends BaseCatchRecordPage {
     }
 
     protected async enterDate(day: string, month: string, year: string) {
+        logStep('date entry');
         await this.dayField.setValue(day);
         await this.monthField.setValue(month);
         await this.yearField.setValue(year);

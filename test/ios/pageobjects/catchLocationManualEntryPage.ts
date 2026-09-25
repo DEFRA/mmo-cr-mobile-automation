@@ -1,4 +1,5 @@
 import { BaseCatchRecordPage } from './baseCatchRecordPage';
+import { logStep, logWarn, logError } from '../../common/logger';
 
 export class CatchLocationManualEntryPage extends BaseCatchRecordPage {
     get referenceNumber() {
@@ -44,14 +45,17 @@ export class CatchLocationManualEntryPage extends BaseCatchRecordPage {
     }
 
     async searchForArea(term: string) {
+        logStep('searchForArea');
         await this.searchField.setValue(term);
     }
 
     async selectArea(code: string) {
+        logStep('selectArea');
         await this.searchAndSelect(this.searchField, code, this.areaResult(code));
     }
 
     async continueToNextStep() {
+        logStep('continueToNextStep');
         await this.saveContinueButton.click();
     }
 }

@@ -1,4 +1,5 @@
 import { BaseCatchRecordPage } from './baseCatchRecordPage';
+import { logStep, logWarn, logError } from '../../common/logger';
 
 export class SubmissionNudgePage extends BaseCatchRecordPage {
     get referenceNumber() {
@@ -22,10 +23,12 @@ export class SubmissionNudgePage extends BaseCatchRecordPage {
     }
 
     async checkTripEndDate() {
+        logStep('checkTripEndDate');
         await this.checkDateLink.click();
     }
 
     async continueToNextStep() {
+        logStep('continueToNextStep');
         await this.saveContinueButton.click();
     }
 }

@@ -1,3 +1,4 @@
+import { logStep } from '../../common/logger';
 import AddGearPage from '../pageobjects/addGearPage';
 import AddPortPage from '../pageobjects/addPortPage';
 import AddSpeciesPage from '../pageobjects/addSpeciesPage';
@@ -16,6 +17,7 @@ import TripTodayPage from '../pageobjects/tripTodayPage';
 import { getIosTestCredentials } from './testCredentials';
 
 export async function signIn() {
+    logStep('signIn');
     const { email, password } = getIosTestCredentials();
 
     await SignInPage.openApp();
@@ -23,6 +25,7 @@ export async function signIn() {
 }
 
 export async function signInAndOpenCreateRecord() {
+    logStep('signInAndOpenCreateRecord');
     await signIn();
     await HomePage.scrollToElement(HomePage.createRecordButton);
     await HomePage.clickCreateRecordButton();
@@ -32,12 +35,14 @@ export async function selectVesselAndTripToday(
     vessel: 'ACHILLES' | 'HERCULES',
     tripToday: 'yes' | 'no',
 ) {
+    logStep(`vessel=${vessel}, tripToday=${tripToday}`);
     await SelectVesselPage.selectVessel(vessel);
     await TripTodayPage.selectTripToday(tripToday);
     await TripTodayPage.continueToNextStep();
 }
 
 export async function completePortJourney(portName: string, option: 'yes' | 'no') {
+    logStep(`portName=${portName}, option=${option}`);
     await AddPortPage.selectPort(portName);
     await AddPortPage.continueToNextStep();
     await expect(ConfirmSamePortPage.headingForPort(portName)).toBeDisplayed();
@@ -57,6 +62,7 @@ export async function completePortJourney(portName: string, option: 'yes' | 'no'
 }
 
 export async function completeGearJourney(gearName: string, meshSize: string, timesShot: string) {
+    logStep(`gearName=${gearName}, meshSize=${meshSize}, timesShot=${timesShot}`);
     await AddGearPage.selectGear(gearName);
     await AddGearPage.continueToNextStep();
     await GearMeasurementsPage.enterMeshSize(meshSize);
@@ -73,12 +79,14 @@ async function scrollIntoView(element: ReturnType<typeof $>) {
 }
 
 export async function completeCatchLocation(area: string) {
+    logStep(`area=${area}`);
     await CatchLocationPage.selectArea(area);
     await scrollIntoView(CatchLocationPage.saveContinueButton);
     await CatchLocationPage.continueToNextStep();
 }
 
 export async function completeSpeciesJourney(species: string, weight: string) {
+    logStep(`species=${species}, weight=${weight}`);
     await AddSpeciesPage.selectSpecies(species);
     await scrollIntoView(AddSpeciesPage.saveContinueButton);
     await AddSpeciesPage.continueToNextStep();
@@ -101,6 +109,7 @@ export interface CatchRecordJourneyData {
 }
 
 export async function completeRecordUpToAddSpecies(data: CatchRecordJourneyData) {
+    logStep('completeRecordUpToAddSpecies');
     await signInAndOpenCreateRecord();
     await selectVesselAndTripToday(data.vessel, 'yes');
     await completePortJourney(data.port, 'yes');
@@ -109,6 +118,7 @@ export async function completeRecordUpToAddSpecies(data: CatchRecordJourneyData)
 }
 
 export async function completeRecordUpToCheckYourAnswers(data: CatchRecordJourneyData) {
+    logStep('completeRecordUpToCheckYourAnswers');
     await completeRecordUpToAddSpecies(data);
     await completeSpeciesJourney(data.species, data.weight);
     await LandingStoragePage.selectLandingStorage(data.landingStorage);

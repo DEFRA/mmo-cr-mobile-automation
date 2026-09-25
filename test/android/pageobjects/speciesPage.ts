@@ -1,4 +1,5 @@
 import { BasePage } from './basePage';
+import { logStep, logWarn, logError } from '../../common/logger';
 
 export class SpeciesPage extends BasePage {
     get heading() {
@@ -22,11 +23,13 @@ export class SpeciesPage extends BasePage {
     }
 
     async enterSpeciesName(species: string) {
+        logStep(`Entering species name ${species}`);
         await this.searchField.waitForDisplayed({ timeout: 10000 });
         await this.searchField.setValue(species);
     }
 
     async searchAndSelectSpecies(searchText: string, speciesName: string) {
+        logStep(`Searching for ${searchText} and selecting species ${speciesName}`);
         await this.enterSpeciesName(searchText);
         const option = this.speciesOption(speciesName);
         await option.waitForDisplayed({ timeout: 10000 });
@@ -34,6 +37,7 @@ export class SpeciesPage extends BasePage {
     }
 
     async searchSelectAndContinue(searchText: string, speciesName: string) {
+        logStep(`Searching, selecting and continuing: ${speciesName}`);
         await this.searchAndSelectSpecies(searchText, speciesName);
         await this.saveAndContinue();
     }

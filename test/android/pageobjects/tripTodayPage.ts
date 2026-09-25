@@ -1,4 +1,5 @@
 import { BasePage } from './basePage';
+import { logStep, logWarn, logError } from '../../common/logger';
 
 export class TripTodayPage extends BasePage {
     get heading() {
@@ -16,21 +17,25 @@ export class TripTodayPage extends BasePage {
     }
 
     async selectYes() {
+        logStep('Selecting Yes');
         await this.yesOption.waitForDisplayed({ timeout: 10000 });
         await this.yesOption.click();
     }
 
     async selectNo() {
+        logStep('Selecting No');
         await this.noOption.waitForDisplayed({ timeout: 10000 });
         await this.noOption.click();
     }
 
     async selectYesAndContinue() {
+        logStep('Selecting Yes and continuing');
         await this.selectYes();
         await this.saveAndContinue();
     }
 
     async selectNoAndContinue() {
+        logStep('Selecting No and continuing');
         await this.selectNo();
         await this.saveAndContinue();
     }

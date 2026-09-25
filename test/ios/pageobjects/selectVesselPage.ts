@@ -1,4 +1,5 @@
 import { BaseCatchRecordPage } from './baseCatchRecordPage';
+import { logStep, logWarn, logError } from '../../common/logger';
 
 export class SelectVesselPage extends BaseCatchRecordPage {
     get selectVesselHeading() {
@@ -28,6 +29,7 @@ export class SelectVesselPage extends BaseCatchRecordPage {
     }
 
     async selectVessel(vesselName: 'ACHILLES' | 'HERCULES') {
+        logStep('selectVessel with vessel name: ' + vesselName);
         const vesselOption =
             vesselName === 'ACHILLES' ? this.achillesVesselOption : this.herculesVesselOption;
 

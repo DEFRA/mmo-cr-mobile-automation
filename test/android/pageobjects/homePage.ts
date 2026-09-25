@@ -1,4 +1,5 @@
 import { BasePage } from './basePage';
+import { logStep, logWarn, logError } from '../../common/logger';
 
 export class HomePage extends BasePage {
     get bannerTitle() {
@@ -104,31 +105,38 @@ export class HomePage extends BasePage {
     }
 
     async clickCreateRecordButton() {
+        logStep('Clicking create record button');
         await this.createRecordButton.waitForDisplayed({ timeout: 10000 });
         await this.createRecordButton.click();
     }
 
     async openHelp() {
+        logStep('Opening help');
         await this.helpLink.click();
     }
 
     async openStatusHelp() {
+        logStep('Opening status help');
         await this.statusHelpLink.click();
     }
 
     async goToNextPage() {
+        logStep('Going to next page');
         await this.nextButton.click();
     }
 
     async goToHome() {
+        logStep('Going to home tab');
         await this.homeTab.click();
     }
 
     async goToNotifications() {
+        logStep('Going to notifications tab');
         await this.notificationsTab.click();
     }
 
     async goToSettings() {
+        logStep('Going to settings tab');
         await this.settingsTab.click();
     }
 }

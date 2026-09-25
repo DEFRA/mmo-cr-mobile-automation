@@ -1,4 +1,5 @@
 import { BaseCatchRecordPage } from './baseCatchRecordPage';
+import { logStep, logWarn, logError } from '../../common/logger';
 
 export class ConfirmSamePortPage extends BaseCatchRecordPage {
     get referenceNumber() {
@@ -42,6 +43,7 @@ export class ConfirmSamePortPage extends BaseCatchRecordPage {
     }
 
     async continueToNextStep() {
+        logStep('continueToNextStep');
         await this.saveContinueButton.click();
     }
 }

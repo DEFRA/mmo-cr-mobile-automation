@@ -1,4 +1,5 @@
 import { BaseCatchRecordPage } from './baseCatchRecordPage';
+import { logStep, logWarn, logError } from '../../common/logger';
 
 export class TripTodayPage extends BaseCatchRecordPage {
     get referenceNumber() {
@@ -42,12 +43,14 @@ export class TripTodayPage extends BaseCatchRecordPage {
     }
 
     async selectTripToday(option: 'yes' | 'no') {
+        logStep('selectTripToday with option: ' + option);
         const selectedOption = option === 'yes' ? this.yesOption : this.noOption;
 
         await selectedOption.click();
     }
 
     async continueToNextStep() {
+        logStep('continueToNextStep');
         await this.saveContinueButton.click();
     }
 }

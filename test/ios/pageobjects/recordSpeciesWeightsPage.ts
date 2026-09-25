@@ -1,4 +1,5 @@
 import { BaseCatchRecordPage } from './baseCatchRecordPage';
+import { logStep, logWarn, logError } from '../../common/logger';
 
 export class RecordSpeciesWeightsPage extends BaseCatchRecordPage {
     get referenceNumber() {
@@ -44,6 +45,7 @@ export class RecordSpeciesWeightsPage extends BaseCatchRecordPage {
     }
 
     async enterWeight(speciesName: string, value: string) {
+        logStep('enterWeight with species: ' + speciesName + ' and weight: ' + value);
         const option = this.speciesOption(speciesName);
         await option.waitForDisplayed({ timeout: 10000 });
         if (!(await option.isSelected())) {
@@ -64,6 +66,7 @@ export class RecordSpeciesWeightsPage extends BaseCatchRecordPage {
     }
 
     async continueToNextStep() {
+        logStep('continueToNextStep');
         await this.saveContinueButton.click();
     }
 }

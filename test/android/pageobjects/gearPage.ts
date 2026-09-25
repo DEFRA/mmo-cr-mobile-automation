@@ -1,4 +1,5 @@
 import { BasePage } from './basePage';
+import { logStep, logWarn, logError } from '../../common/logger';
 
 export class GearPage extends BasePage {
     get heading() {
@@ -20,16 +21,19 @@ export class GearPage extends BasePage {
     }
 
     async enterGearName(gearName: string) {
+        logStep(`Entering gear name ${gearName}`);
         await this.gearSearchField.waitForDisplayed({ timeout: 10000 });
         await this.gearSearchField.setValue(gearName);
     }
 
     async enterGearNameAndContinue(gearName: string) {
+        logStep(`Entering gear name and continuing: ${gearName}`);
         await this.enterGearName(gearName);
         await this.saveAndContinue();
     }
 
     async searchAndSelectGear(searchText: string, gearName: string) {
+        logStep(`Searching for ${searchText} and selecting gear ${gearName}`);
         await this.enterGearName(searchText);
         const option = this.gearOption(gearName);
         await option.waitForDisplayed({ timeout: 10000 });
@@ -37,6 +41,7 @@ export class GearPage extends BasePage {
     }
 
     async searchSelectAndContinue(searchText: string, gearName: string) {
+        logStep(`Searching, selecting and continuing: ${gearName}`);
         await this.searchAndSelectGear(searchText, gearName);
         await this.saveAndContinue();
     }

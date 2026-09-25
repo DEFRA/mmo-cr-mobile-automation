@@ -1,4 +1,5 @@
 import { baseConfig, cleanReports, mergeCommonCapabilities } from './wdio.base.conf';
+import { logInfo } from '../test/common/logger';
 
 export const config: WebdriverIO.Config = {
     ...baseConfig,
@@ -41,8 +42,9 @@ export const config: WebdriverIO.Config = {
 
     maxInstances: 10,
 
-    onPrepare: () => {
+    onPrepare: async () => {
         cleanReports();
+        await logInfo('BrowserStack Android session starting...');
     },
 
     specs: ['../test/android/specs/**/*.spec.ts'],

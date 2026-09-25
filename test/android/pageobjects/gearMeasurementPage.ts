@@ -1,4 +1,5 @@
 import { BasePage } from './basePage';
+import { logStep, logWarn, logError } from '../../common/logger';
 
 export class GearMeasurementPage extends BasePage {
     get heading() {
@@ -30,11 +31,13 @@ export class GearMeasurementPage extends BasePage {
     }
 
     async enterMeshSize(size: string | number) {
+        logStep(`Entering mesh size ${size}`);
         await this.meshSizeField.waitForDisplayed({ timeout: 10000 });
         await this.meshSizeField.setValue(size.toString());
     }
 
     async enterMeshSizeAndContinue(size: string | number) {
+        logStep(`Entering mesh size and continuing: ${size}`);
         await this.enterMeshSize(size);
         await this.saveAndContinue();
     }

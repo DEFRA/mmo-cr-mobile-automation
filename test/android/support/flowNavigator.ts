@@ -1,4 +1,4 @@
-import { logStep } from './logger';
+import { logStep } from '../../common/logger';
 import homePage from '../pageobjects/homePage';
 import tripTodayPage from '../pageobjects/tripTodayPage';
 import tripStartDatePage from '../pageobjects/tripStartDatePage';

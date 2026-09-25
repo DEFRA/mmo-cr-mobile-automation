@@ -1,6 +1,7 @@
 import { existsSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { appiumPort, baseConfig, cleanReports, uninstallAndroidApp } from './wdio.base.conf';
+import { logInfo } from '../test/common/logger';
 
 const appsDir = join(process.cwd(), 'apps');
 const apkFile = existsSync(appsDir)
@@ -46,6 +47,7 @@ export const config: WebdriverIO.Config = {
 
     onPrepare: async () => {
         cleanReports();
+        await logInfo('Android onPrepare: Using apk ' + apkFile + ', Device: ' + (androidDeviceName ?? 'auto'));
         if (androidAppId) {
             await uninstallAndroidApp(androidAppId, androidUdid);
         }

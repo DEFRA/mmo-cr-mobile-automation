@@ -1,4 +1,5 @@
 import { BasePage } from './basePage';
+import { logStep, logWarn, logError } from '../../common/logger';
 
 export class HomePage extends BasePage {
     get yourTripsHeading() {
@@ -88,6 +89,7 @@ export class HomePage extends BasePage {
     }
 
     async scrollToElement(element: ReturnType<typeof $>) {
+        logStep('scrollToElement');
         await element.waitForExist({ timeout: 20000 });
         await browser.execute('mobile: scrollToElement', {
             element: await element.elementId,
@@ -118,23 +120,28 @@ export class HomePage extends BasePage {
     }
 
     async openTrip(rowIndex: number) {
+        logStep('openTrip');
         await this.tableRowDate(rowIndex).click();
     }
 
     async openHowToRecord() {
+        logStep('openHowToRecord');
         await this.howToRecordLink.click();
     }
 
     async openStatusHelp() {
+        logStep('openStatusHelp');
         await this.statusHelpLink.click();
     }
 
     async clickCreateRecordButton() {
+        logStep('clickCreateRecordButton');
         const button = await this.createRecordButton;
 
         try {
             await button.waitForDisplayed({ timeout: 4000 });
         } catch {
+            logWarn('HomePage: scroll retry in clickCreateRecordButton');
             await browser.execute('mobile: scrollToElement', {
                 element: await button.elementId,
             });
@@ -145,14 +152,17 @@ export class HomePage extends BasePage {
     }
 
     async goToNotifications() {
+        logStep('goToNotifications');
         await this.notificationsTab.click();
     }
 
     async goToSettings() {
+        logStep('goToSettings');
         await this.settingsTab.click();
     }
 
     async switchToWelsh() {
+        logStep('switchToWelsh');
         await this.languageToggle.click();
     }
 }

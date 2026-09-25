@@ -1,4 +1,5 @@
 import { BaseCatchRecordPage } from './baseCatchRecordPage';
+import { logStep, logWarn, logError } from '../../common/logger';
 
 export class LandingStoragePage extends BaseCatchRecordPage {
     get referenceNumber() {
@@ -32,12 +33,14 @@ export class LandingStoragePage extends BaseCatchRecordPage {
     }
 
     async selectLandingStorage(option: 'yes' | 'no') {
+        logStep('selectLandingStorage with option: ' + option);
         const selectedOption = option === 'yes' ? this.yesOption : this.noOption;
 
         await selectedOption.click();
     }
 
     async continueToNextStep() {
+        logStep('continueToNextStep');
         await this.saveContinueButton.click();
     }
 }

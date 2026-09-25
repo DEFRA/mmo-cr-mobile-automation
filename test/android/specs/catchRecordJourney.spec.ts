@@ -5,18 +5,22 @@ import catchRecordSummaryPage from '../pageobjects/catchRecordSummaryPage';
 import submissionSuccessPage from '../pageobjects/submissionSuccessPage';
 import { getAndroidTestCredentials } from '../support/testCredentials';
 import NetworkHelper from '../support/networkHelper';
+import { logStep, logInfo } from '../../common/logger';
 
 describe('Catch Record End-to-End Journey', () => {
     beforeEach(async () => {
+        logStep('beforeEach');
         await signInPage.openApp();
     });
 
     afterEach(async () => {
+        logStep('afterEach');
         await NetworkHelper.goOnline();
         await signInPage.close();
     });
 
     it('should successfully complete a catch record (Happy Path)', async () => {
+        logStep('should successfully complete a catch record (Happy Path)');
         const { email, password } = getAndroidTestCredentials();
 
         await signInPage.signIn(email, password);
@@ -62,13 +66,14 @@ describe('Catch Record End-to-End Journey', () => {
 
         const referenceId = await submissionSuccessPage.getRecordReference();
         expect(referenceId).toBeTruthy();
-        console.log(`Successfully created catch record with reference: ${referenceId}`);
+        logInfo(`Successfully created catch record with reference: ${referenceId}`);
 
         await submissionSuccessPage.clickViewRecords();
         await expect(homePage.heading).toBeDisplayed();
     });
 
     it('should successfully complete a catch record (Offline Happy Path)', async () => {
+        logStep('should successfully complete a catch record (Offline Happy Path)');
         const { email, password } = getAndroidTestCredentials();
 
         await signInPage.signIn(email, password);
@@ -105,7 +110,7 @@ describe('Catch Record End-to-End Journey', () => {
 
         const referenceId = await submissionSuccessPage.getRecordReference();
         expect(referenceId).toBeTruthy();
-        console.log(`Successfully created offline catch record with reference: ${referenceId}`);
+        logInfo(`Successfully created offline catch record with reference: ${referenceId}`);
 
         await submissionSuccessPage.clickViewRecords();
         await expect(homePage.heading).toBeDisplayed();

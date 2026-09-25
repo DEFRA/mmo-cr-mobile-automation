@@ -2,6 +2,7 @@ import { execFile } from 'node:child_process';
 import { existsSync, mkdirSync, rmSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { promisify } from 'node:util';
+import { logInfo, logWarn } from '../test/common/logger';
 
 const envPath = resolve(process.cwd(), '.env');
 if (existsSync(envPath)) {
@@ -76,9 +77,16 @@ export const baseConfig: Partial<WebdriverIO.Config> = {
         timeout: 120000,
     },
 
-    afterTest: async (_test, _context, { error }) => {
+    beforeTest: async (test) => {
+        await logInfo(`Starting test: ${test.title}`);
+    },
+
+    afterTest: async (test, _context, { error }) => {
         if (error) {
+            await logWarn(`Test FAILED: ${test.title}`);
             await browser.takeScreenshot();
+        } else {
+            await logInfo(`Test PASSED: ${test.title}`);
         }
     },
 

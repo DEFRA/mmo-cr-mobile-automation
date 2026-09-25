@@ -1,4 +1,5 @@
 import { BasePage } from './basePage';
+import { logStep, logWarn, logError } from '../../common/logger';
 
 export class ReturnPortPage extends BasePage {
     get heading() {
@@ -52,52 +53,62 @@ export class ReturnPortPage extends BasePage {
     }
 
     async selectYes() {
+        logStep('Selecting Yes');
         await this.yesOption.waitForDisplayed({ timeout: 10000 });
         await this.yesOption.click();
     }
 
     async selectNo() {
+        logStep('Selecting No');
         await this.noOption.waitForDisplayed({ timeout: 10000 });
         await this.noOption.click();
     }
 
     async selectPort(portName: string) {
+        logStep(`Selecting port ${portName}`);
         const option = this.portOption(portName);
         await option.waitForDisplayed({ timeout: 10000 });
         await option.click();
     }
 
     async clickAddPort() {
+        logStep('Clicking Add port');
         await this.addPortButton.waitForDisplayed({ timeout: 10000 });
         await this.addPortButton.click();
     }
 
     async selectYesAndContinue() {
+        logStep('Selecting Yes and continuing');
         await this.selectYes();
         await this.saveAndContinue();
     }
 
     async selectNoAndContinue() {
+        logStep('Selecting No and continuing');
         await this.selectNo();
         await this.saveAndContinue();
     }
 
     async selectPortAndContinue(portName: string) {
+        logStep(`Selecting port and continuing: ${portName}`);
         await this.selectPort(portName);
         await this.saveAndContinue();
     }
 
     async enterPortName(portName: string) {
+        logStep(`Entering port name ${portName}`);
         await this.portSearchField.waitForDisplayed({ timeout: 10000 });
         await this.portSearchField.setValue(portName);
     }
 
     async enterPortNameAndContinue(portName: string) {
+        logStep(`Entering port name and continuing: ${portName}`);
         await this.enterPortName(portName);
         await this.saveAndContinue();
     }
 
     async searchAndSelectPort(searchText: string, portName: string) {
+        logStep(`Searching for ${searchText} and selecting port ${portName}`);
         await this.enterPortName(searchText);
         const suggestion = this.portSuggestion(portName);
         await suggestion.waitForDisplayed({ timeout: 10000 });
@@ -105,6 +116,7 @@ export class ReturnPortPage extends BasePage {
     }
 
     async searchSelectAndContinue(searchText: string, portName: string) {
+        logStep(`Searching, selecting and continuing: ${portName}`);
         await this.searchAndSelectPort(searchText, portName);
         await this.saveAndContinue();
     }
