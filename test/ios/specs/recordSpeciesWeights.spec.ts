@@ -69,20 +69,22 @@ describe('iOS record species weights page', () => {
         logStep('reveals a below weight entry for the selected species');
         await RecordSpeciesWeightsPage.enterWeight(journeyData.species, journeyData.weight);
 
-        const addBelow = RecordSpeciesWeightsPage.addWeightBelowButton(journeyData.species);
-        await scrollIntoView(addBelow);
-        await expect(addBelow).toBeDisplayed();
-        await addBelow.click();
+        await RecordSpeciesWeightsPage.enterWeightBelowMin(journeyData.species, '10');
+
+        await expect(
+            RecordSpeciesWeightsPage.weightBelowField(journeyData.species),
+        ).toHaveAttribute('value', '10');
     });
 
     it('reveals a discarded weight entry for the selected species', async () => {
         logStep('reveals a discarded weight entry for the selected species');
         await RecordSpeciesWeightsPage.enterWeight(journeyData.species, journeyData.weight);
 
-        const addDiscarded = RecordSpeciesWeightsPage.addWeightDiscardedButton(journeyData.species);
-        await scrollIntoView(addDiscarded);
-        await expect(addDiscarded).toBeDisplayed();
-        await addDiscarded.click();
+        await RecordSpeciesWeightsPage.enterWeightDiscarded(journeyData.species, '20');
+
+        await expect(
+            RecordSpeciesWeightsPage.weightDiscardedField(journeyData.species),
+        ).toHaveAttribute('value', '20');
     });
 
     it('returns to add species when adding another species', async () => {

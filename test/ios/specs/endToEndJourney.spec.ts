@@ -27,6 +27,8 @@ const endToEndJourneyData = {
     catchArea: '44E83',
     species: 'Atlantic salmon (SAL)',
     weight: '500',
+    weightBelowMin: '10',
+    weightDiscarded: '20',
     landingStorage: 'no' as const,
 };
 
@@ -107,6 +109,14 @@ describe('iOS end-to-end catch record journey', () => {
         await RecordSpeciesWeightsPage.enterWeight(
             endToEndJourneyData.species,
             endToEndJourneyData.weight,
+        );
+        await RecordSpeciesWeightsPage.enterWeightBelowMin(
+            endToEndJourneyData.species,
+            endToEndJourneyData.weightBelowMin,
+        );
+        await RecordSpeciesWeightsPage.enterWeightDiscarded(
+            endToEndJourneyData.species,
+            endToEndJourneyData.weightDiscarded,
         );
         await browser.execute('mobile: scrollToElement', {
             element: await RecordSpeciesWeightsPage.saveContinueButton.elementId,
