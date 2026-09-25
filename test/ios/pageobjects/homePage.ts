@@ -88,15 +88,6 @@ export class HomePage extends BasePage {
         return $('//XCUIElementTypeScrollView');
     }
 
-    async scrollToElement(element: ReturnType<typeof $>) {
-        logStep('scrollToElement');
-        await element.waitForExist({ timeout: 20000 });
-        await browser.execute('mobile: scrollToElement', {
-            element: await element.elementId,
-        });
-        await element.waitForDisplayed({ timeout: 10000 });
-    }
-
     tableRowDate(rowIndex: number) {
         return $(`~Home.table.row.${rowIndex}.date`);
     }
@@ -136,19 +127,7 @@ export class HomePage extends BasePage {
 
     async clickCreateRecordButton() {
         logStep('clickCreateRecordButton');
-        const button = await this.createRecordButton;
-
-        try {
-            await button.waitForDisplayed({ timeout: 4000 });
-        } catch {
-            logWarn('HomePage: scroll retry in clickCreateRecordButton');
-            await browser.execute('mobile: scrollToElement', {
-                element: await button.elementId,
-            });
-        }
-
-        await button.waitForDisplayed({ timeout: 10000 });
-        await button.click();
+        await this.scrollAndClickIfExisting(this.createRecordButton);
     }
 
     async goToNotifications() {

@@ -229,20 +229,20 @@ Available log functions:
 ```typescript
 import { logStep, logInfo, logWarn, logError } from '../../common/logger';
 
-await logStep('Selecting vessel: ACHILLES');     // [STEP] — user-facing action
-await logInfo('Test data loaded successfully');   // [INFO] — informational
-await logWarn('Element not found, retrying...');  // [WARN] — recoverable issue
-await logError('Failed to submit', error);        // [ERROR] — failure
+await logStep('Selecting vessel: ACHILLES'); // [STEP] — user-facing action
+await logInfo('Test data loaded successfully'); // [INFO] — informational
+await logWarn('Element not found, retrying...'); // [WARN] — recoverable issue
+await logError('Failed to submit', error); // [ERROR] — failure
 ```
 
 Log output locations:
 
-| Location | Contents |
-|----------|----------|
-| Terminal / CI stdout | All `[STEP]`, `[INFO]`, `[WARN]`, `[ERROR]` messages with timestamps |
-| Allure report | `logStep` messages appear as report steps |
-| `log/` | BrowserStack SDK and CLI logs |
-| `logs/` | Appium server logs (`appium.log`, `appium-ios.log`) and WDIO service logs |
+| Location             | Contents                                                                  |
+| -------------------- | ------------------------------------------------------------------------- |
+| Terminal / CI stdout | All `[STEP]`, `[INFO]`, `[WARN]`, `[ERROR]` messages with timestamps      |
+| Allure report        | `logStep` messages appear as report steps                                 |
+| `log/`               | BrowserStack SDK and CLI logs                                             |
+| `logs/`              | Appium server logs (`appium.log`, `appium-ios.log`) and WDIO service logs |
 
 ## Platform Notes
 

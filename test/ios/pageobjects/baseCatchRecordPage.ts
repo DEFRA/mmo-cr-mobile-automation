@@ -22,9 +22,7 @@ export class BaseCatchRecordPage extends BasePage {
         logStep(`Searching for term "${term}" and selecting result`);
         await searchField.setValue(term);
         await result.waitForExist({ timeout: 10000 });
-        await browser.execute('mobile: scrollToElement', {
-            element: await result.elementId,
-        });
+        await this.scrollToElementIfExisting(result);
         await result.waitForDisplayed({ timeout: 10000 });
         await result.click();
     }

@@ -18,7 +18,9 @@ export abstract class CommonBasePage {
                 return;
             } catch (error) {
                 lastError = error;
-                logWarn(`CommonBasePage: Failed to open app on attempt ${attempt}. Error: ${error}`);
+                logWarn(
+                    `CommonBasePage: Failed to open app on attempt ${attempt}. Error: ${error}`,
+                );
                 if (attempt < 3) {
                     await new Promise((resolve) => setTimeout(resolve, attempt * 2000));
                 }

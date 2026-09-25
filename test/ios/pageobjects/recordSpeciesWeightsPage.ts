@@ -76,21 +76,6 @@ export class RecordSpeciesWeightsPage extends BaseCatchRecordPage {
         return $('~CatchRecord.recordSpeciesWeights.saveContinue');
     }
 
-    private async scrollToElementIfExisting(element: ReturnType<typeof $>) {
-        if ((await element.isExisting()) && !(await element.isDisplayed())) {
-            await browser.execute('mobile: scrollToElement', {
-                element: await element.elementId,
-            });
-        }
-    }
-
-    private async scrollAndClickIfExisting(element: ReturnType<typeof $>) {
-        if (await element.isExisting()) {
-            await this.scrollToElementIfExisting(element);
-            await element.click();
-        }
-    }
-
     async enterWeight(speciesName: string, value: string) {
         logStep(
             `[${this.constructor.name}] enterWeight with species: ${speciesName} and weight: ${value}`,
