@@ -6,6 +6,7 @@ export const config: WebdriverIO.Config = {
 
     user: process.env.BROWSERSTACK_USERNAME,
     key: process.env.BROWSERSTACK_ACCESS_KEY,
+    protocol: 'https',
     hostname: 'hub.browserstack.com',
     port: 443,
 
