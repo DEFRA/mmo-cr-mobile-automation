@@ -1,4 +1,4 @@
-import { logStep } from './logger';
+import { logStep } from '../../common/logger';
 
 export class NetworkHelper {
     static async goOffline() {

@@ -1,6 +1,7 @@
 import AddSpeciesPage from '../pageobjects/addSpeciesPage';
 import CatchLocationPage from '../pageobjects/catchLocationPage';
 import CatchLocationManualEntryPage from '../pageobjects/catchLocationManualEntryPage';
+import { logStep, logInfo } from '../../common/logger';
 import {
     signInAndOpenCreateRecord,
     selectVesselAndTripToday,
@@ -13,6 +14,7 @@ const INVALID_SUB_AREA = '99Z99';
 
 describe('iOS catch location statistical sub area manual entry', () => {
     beforeEach(async () => {
+        logStep('beforeEach');
         await signInAndOpenCreateRecord();
         await selectVesselAndTripToday('ACHILLES', 'yes');
         await completePortJourney('Peterhead', 'yes');
@@ -21,10 +23,12 @@ describe('iOS catch location statistical sub area manual entry', () => {
     });
 
     afterEach(async () => {
+        logStep('afterEach');
         await CatchLocationPage.close();
     });
 
     it('displays the type-ahead field after selecting Other', async () => {
+        logStep('displays the type-ahead field after selecting Other');
         await browser.execute('mobile: scrollToElement', {
             element: await CatchLocationPage.otherButton.elementId,
         });
@@ -35,6 +39,7 @@ describe('iOS catch location statistical sub area manual entry', () => {
     });
 
     it('shows matching results with code, coordinates and ICES rectangle', async () => {
+        logStep('shows matching results with code, coordinates and ICES rectangle');
         await CatchLocationPage.openManualEntry();
         await CatchLocationManualEntryPage.searchForArea('44E8');
 
@@ -50,6 +55,7 @@ describe('iOS catch location statistical sub area manual entry', () => {
     });
 
     it('auto-populates coordinates as the code is entered', async () => {
+        logStep('auto-populates coordinates as the code is entered');
         await CatchLocationPage.openManualEntry();
 
         await CatchLocationManualEntryPage.searchForArea('44E8');
@@ -60,6 +66,7 @@ describe('iOS catch location statistical sub area manual entry', () => {
     });
 
     it('populates the field and advances after selecting a suggested area', async () => {
+        logStep('populates the field and advances after selecting a suggested area');
         await CatchLocationPage.openManualEntry();
         await CatchLocationManualEntryPage.selectArea(VALID_SUB_AREA);
 
@@ -73,6 +80,7 @@ describe('iOS catch location statistical sub area manual entry', () => {
     });
 
     it('shows a validation error for a code not in the reference dataset', async () => {
+        logStep('shows a validation error for a code not in the reference dataset');
         await CatchLocationPage.openManualEntry();
         await CatchLocationManualEntryPage.searchForArea(INVALID_SUB_AREA);
         await CatchLocationManualEntryPage.continueToNextStep();

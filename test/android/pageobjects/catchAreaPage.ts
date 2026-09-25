@@ -1,4 +1,5 @@
 import { BasePage } from './basePage';
+import { logStep, logWarn, logError } from '../../common/logger';
 
 export class CatchAreaPage extends BasePage {
     get heading() {
@@ -32,17 +33,20 @@ export class CatchAreaPage extends BasePage {
     }
 
     async selectArea(areaCode: string) {
+        logStep(`Selecting area ${areaCode}`);
         const option = this.areaOption(areaCode);
         await option.waitForDisplayed({ timeout: 10000 });
         await option.click();
     }
 
     async clickOther() {
+        logStep('Clicking Other');
         await this.otherButton.waitForDisplayed({ timeout: 10000 });
         await this.otherButton.click();
     }
 
     async selectAreaAndContinue(areaCode: string) {
+        logStep(`Selecting area and continuing: ${areaCode}`);
         await this.selectArea(areaCode);
         await this.saveAndContinue();
     }

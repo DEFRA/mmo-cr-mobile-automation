@@ -1,4 +1,5 @@
 import { BasePage } from './basePage';
+import { logStep, logWarn, logError } from '../../common/logger';
 
 export class SignInPage extends BasePage {
     get heading() {
@@ -34,18 +35,22 @@ export class SignInPage extends BasePage {
     }
 
     async enterEmail(email: string) {
+        logStep('enterEmail with email: ' + email.substring(0, 3) + '***');
         await this.emailField.setValue(email);
     }
 
     async enterPassword(password: string) {
+        logStep('entering password');
         await this.passwordField.setValue(password);
     }
 
     async togglePasswordVisibility() {
+        logStep('togglePasswordVisibility');
         await this.passwordVisibilityToggle.click();
     }
 
     async signIn(email: string, password: string) {
+        logStep('signIn flow start');
         await this.enterEmail(email);
         await this.enterPassword(password);
         await this.signInButton.click();
@@ -53,14 +58,17 @@ export class SignInPage extends BasePage {
     }
 
     async switchToWelsh() {
+        logStep('switchToWelsh');
         await this.languageToggle.click();
     }
 
     async openForgottenPassword() {
+        logStep('openForgottenPassword');
         await this.forgottenPasswordLink.click();
     }
 
     async openCreateAccount() {
+        logStep('openCreateAccount');
         await this.createAccountLink.click();
     }
 }

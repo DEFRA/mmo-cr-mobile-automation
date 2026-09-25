@@ -1,4 +1,5 @@
 import { TripDatePage } from './tripDatePage';
+import { logStep, logWarn, logError } from '../../common/logger';
 
 export class TripDateDeparturePage extends TripDatePage {
     protected readonly prefix = 'CatchRecord.tripDate.departure';
@@ -12,6 +13,7 @@ export class TripDateDeparturePage extends TripDatePage {
     }
 
     async enterDepartureDate(day: string, month: string, year: string) {
+        logStep('date entry');
         await this.enterDate(day, month, year);
     }
 }

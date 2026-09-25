@@ -1,4 +1,5 @@
 import { BasePage } from './basePage';
+import { logStep, logError } from '../../common/logger';
 
 export class BaseCatchRecordPage extends BasePage {
     get backButton() {
@@ -18,11 +19,10 @@ export class BaseCatchRecordPage extends BasePage {
         term: string,
         result: ReturnType<typeof $>,
     ) {
+        logStep(`Searching for term "${term}" and selecting result`);
         await searchField.setValue(term);
         await result.waitForExist({ timeout: 10000 });
-        await browser.execute('mobile: scrollToElement', {
-            element: await result.elementId,
-        });
+        await this.scrollToElementIfExisting(result);
         await result.waitForDisplayed({ timeout: 10000 });
         await result.click();
     }
@@ -41,13 +41,16 @@ export class BaseCatchRecordPage extends BasePage {
         candidates: ReturnType<typeof $>[],
         notFoundMessage: string,
     ) {
+        logStep('Attempting to click first existing candidate');
         for (const candidate of candidates) {
             if (await candidate.isExisting()) {
+                logStep(`Found candidate and clicking it`);
                 await candidate.click();
                 return;
             }
         }
 
+        logError(`BaseCatchRecordPage: Candidates not found. ${notFoundMessage}`);
         throw new Error(notFoundMessage);
     }
 }

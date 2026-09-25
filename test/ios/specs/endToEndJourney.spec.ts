@@ -14,6 +14,7 @@ import LandingStoragePage from '../pageobjects/landingStoragePage';
 import SubmissionConfirmationPage from '../pageobjects/submissionConfirmationPage';
 import SubmissionSuccessPage from '../pageobjects/submissionSuccessPage';
 import TripTodayPage from '../pageobjects/tripTodayPage';
+import { logStep, logInfo } from '../../common/logger';
 
 const endToEndJourneyData = {
     vessel: 'ACHILLES' as const,
@@ -26,6 +27,8 @@ const endToEndJourneyData = {
     catchArea: '44E83',
     species: 'Atlantic salmon (SAL)',
     weight: '500',
+    weightBelowMin: '10',
+    weightDiscarded: '20',
     landingStorage: 'no' as const,
 };
 
@@ -34,6 +37,7 @@ describe('iOS end-to-end catch record journey', () => {
     const testPassword = process.env.IOS_TEST_PASSWORD;
 
     beforeEach(async () => {
+        logStep('beforeEach');
         if (!testEmail || !testPassword) {
             throw new Error(
                 'IOS_TEST_EMAIL and IOS_TEST_PASSWORD must be set in .env to run end-to-end tests.',
@@ -47,10 +51,12 @@ describe('iOS end-to-end catch record journey', () => {
     });
 
     afterEach(async () => {
+        logStep('afterEach');
         await HomePage.close();
     });
 
     it('completes and submits the catch record journey', async () => {
+        logStep('completes and submits the catch record journey');
         await HomePage.clickCreateRecordButton();
 
         await expect(SelectVesselPage.selectVesselHeading).toBeDisplayed();
@@ -103,6 +109,14 @@ describe('iOS end-to-end catch record journey', () => {
         await RecordSpeciesWeightsPage.enterWeight(
             endToEndJourneyData.species,
             endToEndJourneyData.weight,
+        );
+        await RecordSpeciesWeightsPage.enterWeightBelowMin(
+            endToEndJourneyData.species,
+            endToEndJourneyData.weightBelowMin,
+        );
+        await RecordSpeciesWeightsPage.enterWeightDiscarded(
+            endToEndJourneyData.species,
+            endToEndJourneyData.weightDiscarded,
         );
         await browser.execute('mobile: scrollToElement', {
             element: await RecordSpeciesWeightsPage.saveContinueButton.elementId,

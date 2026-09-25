@@ -1,4 +1,5 @@
 import { BaseCatchRecordPage } from './baseCatchRecordPage';
+import { logStep, logWarn, logError } from '../../common/logger';
 
 export class AddPortPage extends BaseCatchRecordPage {
     get referenceNumber() {
@@ -34,14 +35,17 @@ export class AddPortPage extends BaseCatchRecordPage {
     }
 
     async enterPortSearch(term: string) {
+        logStep('enterPortSearch');
         await this.searchField.setValue(term);
     }
 
     async selectPort(portName: string) {
+        logStep('selectPort with port name: ' + portName);
         await this.searchAndSelect(this.searchField, portName, this.portResult(portName));
     }
 
     async continueToNextStep() {
+        logStep('continueToNextStep');
         await this.saveContinueButton.click();
     }
 }

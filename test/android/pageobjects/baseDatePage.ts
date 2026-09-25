@@ -1,4 +1,5 @@
 import { BasePage } from './basePage';
+import { logStep } from '../../common/logger';
 
 export abstract class BaseDatePage extends BasePage {
     get dayLabel() {
@@ -26,25 +27,30 @@ export abstract class BaseDatePage extends BasePage {
     }
 
     async enterDay(day: string) {
+        logStep(`Entering day ${day}`);
         await this.dayField.waitForDisplayed({ timeout: 10000 });
         await this.dayField.setValue(day);
     }
 
     async enterMonth(month: string) {
+        logStep(`Entering month ${month}`);
         await this.monthField.setValue(month);
     }
 
     async enterYear(year: string) {
+        logStep(`Entering year ${year}`);
         await this.yearField.setValue(year);
     }
 
     async enterDate(day: string, month: string, year: string) {
+        logStep(`Entering date ${day}/${month}/${year}`);
         await this.enterDay(day);
         await this.enterMonth(month);
         await this.enterYear(year);
     }
 
     async enterDateAndContinue(day: string, month: string, year: string) {
+        logStep(`Entering date ${day}/${month}/${year} and continuing`);
         await this.enterDate(day, month, year);
         await this.saveAndContinue();
     }

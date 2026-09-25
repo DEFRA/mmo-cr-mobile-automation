@@ -1,4 +1,5 @@
 import { BaseCatchRecordPage } from './baseCatchRecordPage';
+import { logStep, logWarn, logError } from '../../common/logger';
 
 export class SelectGearPage extends BaseCatchRecordPage {
     get referenceNumber() {
@@ -48,14 +49,17 @@ export class SelectGearPage extends BaseCatchRecordPage {
     }
 
     async selectSeineNets() {
+        logStep('selectSeineNets');
         await this.seineNetsOption.click();
     }
 
     async enterTimesShot(value: string) {
+        logStep('enterTimesShot');
         await this.timesShotField.setValue(value);
     }
 
     async continueToNextStep() {
+        logStep('continueToNextStep');
         await this.saveContinueButton.click();
     }
 

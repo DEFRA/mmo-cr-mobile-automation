@@ -1,4 +1,5 @@
 import { BaseCatchRecordPage } from './baseCatchRecordPage';
+import { logStep, logWarn, logError } from '../../common/logger';
 
 export class AddGearPage extends BaseCatchRecordPage {
     get referenceNumber() {
@@ -36,14 +37,17 @@ export class AddGearPage extends BaseCatchRecordPage {
     }
 
     async enterGearSearch(term: string) {
+        logStep('enterGearSearch');
         await this.searchField.setValue(term);
     }
 
     async selectGear(gearName: string) {
+        logStep('selectGear with gear name: ' + gearName);
         await this.searchAndSelect(this.searchField, gearName, this.gearResult(gearName));
     }
 
     async continueToNextStep() {
+        logStep('continueToNextStep');
         await this.saveContinueButton.click();
     }
 }

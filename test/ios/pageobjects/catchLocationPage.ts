@@ -1,4 +1,5 @@
 import { BaseCatchRecordPage } from './baseCatchRecordPage';
+import { logStep, logWarn, logError } from '../../common/logger';
 
 export class CatchLocationPage extends BaseCatchRecordPage {
     get referenceNumber() {
@@ -54,6 +55,7 @@ export class CatchLocationPage extends BaseCatchRecordPage {
     }
 
     async zoomOut() {
+        logStep('zoomOut');
         await this.map.waitForDisplayed({ timeout: 10000 });
         await browser.execute('mobile: pinch', {
             elementId: await this.map.elementId,
@@ -63,6 +65,7 @@ export class CatchLocationPage extends BaseCatchRecordPage {
     }
 
     async zoomIn() {
+        logStep('zoomIn');
         await this.map.waitForDisplayed({ timeout: 10000 });
         await browser.execute('mobile: pinch', {
             elementId: await this.map.elementId,
@@ -72,20 +75,24 @@ export class CatchLocationPage extends BaseCatchRecordPage {
     }
 
     async selectArea(area: string) {
+        logStep('selectArea with area code: ' + area);
         await this.mapPin(area).click();
     }
 
     async openManualEntry() {
+        logStep('openManualEntry');
         await this.otherButton.waitForDisplayed({ timeout: 10000 });
         await this.otherButton.click();
     }
 
     async selectFirstArea() {
+        logStep('selectFirstArea');
         await this.firstAreaLabel.waitForDisplayed({ timeout: 10000 });
         await this.firstAreaLabel.click();
     }
 
     async selectRandomLocation() {
+        logStep('selectRandomLocation');
         await this.map.waitForDisplayed({ timeout: 10000 });
 
         const size = await this.map.getSize();
@@ -111,13 +118,16 @@ export class CatchLocationPage extends BaseCatchRecordPage {
             try {
                 await this.selectedArea.waitForDisplayed({ timeout: 2000 });
                 return;
-            } catch {}
+            } catch {
+                logWarn('CatchLocationPage: retry selectRandomLocation');
+            }
         }
 
         throw new Error('Could not select a random catch location.');
     }
 
     async continueToNextStep() {
+        logStep('continueToNextStep');
         await this.saveContinueButton.click();
     }
 }

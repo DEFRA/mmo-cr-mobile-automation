@@ -1,4 +1,5 @@
 import { BasePage } from './basePage';
+import { logStep, logWarn, logError } from '../../common/logger';
 
 export class SignInPage extends BasePage {
     get crownLogo() {
@@ -38,24 +39,29 @@ export class SignInPage extends BasePage {
     }
 
     async enterEmail(email: string) {
+        logStep('Entering email ' + email.substring(0, 3) + '***');
         await this.emailField.setValue(email);
     }
 
     async enterPassword(password: string) {
+        logStep('Entering password');
         await this.passwordField.setValue(password);
     }
 
     async signIn(email: string, password: string) {
+        logStep('Signing in');
         await this.enterEmail(email);
         await this.enterPassword(password);
         await this.signInButton.click();
     }
 
     async openForgottenPassword() {
+        logStep('Opening forgotten password link');
         await this.forgottenPasswordLink.click();
     }
 
     async openCreateAccount() {
+        logStep('Opening create account link');
         await this.createAccountLink.click();
     }
 }

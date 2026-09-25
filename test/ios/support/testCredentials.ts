@@ -1,4 +1,6 @@
+import { logInfo } from '../../common/logger';
 export function getIosTestCredentials(): { email: string; password: string } {
+    logInfo('Loading iOS test credentials');
     const email = process.env.IOS_TEST_EMAIL;
     const password = process.env.IOS_TEST_PASSWORD;
 

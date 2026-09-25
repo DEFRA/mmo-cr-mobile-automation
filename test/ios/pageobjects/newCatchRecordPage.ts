@@ -1,4 +1,5 @@
 import { BaseCatchRecordPage } from './baseCatchRecordPage';
+import { logStep, logWarn, logError } from '../../common/logger';
 
 export class NewCatchRecordPage extends BaseCatchRecordPage {
     get questionText() {
@@ -34,16 +35,19 @@ export class NewCatchRecordPage extends BaseCatchRecordPage {
     }
 
     async chooseCompleteThisRecord() {
+        logStep('chooseCompleteThisRecord');
         await this.completeThisRecordOption.click();
         await this.saveContinueButton.click();
     }
 
     async chooseDeleteThisRecord() {
+        logStep('chooseDeleteThisRecord');
         await this.deleteThisRecordOption.click();
         await this.saveContinueButton.click();
     }
 
     async confirmDeleteDraftRecord() {
+        logStep('confirmDeleteDraftRecord');
         await this.deleteConfirmationSheet.waitForDisplayed({ timeout: 10000 });
         await this.deleteConfirmationText.waitForDisplayed({ timeout: 10000 });
         await this.deleteConfirmButton.click();

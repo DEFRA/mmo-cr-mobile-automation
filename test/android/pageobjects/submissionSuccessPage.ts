@@ -1,4 +1,5 @@
 import { BasePage } from './basePage';
+import { logStep, logWarn, logError } from '../../common/logger';
 
 export class SubmissionSuccessPage extends BasePage {
     get heading() {
@@ -18,17 +19,21 @@ export class SubmissionSuccessPage extends BasePage {
     }
 
     async getRecordReference(): Promise<string> {
+        logStep('Getting record reference');
         await this.referenceText.waitForDisplayed({ timeout: 10000 });
         const text = await this.referenceText.getText();
 
         const prefix = 'reference ';
+        let reference = text;
         if (text.includes(prefix)) {
-            return text.split(prefix)[1].trim();
+            reference = text.split(prefix)[1].trim();
         }
-        return text;
+        logStep(`Record reference is ${reference}`);
+        return reference;
     }
 
     async clickViewRecords() {
+        logStep('Clicking view records');
         await this.viewRecordsButton.waitForDisplayed({ timeout: 10000 });
         await this.viewRecordsButton.click();
     }

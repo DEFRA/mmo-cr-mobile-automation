@@ -3,6 +3,7 @@ import AddSpeciesPage from '../pageobjects/addSpeciesPage';
 import CatchLocationPage from '../pageobjects/catchLocationPage';
 import CheckYourAnswersPage from '../pageobjects/checkYourAnswersPage';
 import SelectVesselPage from '../pageobjects/selectVesselPage';
+import { logStep, logInfo } from '../../common/logger';
 import {
     completeRecordUpToCheckYourAnswers,
     type CatchRecordJourneyData,
@@ -30,21 +31,25 @@ async function scrollToAndExpectDisplayed(element: ReturnType<typeof $>) {
 
 describe('iOS check your answers page', () => {
     beforeEach(async () => {
+        logStep('beforeEach');
         await completeRecordUpToCheckYourAnswers(journeyData);
         await expect(CheckYourAnswersPage.heading).toBeDisplayed();
     });
 
     afterEach(async () => {
+        logStep('afterEach');
         await CheckYourAnswersPage.close();
     });
 
     it('displays the trip, gear and species sections', async () => {
+        logStep('displays the trip, gear and species sections');
         await scrollToAndExpectDisplayed(CheckYourAnswersPage.tripSection);
         await scrollToAndExpectDisplayed(CheckYourAnswersPage.gearSection);
         await scrollToAndExpectDisplayed(CheckYourAnswersPage.speciesCaughtSection);
     });
 
     it('shows the captured trip answers', async () => {
+        logStep('shows the captured trip answers');
         await scrollToAndExpectDisplayed(CheckYourAnswersPage.vesselValue(journeyData.vessel));
         await scrollToAndExpectDisplayed(CheckYourAnswersPage.departurePortValue(journeyData.port));
         await scrollToAndExpectDisplayed(CheckYourAnswersPage.returnPortValue(journeyData.port));
@@ -54,6 +59,7 @@ describe('iOS check your answers page', () => {
     });
 
     it('shows the captured gear answers', async () => {
+        logStep('shows the captured gear answers');
         await scrollToAndExpectDisplayed(CheckYourAnswersPage.gearNameValue(journeyData.gear));
         await scrollToAndExpectDisplayed(CheckYourAnswersPage.meshSizeValue(journeyData.meshSize));
         await scrollToAndExpectDisplayed(
@@ -69,6 +75,7 @@ describe('iOS check your answers page', () => {
     });
 
     it('opens the select vessel page when changing the vessel', async () => {
+        logStep('opens the select vessel page when changing the vessel');
         await scrollToAndExpectDisplayed(CheckYourAnswersPage.changeTripVesselButton);
         await CheckYourAnswersPage.changeTripVessel();
 
@@ -76,6 +83,7 @@ describe('iOS check your answers page', () => {
     });
 
     it('opens the catch location page when changing the statistical area', async () => {
+        logStep('opens the catch location page when changing the statistical area');
         await scrollToAndExpectDisplayed(CheckYourAnswersPage.changeStatisticalAreaButton);
         await CheckYourAnswersPage.changeStatisticalArea();
 

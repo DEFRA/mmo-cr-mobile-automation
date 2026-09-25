@@ -1,4 +1,5 @@
 import { BaseCatchRecordPage } from './baseCatchRecordPage';
+import { logStep, logWarn, logError } from '../../common/logger';
 
 export class AddSpeciesPage extends BaseCatchRecordPage {
     get referenceNumber() {
@@ -50,10 +51,12 @@ export class AddSpeciesPage extends BaseCatchRecordPage {
     }
 
     async selectSpecies(speciesName: string) {
+        logStep('selectSpecies with species name: ' + speciesName);
         await this.searchAndSelect(this.searchField, speciesName, this.speciesResult(speciesName));
     }
 
     async continueToNextStep() {
+        logStep('continueToNextStep');
         await this.saveContinueButton.click();
     }
 }

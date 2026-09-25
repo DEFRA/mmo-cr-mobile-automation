@@ -1,4 +1,5 @@
 import { BaseCatchRecordPage } from './baseCatchRecordPage';
+import { logStep, logWarn, logError } from '../../common/logger';
 
 export class CheckYourAnswersPage extends BaseCatchRecordPage {
     get referenceNumber() {
@@ -110,42 +111,52 @@ export class CheckYourAnswersPage extends BaseCatchRecordPage {
     }
 
     async continueToNextStep() {
+        logStep('continueToNextStep');
         await this.saveContinueButton.click();
     }
 
     async changeTripVessel() {
+        logStep('changeTripVessel');
         await this.changeTripVesselButton.click();
     }
 
     async changeDeparturePort() {
+        logStep('changeDeparturePort');
         await this.changeDeparturePortButton.click();
     }
 
     async changeReturnPort() {
+        logStep('changeReturnPort');
         await this.changeReturnPortButton.click();
     }
 
     async changeStatisticalArea() {
+        logStep('changeStatisticalArea');
         await this.changeStatisticalAreaButton.click();
     }
 
     async changeGearName() {
+        logStep('changeGearName');
         await this.changeGearNameButton.click();
     }
 
     async changeMeshSize() {
+        logStep('changeMeshSize');
         await this.changeMeshSizeButton.click();
     }
 
     async changeTimesShot() {
+        logStep('changeTimesShot');
         await this.changeTimesShotButton.click();
     }
 
     async changeSpeciesName() {
+        logStep('changeSpeciesName');
         await this.changeSpeciesNameButton.click();
     }
 
     async changeWeightAbove() {
+        logStep('changeWeightAbove');
         await this.changeWeightAboveButton.click();
     }
 }

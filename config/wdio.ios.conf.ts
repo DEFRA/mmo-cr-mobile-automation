@@ -1,6 +1,7 @@
 import { existsSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { appiumPort, baseConfig, cleanReports, uninstallIosApp } from './wdio.base.conf';
+import { logInfo } from '../test/common/logger';
 
 const appsDir = join(process.cwd(), 'apps');
 const appFile = existsSync(appsDir)
@@ -45,6 +46,7 @@ export const config: WebdriverIO.Config = {
 
     onPrepare: async () => {
         cleanReports();
+        await logInfo('iOS onPrepare: Using app ' + appFile + ', UDID: ' + (iosUdid ?? 'auto'));
         if (iosBundleId) {
             await uninstallIosApp(iosBundleId, iosUdid);
         }
