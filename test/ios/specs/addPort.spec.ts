@@ -3,21 +3,15 @@ import AddGearPage from '../pageobjects/addGearPage';
 import ConfirmSamePortPage from '../pageobjects/confirmSamePortPage';
 import SelectPortDeparturePage from '../pageobjects/selectPortDeparturePage';
 import SelectPortReturnPage from '../pageobjects/selectPortReturnPage';
-import { signInAndOpenCreateRecord, selectVesselAndTripToday } from '../support/journeySteps';
-import { logStep, logInfo } from '../../common/logger';
-
-async function addPortAndDeclineSamePort(portName: string) {
-    await AddPortPage.selectPort(portName);
-    await AddPortPage.continueToNextStep();
-    await ConfirmSamePortPage.noOption.click();
-    await ConfirmSamePortPage.continueToNextStep();
-}
+import iosFlowNavigator from '../support/iosFlowNavigator';
+import { logStep } from '../../common/logger';
 
 describe('iOS add port page', () => {
     beforeEach(async () => {
         logStep('beforeEach');
-        await signInAndOpenCreateRecord();
-        await selectVesselAndTripToday('ACHILLES', 'yes');
+        await iosFlowNavigator.signInAndOpenCreateRecord();
+        await iosFlowNavigator.selectVessel('ACHILLES');
+        await iosFlowNavigator.selectTripToday('yes');
         await expect(AddPortPage.heading).toBeDisplayed();
     });
 
@@ -53,9 +47,7 @@ describe('iOS add port page', () => {
         await portResult.waitForDisplayed({ timeout: 10000 });
         await expect(portResult).toBeDisplayed();
 
-        await browser.execute('mobile: scrollToElement', {
-            element: await portResult.elementId,
-        });
+        await AddPortPage.scrollToElement(portResult);
         await portResult.click();
 
         await expect(AddPortPage.searchField).toHaveAttribute('value', 'Fraserburgh');
@@ -63,7 +55,8 @@ describe('iOS add port page', () => {
 
     it('requires a departure port selection and supports adding another port', async () => {
         logStep('requires a departure port selection and supports adding another port');
-        await addPortAndDeclineSamePort('Peterhead');
+        await iosFlowNavigator.addPort('Peterhead');
+        await iosFlowNavigator.confirmSamePort('Peterhead', 'no');
 
         await expect(SelectPortDeparturePage.heading).toBeDisplayed();
         await expect(SelectPortDeparturePage.peterheadOption).toBeDisplayed();
@@ -80,7 +73,8 @@ describe('iOS add port page', () => {
 
     it('allows the user to add multiple ports', async () => {
         logStep('allows the user to add multiple ports');
-        await addPortAndDeclineSamePort('Peterhead');
+        await iosFlowNavigator.addPort('Peterhead');
+        await iosFlowNavigator.confirmSamePort('Peterhead', 'no');
 
         await SelectPortDeparturePage.addAnotherPortButton.click();
         await expect(AddPortPage.heading).toBeDisplayed();
@@ -94,7 +88,8 @@ describe('iOS add port page', () => {
 
     it('navigates to return port selection after choosing a departure port', async () => {
         logStep('navigates to return port selection after choosing a departure port');
-        await addPortAndDeclineSamePort('Peterhead');
+        await iosFlowNavigator.addPort('Peterhead');
+        await iosFlowNavigator.confirmSamePort('Peterhead', 'no');
 
         await SelectPortDeparturePage.peterheadOption.click();
         await SelectPortDeparturePage.continueToNextStep();
@@ -104,7 +99,8 @@ describe('iOS add port page', () => {
 
     it('allows the user to select a return port', async () => {
         logStep('allows the user to select a return port');
-        await addPortAndDeclineSamePort('Peterhead');
+        await iosFlowNavigator.addPort('Peterhead');
+        await iosFlowNavigator.confirmSamePort('Peterhead', 'no');
 
         await SelectPortDeparturePage.peterheadOption.click();
         await SelectPortDeparturePage.continueToNextStep();

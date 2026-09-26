@@ -1,13 +1,13 @@
 import HomePage from '../pageobjects/homePage';
 import SelectVesselPage from '../pageobjects/selectVesselPage';
 import TripTodayPage from '../pageobjects/tripTodayPage';
-import { signInAndOpenCreateRecord } from '../support/journeySteps';
-import { logStep, logInfo } from '../../common/logger';
+import iosFlowNavigator from '../support/iosFlowNavigator';
+import { logStep } from '../../common/logger';
 
 describe('iOS select vessel page', () => {
     beforeEach(async () => {
         logStep('beforeEach');
-        await signInAndOpenCreateRecord();
+        await iosFlowNavigator.signInAndOpenCreateRecord();
         await expect(SelectVesselPage.selectVesselHeading).toBeDisplayed();
     });
 

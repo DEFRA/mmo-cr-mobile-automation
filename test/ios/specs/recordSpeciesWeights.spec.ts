@@ -1,8 +1,8 @@
 import AddSpeciesPage from '../pageobjects/addSpeciesPage';
 import LandingStoragePage from '../pageobjects/landingStoragePage';
 import RecordSpeciesWeightsPage from '../pageobjects/recordSpeciesWeightsPage';
-import { completeRecordUpToAddSpecies, type CatchRecordJourneyData } from '../support/journeySteps';
-import { logStep, logInfo } from '../../common/logger';
+import iosFlowNavigator, { type CatchRecordJourneyData } from '../support/iosFlowNavigator';
+import { logStep } from '../../common/logger';
 
 const journeyData: CatchRecordJourneyData = {
     vessel: 'ACHILLES',
@@ -18,20 +18,19 @@ const journeyData: CatchRecordJourneyData = {
 
 const secondSpecies = 'Atlantic salmon (SAL)';
 
-async function scrollIntoView(element: ReturnType<typeof $>) {
-    await element.waitForExist({ timeout: 10000 });
-    await browser.execute('mobile: scrollToElement', {
-        element: await element.elementId,
-    });
-}
-
 describe('iOS record species weights page', () => {
     beforeEach(async () => {
         logStep('beforeEach');
-        await completeRecordUpToAddSpecies(journeyData);
-        await AddSpeciesPage.selectSpecies(journeyData.species);
-        await scrollIntoView(AddSpeciesPage.saveContinueButton);
-        await AddSpeciesPage.continueToNextStep();
+        await iosFlowNavigator.signInAndOpenCreateRecord();
+        await iosFlowNavigator.selectVessel(journeyData.vessel);
+        await iosFlowNavigator.selectTripToday('yes');
+        await iosFlowNavigator.addPort(journeyData.port);
+        await iosFlowNavigator.confirmSamePort(journeyData.port, 'yes');
+        await iosFlowNavigator.addGear(journeyData.gear);
+        await iosFlowNavigator.enterGearMeasurements(journeyData.meshSize);
+        await iosFlowNavigator.selectGearDetails(journeyData.timesShot);
+        await iosFlowNavigator.completeCatchLocation(journeyData.catchArea);
+        await iosFlowNavigator.addSpecies(journeyData.species);
         await expect(RecordSpeciesWeightsPage.heading).toBeDisplayed();
     });
 
@@ -59,7 +58,6 @@ describe('iOS record species weights page', () => {
     it('continues to the landing storage page after recording a weight', async () => {
         logStep('continues to the landing storage page after recording a weight');
         await RecordSpeciesWeightsPage.enterWeight(journeyData.species, journeyData.weight);
-        await scrollIntoView(RecordSpeciesWeightsPage.saveContinueButton);
         await RecordSpeciesWeightsPage.continueToNextStep();
 
         await expect(LandingStoragePage.heading).toBeDisplayed();
@@ -90,8 +88,6 @@ describe('iOS record species weights page', () => {
     it('returns to add species when adding another species', async () => {
         logStep('returns to add species when adding another species');
         await RecordSpeciesWeightsPage.enterWeight(journeyData.species, journeyData.weight);
-        await scrollIntoView(RecordSpeciesWeightsPage.addSpeciesButton);
-        await expect(RecordSpeciesWeightsPage.addSpeciesButton).toBeDisplayed();
         await RecordSpeciesWeightsPage.addSpecies();
 
         await expect(AddSpeciesPage.heading).toBeDisplayed();
@@ -100,13 +96,10 @@ describe('iOS record species weights page', () => {
     it('records weights for multiple species', async () => {
         logStep('records weights for multiple species');
         await RecordSpeciesWeightsPage.enterWeight(journeyData.species, journeyData.weight);
-        await scrollIntoView(RecordSpeciesWeightsPage.addSpeciesButton);
         await RecordSpeciesWeightsPage.addSpecies();
 
         await expect(AddSpeciesPage.heading).toBeDisplayed();
-        await AddSpeciesPage.selectSpecies(secondSpecies);
-        await scrollIntoView(AddSpeciesPage.saveContinueButton);
-        await AddSpeciesPage.continueToNextStep();
+        await iosFlowNavigator.addSpecies(secondSpecies);
 
         await expect(RecordSpeciesWeightsPage.heading).toBeDisplayed();
         await RecordSpeciesWeightsPage.enterWeight(secondSpecies, '250');

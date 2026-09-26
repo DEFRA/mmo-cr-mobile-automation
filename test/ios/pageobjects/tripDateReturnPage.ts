@@ -1,8 +1,8 @@
 import { TripDatePage } from './tripDatePage';
-import { logStep, logWarn, logError } from '../../common/logger';
+import { logStep } from '../../common/logger';
 
 export class TripDateReturnPage extends TripDatePage {
-    protected readonly prefix = 'CatchRecord.tripDate.return';
+    protected pageId = 'tripDate.return';
 
     get dateContainer() {
         return $('~When did you return from your trip?');

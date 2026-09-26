@@ -1,14 +1,8 @@
 import { BaseCatchRecordPage } from './baseCatchRecordPage';
-import { logStep, logWarn, logError } from '../../common/logger';
+import { logStep } from '../../common/logger';
 
 export class SubmissionConfirmationPage extends BaseCatchRecordPage {
-    get referenceNumber() {
-        return $('~CatchRecord.submissionConfirmation.referenceNumber');
-    }
-
-    get heading() {
-        return $('~CatchRecord.submissionConfirmation.heading');
-    }
+    protected pageId = 'submissionConfirmation';
 
     get notice() {
         return $('~CatchRecord.submissionConfirmation.notice');
@@ -53,7 +47,7 @@ export class SubmissionConfirmationPage extends BaseCatchRecordPage {
 
     async acceptAndSubmit() {
         logStep('acceptAndSubmit');
-        await this.acceptButton.click();
+        await this.scrollAndClickIfExisting(this.acceptButton);
     }
 }
 

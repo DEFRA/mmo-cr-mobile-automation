@@ -1,11 +1,11 @@
 import HomePage from '../pageobjects/homePage';
-import { signIn } from '../support/journeySteps';
-import { logStep, logInfo } from '../../common/logger';
+import iosFlowNavigator from '../support/iosFlowNavigator';
+import { logStep } from '../../common/logger';
 
 describe('iOS home page', () => {
     beforeEach(async () => {
         logStep('beforeEach');
-        await signIn();
+        await iosFlowNavigator.signIn();
         await HomePage.scrollToElement(HomePage.yourTripsHeading);
     });
 
@@ -59,9 +59,7 @@ describe('iOS home page', () => {
         await pagination.waitForExist();
 
         if (!(await pagination.isDisplayed())) {
-            await browser.execute('mobile: scrollToElement', {
-                element: await pagination.elementId,
-            });
+            await HomePage.scrollToElement(pagination);
         }
 
         await pagination.waitForDisplayed({ timeout: 10000 });

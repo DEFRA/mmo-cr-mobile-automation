@@ -1,14 +1,8 @@
 import { BaseCatchRecordPage } from './baseCatchRecordPage';
-import { logStep, logWarn, logError } from '../../common/logger';
+import { logStep } from '../../common/logger';
 
 export class CatchLocationManualEntryPage extends BaseCatchRecordPage {
-    get referenceNumber() {
-        return $('~CatchRecord.catchLocationManualEntry.referenceNumber');
-    }
-
-    get heading() {
-        return $('~CatchRecord.catchLocationManualEntry.heading');
-    }
+    protected pageId = 'catchLocationManualEntry';
 
     get description() {
         return $('~Enter the statistical sub area where most of your catch was caught using Pots');
@@ -19,11 +13,6 @@ export class CatchLocationManualEntryPage extends BaseCatchRecordPage {
             '//XCUIElementTypeTextField[@placeholderValue="Type to search (minimum 2 characters)"]',
         );
     }
-
-    get saveContinueButton() {
-        return $('~CatchRecord.catchLocationManualEntry.saveContinue');
-    }
-
     areaResult(code: string) {
         return $(`~SearchDropdownField.result.${code}`);
     }
@@ -52,11 +41,6 @@ export class CatchLocationManualEntryPage extends BaseCatchRecordPage {
     async selectArea(code: string) {
         logStep('selectArea');
         await this.searchAndSelect(this.searchField, code, this.areaResult(code));
-    }
-
-    async continueToNextStep() {
-        logStep('continueToNextStep');
-        await this.saveContinueButton.click();
     }
 }
 

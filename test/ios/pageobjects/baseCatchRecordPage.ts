@@ -2,6 +2,31 @@ import { BasePage } from './basePage';
 import { logStep, logError } from '../../common/logger';
 
 export class BaseCatchRecordPage extends BasePage {
+    protected pageId?: string;
+
+    get referenceNumber() {
+        if (!this.pageId) throw new Error('pageId not defined');
+        return this.selector(`CatchRecord.${this.pageId}.referenceNumber`);
+    }
+
+    get heading() {
+        if (!this.pageId) throw new Error('pageId not defined');
+        return this.selector(`CatchRecord.${this.pageId}.heading`);
+    }
+
+    get saveContinueButton() {
+        if (!this.pageId) throw new Error('pageId not defined');
+        return this.selector(`CatchRecord.${this.pageId}.saveContinue`);
+    }
+
+    async continueToNextStep() {
+        logStep('continueToNextStep');
+        const btn = this.saveContinueButton;
+        if (btn) {
+            await this.scrollAndClickIfExisting(btn);
+        }
+    }
+
     get backButton() {
         return this.selector('ViewHeader.backButton');
     }

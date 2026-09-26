@@ -1,14 +1,8 @@
 import { BaseCatchRecordPage } from './baseCatchRecordPage';
-import { logStep, logWarn, logError } from '../../common/logger';
+import { logStep } from '../../common/logger';
 
 export class SelectGearPage extends BaseCatchRecordPage {
-    get referenceNumber() {
-        return $('~CatchRecord.selectGear.referenceNumber');
-    }
-
-    get heading() {
-        return $('~CatchRecord.selectGear.heading');
-    }
+    protected pageId = 'selectGear';
 
     get description() {
         return $('~Select all the gears used on your vessel.');
@@ -39,11 +33,6 @@ export class SelectGearPage extends BaseCatchRecordPage {
             '//XCUIElementTypeTextField[@name="CatchRecord.selectGear.variable.sx.timesShot"]',
         );
     }
-
-    get saveContinueButton() {
-        return $('~CatchRecord.selectGear.saveContinue');
-    }
-
     get addAnotherGearButton() {
         return $('~CatchRecord.selectGear.addAnother');
     }
@@ -57,12 +46,6 @@ export class SelectGearPage extends BaseCatchRecordPage {
         logStep('enterTimesShot');
         await this.timesShotField.setValue(value);
     }
-
-    async continueToNextStep() {
-        logStep('continueToNextStep');
-        await this.saveContinueButton.click();
-    }
-
     async addAnotherGear() {
         await this.addAnotherGearButton.click();
     }

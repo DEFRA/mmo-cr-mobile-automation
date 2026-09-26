@@ -7,7 +7,6 @@ import selectVesselPage from '../pageobjects/selectVesselPage';
 import departurePortPage from '../pageobjects/departurePortPage';
 import returnPortPage from '../pageobjects/returnPortPage';
 import catchAreaPage from '../pageobjects/catchAreaPage';
-import catchSubAreaPage from '../pageobjects/catchSubAreaPage';
 import gearPage from '../pageobjects/gearPage';
 import gearMeasurementPage from '../pageobjects/gearMeasurementPage';
 import selectedGearsPage from '../pageobjects/selectedGearsPage';
@@ -17,7 +16,7 @@ import delayedLandingPage from '../pageobjects/delayedLandingPage';
 
 export type DateData = { day: string; month: string; year: string };
 
-export class FlowNavigator {
+export class AndroidFlowNavigator {
     async startCatchRecord() {
         await logStep('Starting catch record journey');
         await homePage.clickCreateRecordButton();
@@ -127,4 +126,4 @@ export class FlowNavigator {
     }
 }
 
-export default new FlowNavigator();
+export default new AndroidFlowNavigator();

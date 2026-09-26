@@ -1,14 +1,8 @@
 import { BaseCatchRecordPage } from './baseCatchRecordPage';
-import { logStep, logWarn, logError } from '../../common/logger';
+import { logStep } from '../../common/logger';
 
 export class CheckYourAnswersPage extends BaseCatchRecordPage {
-    get referenceNumber() {
-        return $('~CatchRecord.checkYourAnswers.referenceNumber');
-    }
-
-    get heading() {
-        return $('~CatchRecord.checkYourAnswers.heading');
-    }
+    protected pageId = 'checkYourAnswers';
 
     get tripSection() {
         return $('~CatchRecord.checkYourAnswers.section.trip');
@@ -59,11 +53,6 @@ export class CheckYourAnswersPage extends BaseCatchRecordPage {
     weightAboveValue(value: string) {
         return this.selector(value);
     }
-
-    get saveContinueButton() {
-        return $('~CatchRecord.checkYourAnswers.saveContinue');
-    }
-
     get changeTripVesselButton() {
         return $('~CatchRecord.checkYourAnswers.change.trip.vessel');
     }
@@ -109,12 +98,6 @@ export class CheckYourAnswersPage extends BaseCatchRecordPage {
             '-ios predicate string:name CONTAINS ".speciesCaught." AND name ENDSWITH ".above"',
         );
     }
-
-    async continueToNextStep() {
-        logStep('continueToNextStep');
-        await this.saveContinueButton.click();
-    }
-
     async changeTripVessel() {
         logStep('changeTripVessel');
         await this.changeTripVesselButton.click();

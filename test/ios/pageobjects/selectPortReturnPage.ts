@@ -1,14 +1,8 @@
 import { BaseCatchRecordPage } from './baseCatchRecordPage';
-import { logStep, logWarn, logError } from '../../common/logger';
+import { logStep } from '../../common/logger';
 
 export class SelectPortReturnPage extends BaseCatchRecordPage {
-    get referenceNumber() {
-        return $('~CatchRecord.selectPort.return.referenceNumber');
-    }
-
-    get heading() {
-        return $('~CatchRecord.selectPort.return.heading');
-    }
+    protected pageId = 'selectPort.return';
 
     get description() {
         return $('~Select the port name, or the nearest port to where you returned.');
@@ -25,11 +19,6 @@ export class SelectPortReturnPage extends BaseCatchRecordPage {
     portOption(portName: string) {
         return this.selector(`CatchRecord.selectPort.return.option.${portName.toLowerCase()}`);
     }
-
-    get saveContinueButton() {
-        return $('~CatchRecord.selectPort.return.saveContinue');
-    }
-
     get addAnotherPortButton() {
         return $('~CatchRecord.selectPort.return.addAnother');
     }
@@ -45,11 +34,6 @@ export class SelectPortReturnPage extends BaseCatchRecordPage {
     async selectPeterhead() {
         await this.selectPort('Peterhead');
     }
-
-    async continueToNextStep() {
-        await this.saveContinueButton.click();
-    }
-
     async addAnotherPort() {
         await this.addAnotherPortButton.click();
     }

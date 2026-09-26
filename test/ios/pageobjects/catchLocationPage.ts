@@ -1,14 +1,8 @@
 import { BaseCatchRecordPage } from './baseCatchRecordPage';
-import { logStep, logWarn, logError } from '../../common/logger';
+import { logStep, logWarn } from '../../common/logger';
 
 export class CatchLocationPage extends BaseCatchRecordPage {
-    get referenceNumber() {
-        return $('~CatchRecord.catchLocation.referenceNumber');
-    }
-
-    get heading() {
-        return $('~CatchRecord.catchLocation.heading');
-    }
+    protected pageId = 'catchLocation';
 
     get nearestAreasDescription() {
         return $('~The statistical areas nearest to your departure port are shown below.');
@@ -29,11 +23,6 @@ export class CatchLocationPage extends BaseCatchRecordPage {
     get otherButton() {
         return $('~CatchRecord.catchLocation.otherButton');
     }
-
-    get saveContinueButton() {
-        return $('~CatchRecord.catchLocation.saveContinue');
-    }
-
     mapPin(area: string) {
         return $(
             `//XCUIElementTypeOther[@name="Map pin"][following-sibling::*[1][@value="${area}"]]`,
@@ -124,11 +113,6 @@ export class CatchLocationPage extends BaseCatchRecordPage {
         }
 
         throw new Error('Could not select a random catch location.');
-    }
-
-    async continueToNextStep() {
-        logStep('continueToNextStep');
-        await this.saveContinueButton.click();
     }
 }
 

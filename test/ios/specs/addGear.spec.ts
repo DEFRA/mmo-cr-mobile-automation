@@ -1,18 +1,16 @@
 import AddGearPage from '../pageobjects/addGearPage';
 import GearMeasurementsPage from '../pageobjects/gearMeasurementsPage';
-import { logStep, logInfo } from '../../common/logger';
-import {
-    signInAndOpenCreateRecord,
-    selectVesselAndTripToday,
-    completePortJourney,
-} from '../support/journeySteps';
+import { logStep } from '../../common/logger';
+import iosFlowNavigator from '../support/iosFlowNavigator';
 
 describe('iOS add gear page', () => {
     beforeEach(async () => {
         logStep('beforeEach');
-        await signInAndOpenCreateRecord();
-        await selectVesselAndTripToday('ACHILLES', 'yes');
-        await completePortJourney('Peterhead', 'yes');
+        await iosFlowNavigator.signInAndOpenCreateRecord();
+        await iosFlowNavigator.selectVessel('ACHILLES');
+        await iosFlowNavigator.selectTripToday('yes');
+        await iosFlowNavigator.addPort('Peterhead');
+        await iosFlowNavigator.confirmSamePort('Peterhead', 'yes');
         await expect(AddGearPage.heading).toBeDisplayed();
     });
 
@@ -46,9 +44,7 @@ describe('iOS add gear page', () => {
 
         await AddGearPage.enterGearSearch('Seine nets');
         await gearResult.waitForDisplayed({ timeout: 10000 });
-        await browser.execute('mobile: scrollToElement', {
-            element: await gearResult.elementId,
-        });
+        await AddGearPage.scrollToElement(gearResult);
         await gearResult.click();
 
         await expect(AddGearPage.searchField).toHaveAttribute('value', gearName);

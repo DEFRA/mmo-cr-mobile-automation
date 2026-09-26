@@ -1,14 +1,8 @@
 import { BaseCatchRecordPage } from './baseCatchRecordPage';
-import { logStep, logWarn, logError } from '../../common/logger';
+import { logStep } from '../../common/logger';
 
 export class AddSpeciesPage extends BaseCatchRecordPage {
-    get referenceNumber() {
-        return $('~CatchRecord.addSpecies.referenceNumber');
-    }
-
-    get heading() {
-        return $('~CatchRecord.addSpecies.heading');
-    }
+    protected pageId = 'addSpecies';
 
     get emptyStateText() {
         return $("~You haven't added any species yet.");
@@ -37,11 +31,6 @@ export class AddSpeciesPage extends BaseCatchRecordPage {
     get contactLink() {
         return $('~CatchRecord.addSpecies.contactLink');
     }
-
-    get saveContinueButton() {
-        return $('~CatchRecord.addSpecies.saveContinue');
-    }
-
     speciesResult(speciesName: string) {
         return $(`-ios predicate string:name == "SearchDropdownField.result.${speciesName}"`);
     }
@@ -53,11 +42,6 @@ export class AddSpeciesPage extends BaseCatchRecordPage {
     async selectSpecies(speciesName: string) {
         logStep('selectSpecies with species name: ' + speciesName);
         await this.searchAndSelect(this.searchField, speciesName, this.speciesResult(speciesName));
-    }
-
-    async continueToNextStep() {
-        logStep('continueToNextStep');
-        await this.saveContinueButton.click();
     }
 }
 

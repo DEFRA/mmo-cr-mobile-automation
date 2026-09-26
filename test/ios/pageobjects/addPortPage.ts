@@ -1,14 +1,8 @@
 import { BaseCatchRecordPage } from './baseCatchRecordPage';
-import { logStep, logWarn, logError } from '../../common/logger';
+import { logStep } from '../../common/logger';
 
 export class AddPortPage extends BaseCatchRecordPage {
-    get referenceNumber() {
-        return $('~CatchRecord.addPort.referenceNumber');
-    }
-
-    get heading() {
-        return $('~CatchRecord.addPort.heading');
-    }
+    protected pageId = 'addPort';
 
     get emptyStateText() {
         return $(
@@ -25,11 +19,6 @@ export class AddPortPage extends BaseCatchRecordPage {
             '//XCUIElementTypeTextField[@placeholderValue="Type to search (minimum 2 characters)"]',
         );
     }
-
-    get saveContinueButton() {
-        return $('~CatchRecord.addPort.saveContinue');
-    }
-
     portResult(portName: string) {
         return $(`~SearchDropdownField.result.${portName}`);
     }
@@ -42,11 +31,6 @@ export class AddPortPage extends BaseCatchRecordPage {
     async selectPort(portName: string) {
         logStep('selectPort with port name: ' + portName);
         await this.searchAndSelect(this.searchField, portName, this.portResult(portName));
-    }
-
-    async continueToNextStep() {
-        logStep('continueToNextStep');
-        await this.saveContinueButton.click();
     }
 }
 

@@ -1,14 +1,8 @@
 import { BaseCatchRecordPage } from './baseCatchRecordPage';
-import { logStep, logWarn, logError } from '../../common/logger';
+import { logStep } from '../../common/logger';
 
 export class SubmissionNudgePage extends BaseCatchRecordPage {
-    get referenceNumber() {
-        return $('~CatchRecord.submissionNudge.referenceNumber');
-    }
-
-    get heading() {
-        return $('~CatchRecord.submissionNudge.heading');
-    }
+    protected pageId = 'submissionNudge';
 
     get submissionWindowMessage() {
         return $('~Catch records must be submitted within 24 hours of a trip ending.');
@@ -17,19 +11,9 @@ export class SubmissionNudgePage extends BaseCatchRecordPage {
     get checkDateLink() {
         return $('~CatchRecord.submissionNudge.checkDateLink');
     }
-
-    get saveContinueButton() {
-        return $('~CatchRecord.submissionNudge.saveContinue');
-    }
-
     async checkTripEndDate() {
         logStep('checkTripEndDate');
         await this.checkDateLink.click();
-    }
-
-    async continueToNextStep() {
-        logStep('continueToNextStep');
-        await this.saveContinueButton.click();
     }
 }
 

@@ -1,17 +1,7 @@
 import { BaseCatchRecordPage } from './baseCatchRecordPage';
-import { logStep, logWarn, logError } from '../../common/logger';
+import { logStep } from '../../common/logger';
 
 export abstract class TripDatePage extends BaseCatchRecordPage {
-    protected abstract readonly prefix: string;
-
-    get referenceNumber() {
-        return this.selector(`${this.prefix}.referenceNumber`);
-    }
-
-    get heading() {
-        return this.selector(`${this.prefix}.heading`);
-    }
-
     get dayLabel() {
         return $('~Day');
     }
@@ -36,10 +26,6 @@ export abstract class TripDatePage extends BaseCatchRecordPage {
         return $('//XCUIElementTypeTextField[@name="Year"]');
     }
 
-    get saveContinueButton() {
-        return this.selector(`${this.prefix}.saveContinue`);
-    }
-
     get validationError() {
         return $('//XCUIElementTypeStaticText[@name="catchRecord.tripDate.validation.none"]');
     }
@@ -49,9 +35,5 @@ export abstract class TripDatePage extends BaseCatchRecordPage {
         await this.dayField.setValue(day);
         await this.monthField.setValue(month);
         await this.yearField.setValue(year);
-    }
-
-    async continueToNextStep() {
-        await this.saveContinueButton.click();
     }
 }

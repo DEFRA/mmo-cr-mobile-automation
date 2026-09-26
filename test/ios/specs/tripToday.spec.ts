@@ -4,27 +4,17 @@ import SubmissionNudgePage from '../pageobjects/submissionNudgePage';
 import TripDateDeparturePage from '../pageobjects/tripDateDeparturePage';
 import TripDateReturnPage from '../pageobjects/tripDateReturnPage';
 import TripTodayPage from '../pageobjects/tripTodayPage';
-import { signInAndOpenCreateRecord } from '../support/journeySteps';
-import { logStep, logInfo } from '../../common/logger';
+import iosFlowNavigator from '../support/iosFlowNavigator';
+import { logStep } from '../../common/logger';
+import { datePartsFromToday } from '../../common/dateHelper';
 
-function datePartsFromToday(daysAgo: number) {
-    const date = new Date();
-    date.setHours(12, 0, 0, 0);
-    date.setDate(date.getDate() - daysAgo);
-
-    return {
-        day: String(date.getDate()).padStart(2, '0'),
-        month: String(date.getMonth() + 1).padStart(2, '0'),
-        year: String(date.getFullYear()),
-    };
-}
 const vesselName = ['ACHILLES', 'HERCULES'];
 
 vesselName.forEach((vessel) => {
     describe(`iOS trip today page for vessel ${vessel}`, () => {
         beforeEach(async () => {
             logStep('beforeEach');
-            await signInAndOpenCreateRecord();
+            await iosFlowNavigator.signInAndOpenCreateRecord();
             await SelectVesselPage.selectVessel(vessel as 'ACHILLES' | 'HERCULES');
             await expect(TripTodayPage.questionHeading).toBeDisplayed();
         });

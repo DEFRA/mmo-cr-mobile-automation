@@ -1,5 +1,5 @@
 import { BasePage } from './basePage';
-import { logStep, logWarn, logError } from '../../common/logger';
+import { logStep, logWarn } from '../../common/logger';
 
 export class CatchRecordSummaryPage extends BasePage {
     get heading() {

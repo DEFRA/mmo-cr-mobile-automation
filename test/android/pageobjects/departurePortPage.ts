@@ -1,5 +1,5 @@
 import { BasePage } from './basePage';
-import { logStep, logWarn, logError } from '../../common/logger';
+import { logStep } from '../../common/logger';
 
 export class DeparturePortPage extends BasePage {
     get heading() {

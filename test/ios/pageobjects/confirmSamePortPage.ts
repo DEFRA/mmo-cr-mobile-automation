@@ -1,14 +1,7 @@
 import { BaseCatchRecordPage } from './baseCatchRecordPage';
-import { logStep, logWarn, logError } from '../../common/logger';
 
 export class ConfirmSamePortPage extends BaseCatchRecordPage {
-    get referenceNumber() {
-        return $('~CatchRecord.confirmSamePort.referenceNumber');
-    }
-
-    get heading() {
-        return $('~CatchRecord.confirmSamePort.heading');
-    }
+    protected pageId = 'confirmSamePort';
 
     headingForPort(portName: string) {
         return $(
@@ -33,18 +26,8 @@ export class ConfirmSamePortPage extends BaseCatchRecordPage {
     get noOption() {
         return $('~CatchRecord.confirmSamePort.option.no');
     }
-
-    get saveContinueButton() {
-        return $('~CatchRecord.confirmSamePort.saveContinue');
-    }
-
     get addAnotherPortButton() {
         return $('~CatchRecord.confirmSamePort.addAnother');
-    }
-
-    async continueToNextStep() {
-        logStep('continueToNextStep');
-        await this.saveContinueButton.click();
     }
 }
 

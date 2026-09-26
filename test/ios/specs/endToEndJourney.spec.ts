@@ -14,7 +14,7 @@ import LandingStoragePage from '../pageobjects/landingStoragePage';
 import SubmissionConfirmationPage from '../pageobjects/submissionConfirmationPage';
 import SubmissionSuccessPage from '../pageobjects/submissionSuccessPage';
 import TripTodayPage from '../pageobjects/tripTodayPage';
-import { logStep, logInfo } from '../../common/logger';
+import { logStep } from '../../common/logger';
 
 const endToEndJourneyData = {
     vessel: 'ACHILLES' as const,
@@ -91,18 +91,10 @@ describe('iOS end-to-end catch record journey', () => {
 
         await expect(CatchLocationPage.heading).toBeDisplayed();
         await CatchLocationPage.selectArea(endToEndJourneyData.catchArea);
-        await browser.execute('mobile: scrollToElement', {
-            element: await CatchLocationPage.saveContinueButton.elementId,
-        });
-        await expect(CatchLocationPage.saveContinueButton).toBeDisplayed();
         await CatchLocationPage.continueToNextStep();
 
         await expect(AddSpeciesPage.heading).toBeDisplayed();
         await AddSpeciesPage.selectSpecies(endToEndJourneyData.species);
-        await browser.execute('mobile: scrollToElement', {
-            element: await AddSpeciesPage.saveContinueButton.elementId,
-        });
-        await expect(AddSpeciesPage.saveContinueButton).toBeDisplayed();
         await AddSpeciesPage.continueToNextStep();
 
         await expect(RecordSpeciesWeightsPage.heading).toBeDisplayed();
@@ -118,33 +110,17 @@ describe('iOS end-to-end catch record journey', () => {
             endToEndJourneyData.species,
             endToEndJourneyData.weightDiscarded,
         );
-        await browser.execute('mobile: scrollToElement', {
-            element: await RecordSpeciesWeightsPage.saveContinueButton.elementId,
-        });
-        await expect(RecordSpeciesWeightsPage.saveContinueButton).toBeDisplayed();
         await RecordSpeciesWeightsPage.continueToNextStep();
 
         await expect(LandingStoragePage.heading).toBeDisplayed();
         await LandingStoragePage.selectLandingStorage(endToEndJourneyData.landingStorage);
-        await browser.execute('mobile: scrollToElement', {
-            element: await LandingStoragePage.saveContinueButton.elementId,
-        });
-        await expect(LandingStoragePage.saveContinueButton).toBeDisplayed();
         await LandingStoragePage.continueToNextStep();
 
         await expect(CheckYourAnswersPage.heading).toBeDisplayed();
-        await browser.execute('mobile: scrollToElement', {
-            element: await CheckYourAnswersPage.saveContinueButton.elementId,
-        });
-        await expect(CheckYourAnswersPage.saveContinueButton).toBeDisplayed();
         await CheckYourAnswersPage.continueToNextStep();
 
         await expect(SubmissionConfirmationPage.heading).toBeDisplayed();
         await SubmissionConfirmationPage.confirmSubmission();
-        await browser.execute('mobile: scrollToElement', {
-            element: await SubmissionConfirmationPage.acceptButton.elementId,
-        });
-        await expect(SubmissionConfirmationPage.acceptButton).toBeDisplayed();
         await SubmissionConfirmationPage.acceptAndSubmit();
 
         await expect(SubmissionSuccessPage.submissionMessage).toBeDisplayed();

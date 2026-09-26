@@ -1,14 +1,8 @@
 import { BaseCatchRecordPage } from './baseCatchRecordPage';
-import { logStep, logWarn, logError } from '../../common/logger';
+import { logStep } from '../../common/logger';
 
 export class RecordSpeciesWeightsPage extends BaseCatchRecordPage {
-    get referenceNumber() {
-        return $('~CatchRecord.recordSpeciesWeights.referenceNumber');
-    }
-
-    get heading() {
-        return $('~CatchRecord.recordSpeciesWeights.heading');
-    }
+    protected pageId = 'recordSpeciesWeights';
 
     get description() {
         return $(
@@ -71,11 +65,6 @@ export class RecordSpeciesWeightsPage extends BaseCatchRecordPage {
     get removeSpeciesButton() {
         return $('~CatchRecord.recordSpeciesWeights.removeSpecies');
     }
-
-    get saveContinueButton() {
-        return $('~CatchRecord.recordSpeciesWeights.saveContinue');
-    }
-
     async enterWeight(speciesName: string, value: string) {
         logStep(
             `[${this.constructor.name}] enterWeight with species: ${speciesName} and weight: ${value}`,
@@ -131,11 +120,6 @@ export class RecordSpeciesWeightsPage extends BaseCatchRecordPage {
 
     async removeSpecies() {
         await this.scrollAndClickIfExisting(this.removeSpeciesButton);
-    }
-
-    async continueToNextStep() {
-        logStep('continueToNextStep');
-        await this.scrollAndClickIfExisting(this.saveContinueButton);
     }
 }
 

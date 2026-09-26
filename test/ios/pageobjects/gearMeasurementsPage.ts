@@ -1,14 +1,8 @@
 import { BaseCatchRecordPage } from './baseCatchRecordPage';
-import { logStep, logWarn, logError } from '../../common/logger';
+import { logStep } from '../../common/logger';
 
 export class GearMeasurementsPage extends BaseCatchRecordPage {
-    get referenceNumber() {
-        return $('~CatchRecord.gearMeasurements.referenceNumber');
-    }
-
-    get heading() {
-        return $('~CatchRecord.gearMeasurements.heading');
-    }
+    protected pageId = 'gearMeasurements';
 
     get wholeNumbersText() {
         return $('~All gear measurements must be whole numbers.');
@@ -21,19 +15,9 @@ export class GearMeasurementsPage extends BaseCatchRecordPage {
     get meshSizeField() {
         return $('//XCUIElementTypeTextField[@name="CatchRecord.gearMeasurements.field.meshSize"]');
     }
-
-    get saveContinueButton() {
-        return $('~CatchRecord.gearMeasurements.saveContinue');
-    }
-
     async enterMeshSize(value: string) {
         logStep('enterMeshSize');
         await this.meshSizeField.setValue(value);
-    }
-
-    async continueToNextStep() {
-        logStep('continueToNextStep');
-        await this.saveContinueButton.click();
     }
 }
 

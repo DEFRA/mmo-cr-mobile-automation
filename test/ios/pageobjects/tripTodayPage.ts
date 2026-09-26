@@ -1,10 +1,8 @@
 import { BaseCatchRecordPage } from './baseCatchRecordPage';
-import { logStep, logWarn, logError } from '../../common/logger';
+import { logStep } from '../../common/logger';
 
 export class TripTodayPage extends BaseCatchRecordPage {
-    get referenceNumber() {
-        return $('~CatchRecord.tripToday.referenceNumber');
-    }
+    protected pageId = 'tripToday';
 
     get questionHeading() {
         return $('~Did your trip start and finish today?');
@@ -31,11 +29,6 @@ export class TripTodayPage extends BaseCatchRecordPage {
     get noOption() {
         return $('~CatchRecord.tripToday.option.no');
     }
-
-    get saveContinueButton() {
-        return $('~CatchRecord.tripToday.saveContinue');
-    }
-
     get validationError() {
         return $(
             '//XCUIElementTypeStaticText[@name="Select whether your trip started and finished today"]',
@@ -47,11 +40,6 @@ export class TripTodayPage extends BaseCatchRecordPage {
         const selectedOption = option === 'yes' ? this.yesOption : this.noOption;
 
         await selectedOption.click();
-    }
-
-    async continueToNextStep() {
-        logStep('continueToNextStep');
-        await this.saveContinueButton.click();
     }
 }
 

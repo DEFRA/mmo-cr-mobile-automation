@@ -13,6 +13,7 @@ You are a Page Object authoring specialist for this WebdriverIO + Appium mobile 
 - WebdriverIO + Appium (XCUITest for iOS, UiAutomator2 for Android) + Mocha + Allure, TypeScript, Page Object Model.
 - Page objects live in `test/ios/pageobjects/` and `test/android/pageobjects/`. Ask or infer the target platform from the XML: `XCUIElementType*` node names ⇒ iOS; `android.widget.*` / `android.view.*` node names ⇒ Android.
 - iOS page objects extend `BaseCatchRecordPage` (which extends `BasePage` → `CommonBasePage`). Simpler/top-level iOS pages may extend `BasePage` directly (see `homePage.ts`, `signInPage.ts`). Android page objects extend the Android `BasePage`.
+- **CRITICAL iOS BaseCatchRecordPage Rule:** If extending `BaseCatchRecordPage`, you MUST define `protected pageId = '<extracted_id>';` (e.g. `protected pageId = 'addGear';`). By defining this, the base class automatically provides `get heading()`, `get referenceNumber()`, `get saveContinueButton()`, and `async continueToNextStep()`. Do NOT re-declare these in your child page object!
 - Every page object file ends with a default singleton export: `export default new XxxPage();`.
 - Allure steps are auto-logged via the Proxy in `test/common/commonBasePage.ts`; do NOT add manual `allureReporter.step` wrappers around page methods.
 

@@ -2,19 +2,17 @@ import AddGearPage from '../pageobjects/addGearPage';
 import CatchLocationPage from '../pageobjects/catchLocationPage';
 import GearMeasurementsPage from '../pageobjects/gearMeasurementsPage';
 import SelectGearPage from '../pageobjects/selectGearPage';
-import { logStep, logInfo } from '../../common/logger';
-import {
-    signInAndOpenCreateRecord,
-    selectVesselAndTripToday,
-    completePortJourney,
-} from '../support/journeySteps';
+import { logStep } from '../../common/logger';
+import iosFlowNavigator from '../support/iosFlowNavigator';
 
 describe('iOS gear measurements page', () => {
     beforeEach(async () => {
         logStep('beforeEach');
-        await signInAndOpenCreateRecord();
-        await selectVesselAndTripToday('ACHILLES', 'yes');
-        await completePortJourney('Peterhead', 'yes');
+        await iosFlowNavigator.signInAndOpenCreateRecord();
+        await iosFlowNavigator.selectVessel('ACHILLES');
+        await iosFlowNavigator.selectTripToday('yes');
+        await iosFlowNavigator.addPort('Peterhead');
+        await iosFlowNavigator.confirmSamePort('Peterhead', 'yes');
         await AddGearPage.selectGear('Seine nets (not specified)');
         await AddGearPage.continueToNextStep();
         await expect(GearMeasurementsPage.heading).toBeDisplayed();

@@ -1,5 +1,5 @@
 import SignInPage from '../pageobjects/signInPage';
-import { logStep, logInfo } from '../../common/logger';
+import { logStep } from '../../common/logger';
 
 describe('iOS sign-in screen', () => {
     beforeEach(async () => {

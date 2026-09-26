@@ -1,7 +1,9 @@
 import { BaseCatchRecordPage } from './baseCatchRecordPage';
-import { logStep, logWarn, logError } from '../../common/logger';
+import { logStep } from '../../common/logger';
 
 export class SelectVesselPage extends BaseCatchRecordPage {
+    protected pageId = 'selectVessel';
+
     get selectVesselHeading() {
         return $('~Select the vessel for this trip');
     }
@@ -17,11 +19,6 @@ export class SelectVesselPage extends BaseCatchRecordPage {
     get herculesVesselOption() {
         return $('~CatchRecord.selectVessel.option.hercules');
     }
-
-    get saveContinueButton() {
-        return $('~CatchRecord.selectVessel.saveContinue');
-    }
-
     get vesselValidationError() {
         return $(
             '//XCUIElementTypeStaticText[contains(@label, "Select a vessel") or contains(@value, "Select a vessel")]',

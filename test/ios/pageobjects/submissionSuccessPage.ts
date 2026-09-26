@@ -1,5 +1,5 @@
 import { BaseCatchRecordPage } from './baseCatchRecordPage';
-import { logStep, logWarn, logError } from '../../common/logger';
+import { logStep } from '../../common/logger';
 
 export class SubmissionSuccessPage extends BaseCatchRecordPage {
     get panel() {
@@ -14,7 +14,7 @@ export class SubmissionSuccessPage extends BaseCatchRecordPage {
         return $('~Your catch record reference');
     }
 
-    referenceNumber(value: string) {
+    getReferenceNumber(value: string) {
         return this.selector(value);
     }
 

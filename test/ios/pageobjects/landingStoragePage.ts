@@ -1,14 +1,8 @@
 import { BaseCatchRecordPage } from './baseCatchRecordPage';
-import { logStep, logWarn, logError } from '../../common/logger';
+import { logStep } from '../../common/logger';
 
 export class LandingStoragePage extends BaseCatchRecordPage {
-    get referenceNumber() {
-        return $('~CatchRecord.landingStorage.referenceNumber');
-    }
-
-    get heading() {
-        return $('~CatchRecord.landingStorage.heading');
-    }
+    protected pageId = 'landingStorage';
 
     get description() {
         return $(
@@ -27,21 +21,11 @@ export class LandingStoragePage extends BaseCatchRecordPage {
     get noOption() {
         return $('~CatchRecord.landingStorage.option.no');
     }
-
-    get saveContinueButton() {
-        return $('~CatchRecord.landingStorage.saveContinue');
-    }
-
     async selectLandingStorage(option: 'yes' | 'no') {
         logStep('selectLandingStorage with option: ' + option);
         const selectedOption = option === 'yes' ? this.yesOption : this.noOption;
 
         await selectedOption.click();
-    }
-
-    async continueToNextStep() {
-        logStep('continueToNextStep');
-        await this.saveContinueButton.click();
     }
 }
 
