@@ -36,6 +36,10 @@ export class SubmissionConfirmationPage extends BaseCatchRecordPage {
         return $('~CatchRecord.submissionConfirmation.confirmCheckbox');
     }
 
+    get validationError() {
+        return $('~CatchRecord.submissionConfirmation.error');
+    }
+
     get acceptButton() {
         return $('~CatchRecord.submissionConfirmation.accept');
     }

@@ -19,6 +19,11 @@ export class AddPortPage extends BaseCatchRecordPage {
             '//XCUIElementTypeTextField[@placeholderValue="Type to search (minimum 2 characters)"]',
         );
     }
+
+    get validationError() {
+        return $('~Select a port from the list');
+    }
+
     portResult(portName: string) {
         return $(`~SearchDropdownField.result.${portName}`);
     }
@@ -28,9 +33,15 @@ export class AddPortPage extends BaseCatchRecordPage {
         await this.searchField.setValue(term);
     }
 
-    async selectPort(portName: string) {
+    async searchAndSelectPort(searchTerm: string, portName: string) {
+        logStep(`Searching for ${searchTerm} and selecting port ${portName}`);
+        await this.searchAndSelect(this.searchField, searchTerm, this.portResult(portName));
+    }
+
+    async selectPort(portName: string, searchTerm?: string) {
         logStep('selectPort with port name: ' + portName);
-        await this.searchAndSelect(this.searchField, portName, this.portResult(portName));
+        const term = searchTerm || portName.substring(0, 2);
+        await this.searchAndSelectPort(term, portName);
     }
 }
 

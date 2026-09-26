@@ -26,7 +26,19 @@ export class RecordSpeciesWeightsPage extends BaseCatchRecordPage {
 
     weightAboveError(speciesName: string) {
         return $(
-            `//XCUIElementTypeStaticText[@name="CatchRecord.recordSpeciesWeights.weightAbove.${speciesName.toLowerCase()}"]`,
+            `(//XCUIElementTypeStaticText[@name="CatchRecord.recordSpeciesWeights.weightAbove.${speciesName.toLowerCase()}"])[2]`,
+        );
+    }
+
+    weightBelowError(speciesName: string) {
+        return $(
+            `(//XCUIElementTypeStaticText[@name="CatchRecord.recordSpeciesWeights.weightBelow.${speciesName.toLowerCase()}"])[2]`,
+        );
+    }
+
+    weightDiscardedError(speciesName: string) {
+        return $(
+            `(//XCUIElementTypeStaticText[@name="CatchRecord.recordSpeciesWeights.weightDiscarded.${speciesName.toLowerCase()}"])[2]`,
         );
     }
 
@@ -56,6 +68,10 @@ export class RecordSpeciesWeightsPage extends BaseCatchRecordPage {
 
     removeWeightDiscardedButton(speciesName: string) {
         return $(`~CatchRecord.recordSpeciesWeights.removeDiscarded.${speciesName.toLowerCase()}`);
+    }
+
+    get validationError() {
+        return $('~CatchRecord.recordSpeciesWeights.selectionError');
     }
 
     get addSpeciesButton() {

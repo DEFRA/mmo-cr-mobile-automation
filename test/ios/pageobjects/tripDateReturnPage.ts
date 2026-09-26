@@ -12,9 +12,9 @@ export class TripDateReturnPage extends TripDatePage {
         return $('~Enter the date you returned. For example, 31/03/2020');
     }
 
-    async enterReturnDate(day: string, month: string, year: string) {
+    async enterReturnDate(day: string, monthName: string, year: string) {
         logStep('date entry');
-        await this.enterDate(day, month, year);
+        await this.enterDate(day, monthName, year);
     }
 }
 

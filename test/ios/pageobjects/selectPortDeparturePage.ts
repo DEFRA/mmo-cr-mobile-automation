@@ -20,9 +20,7 @@ export class SelectPortDeparturePage extends BaseCatchRecordPage {
         return this.selector(`CatchRecord.selectPort.departure.option.${portName.toLowerCase()}`);
     }
     get validationError() {
-        return $(
-            '//XCUIElementTypeStaticText[contains(@label, "Select a port") or contains(@value, "Select a port")]',
-        );
+        return $('~Select a port from the list');
     }
 
     get addAnotherPortButton() {

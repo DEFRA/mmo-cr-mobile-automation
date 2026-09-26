@@ -33,6 +33,11 @@ export class SelectGearPage extends BaseCatchRecordPage {
             '//XCUIElementTypeTextField[@name="CatchRecord.selectGear.variable.sx.timesShot"]',
         );
     }
+
+    get validationError() {
+        return $('~CatchRecord.selectGear.error');
+    }
+
     get addAnotherGearButton() {
         return $('~CatchRecord.selectGear.addAnother');
     }

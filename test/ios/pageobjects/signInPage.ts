@@ -10,8 +10,16 @@ export class SignInPage extends BasePage {
         return $('//XCUIElementTypeTextField[@name="SignIn.emailField"]');
     }
 
+    get emailError() {
+        return $('~Enter email address');
+    }
+
     get passwordField() {
         return $('~TextInputField.secureInput');
+    }
+
+    get passwordError() {
+        return $('~Enter password');
     }
 
     get passwordVisibilityToggle() {

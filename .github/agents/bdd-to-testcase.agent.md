@@ -29,6 +29,9 @@ You are a test-authoring specialist for this WebdriverIO + Appium mobile automat
 2. Before writing, use `search`/`read` to confirm which page objects and helper methods already exist for the steps involved. Reuse existing methods (e.g. `signInAndOpenCreateRecord`, `selectVessel`, `selectTripToday`, `addPort`, `addGear`, `addSpecies`). Never guess a method name — verify it exists in the page object / Flow Navigator.
 3. If a required page-object method or selector does NOT exist, do NOT silently invent it. Prefer to verify against the live app via the MCP servers (see below); add the new method/selector to the appropriate page object following that file's style. Only when no live session is available, flag the selector inline with a short comment noting it is unverified.
 4. Prefer helper chains from flow navigators for setup so specs stay short. Only inline steps when asserting on the intermediate page under test.
+
+- **Date Entry Differences:** iOS uses a native Date Picker (`monthName` string required), while Android uses standard text inputs (`month` numerical string required).
+
 5. Follow the validate-before-continue pattern already used everywhere: it is safe to assert a page "stays displayed" after continuing without required fields.
 
 ## Using the Appium (`mcp-appium`) and WebdriverIO (`webdriverio`) MCP servers

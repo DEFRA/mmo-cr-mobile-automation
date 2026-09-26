@@ -21,6 +21,10 @@ export class AddGearPage extends BaseCatchRecordPage {
             '//XCUIElementTypeTextField[@placeholderValue="Type to search (minimum 2 characters)"]',
         );
     }
+    get validationError() {
+        return $('~Select the gear you want to add');
+    }
+
     gearResult(gearName: string) {
         return $(`~SearchDropdownField.result.${gearName}`);
     }
@@ -30,9 +34,15 @@ export class AddGearPage extends BaseCatchRecordPage {
         await this.searchField.setValue(term);
     }
 
-    async selectGear(gearName: string) {
+    async searchAndSelectGear(searchTerm: string, gearName: string) {
+        logStep(`Searching for ${searchTerm} and selecting gear ${gearName}`);
+        await this.searchAndSelect(this.searchField, searchTerm, this.gearResult(gearName));
+    }
+
+    async selectGear(gearName: string, searchTerm?: string) {
         logStep('selectGear with gear name: ' + gearName);
-        await this.searchAndSelect(this.searchField, gearName, this.gearResult(gearName));
+        const term = searchTerm || gearName.substring(0, 2);
+        await this.searchAndSelectGear(term, gearName);
     }
 }
 

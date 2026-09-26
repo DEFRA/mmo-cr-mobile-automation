@@ -6,14 +6,16 @@ export function datePartsFromToday(daysAgo: number) {
     return {
         day: String(date.getDate()).padStart(2, '0'),
         month: String(date.getMonth() + 1).padStart(2, '0'),
+        monthName: date.toLocaleString('en-GB', { month: 'long' }),
         year: String(date.getFullYear()),
     };
 }
 
 export function formatDate(date: Date) {
     return {
-        day: String(date.getDate()).padStart(2, '0'),
-        month: String(date.getMonth() + 1).padStart(2, '0'),
-        year: String(date.getFullYear()),
+        day: date.getDate().toString(),
+        month: (date.getMonth() + 1).toString(),
+        monthName: date.toLocaleString('en-GB', { month: 'long' }),
+        year: date.getFullYear().toString(),
     };
 }

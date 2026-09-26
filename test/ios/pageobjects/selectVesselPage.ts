@@ -20,9 +20,7 @@ export class SelectVesselPage extends BaseCatchRecordPage {
         return $('~CatchRecord.selectVessel.option.hercules');
     }
     get vesselValidationError() {
-        return $(
-            '//XCUIElementTypeStaticText[contains(@label, "Select a vessel") or contains(@value, "Select a vessel")]',
-        );
+        return $('~CatchRecord.selectVessel.error');
     }
 
     async selectVessel(vesselName: 'ACHILLES' | 'HERCULES') {

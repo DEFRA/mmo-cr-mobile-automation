@@ -21,6 +21,11 @@ export class LandingStoragePage extends BaseCatchRecordPage {
     get noOption() {
         return $('~CatchRecord.landingStorage.option.no');
     }
+
+    get validationError() {
+        return $('~CatchRecord.landingStorage.error');
+    }
+
     async selectLandingStorage(option: 'yes' | 'no') {
         logStep('selectLandingStorage with option: ' + option);
         const selectedOption = option === 'yes' ? this.yesOption : this.noOption;

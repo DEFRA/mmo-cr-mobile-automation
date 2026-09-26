@@ -23,6 +23,11 @@ export class CatchLocationPage extends BaseCatchRecordPage {
     get otherButton() {
         return $('~CatchRecord.catchLocation.otherButton');
     }
+
+    get validationError() {
+        return $('~CatchRecord.catchLocation.error');
+    }
+
     mapPin(area: string) {
         return $(
             `//XCUIElementTypeOther[@name="Map pin"][following-sibling::*[1][@value="${area}"]]`,

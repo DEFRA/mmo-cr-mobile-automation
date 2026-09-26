@@ -30,7 +30,7 @@ export class CatchLocationManualEntryPage extends BaseCatchRecordPage {
     }
 
     get validationError() {
-        return $('~Enter a valid statistical sub area code.');
+        return $('~Select a statistical subrectangle');
     }
 
     async searchForArea(term: string) {
@@ -38,9 +38,15 @@ export class CatchLocationManualEntryPage extends BaseCatchRecordPage {
         await this.searchField.setValue(term);
     }
 
-    async selectArea(code: string) {
+    async searchAndSelectArea(searchTerm: string, code: string) {
+        logStep(`Searching for ${searchTerm} and selecting area ${code}`);
+        await this.searchAndSelect(this.searchField, searchTerm, this.areaResult(code));
+    }
+
+    async selectArea(code: string, searchTerm?: string) {
         logStep('selectArea');
-        await this.searchAndSelect(this.searchField, code, this.areaResult(code));
+        const term = searchTerm || code.substring(0, 2);
+        await this.searchAndSelectArea(term, code);
     }
 }
 

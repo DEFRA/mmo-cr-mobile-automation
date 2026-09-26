@@ -26,6 +26,11 @@ export class ConfirmSamePortPage extends BaseCatchRecordPage {
     get noOption() {
         return $('~CatchRecord.confirmSamePort.option.no');
     }
+
+    get validationError() {
+        return $('~CatchRecord.confirmSamePort.error');
+    }
+
     get addAnotherPortButton() {
         return $('~CatchRecord.confirmSamePort.addAnother');
     }

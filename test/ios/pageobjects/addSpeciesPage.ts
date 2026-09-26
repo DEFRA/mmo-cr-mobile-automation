@@ -31,17 +31,27 @@ export class AddSpeciesPage extends BaseCatchRecordPage {
     get contactLink() {
         return $('~CatchRecord.addSpecies.contactLink');
     }
+    get validationError() {
+        return $('~CatchRecord.addSpecies.error');
+    }
+
     speciesResult(speciesName: string) {
-        return $(`-ios predicate string:name == "SearchDropdownField.result.${speciesName}"`);
+        return $(`~SearchDropdownField.result.${speciesName}`);
     }
 
     async enterSpeciesSearch(term: string) {
         await this.searchField.setValue(term);
     }
 
-    async selectSpecies(speciesName: string) {
+    async searchAndSelectSpecies(searchTerm: string, speciesName: string) {
+        logStep(`Searching for ${searchTerm} and selecting species ${speciesName}`);
+        await this.searchAndSelect(this.searchField, searchTerm, this.speciesResult(speciesName));
+    }
+
+    async selectSpecies(speciesName: string, searchTerm?: string) {
         logStep('selectSpecies with species name: ' + speciesName);
-        await this.searchAndSelect(this.searchField, speciesName, this.speciesResult(speciesName));
+        const term = searchTerm || speciesName.substring(0, 2);
+        await this.searchAndSelectSpecies(term, speciesName);
     }
 }
 

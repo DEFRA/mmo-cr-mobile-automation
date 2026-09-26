@@ -30,9 +30,7 @@ export class TripTodayPage extends BaseCatchRecordPage {
         return $('~CatchRecord.tripToday.option.no');
     }
     get validationError() {
-        return $(
-            '//XCUIElementTypeStaticText[@name="Select whether your trip started and finished today"]',
-        );
+        return $('~CatchRecord.tripToday.error');
     }
 
     async selectTripToday(option: 'yes' | 'no') {
