@@ -30,13 +30,13 @@ export interface CatchRecordJourneyData {
 export class IosFlowNavigator {
     async signIn() {
         logStep('signIn');
+        await SignInPage.openApp();
         const { email, password } = getIosTestCredentials();
         await SignInPage.signIn(email, password);
     }
 
-    async signInAndOpenCreateRecord() {
-        logStep('signInAndOpenCreateRecord');
-        await this.signIn();
+    async openCreateRecord() {
+        logStep('openCreateRecord');
         await HomePage.scrollToElement(HomePage.createRecordButton);
         await HomePage.clickCreateRecordButton();
     }

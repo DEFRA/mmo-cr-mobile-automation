@@ -7,7 +7,8 @@ import { logStep } from '../../common/logger';
 describe('iOS select vessel page', () => {
     beforeEach(async () => {
         logStep('beforeEach');
-        await iosFlowNavigator.signInAndOpenCreateRecord();
+        await iosFlowNavigator.signIn();
+        await iosFlowNavigator.openCreateRecord();
         await expect(SelectVesselPage.selectVesselHeading).toBeDisplayed();
     });
 

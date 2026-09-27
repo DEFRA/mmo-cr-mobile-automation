@@ -22,7 +22,8 @@ const journeyData: CatchRecordJourneyData = {
 describe('iOS check your answers page', () => {
     beforeEach(async () => {
         logStep('beforeEach');
-        await iosFlowNavigator.signInAndOpenCreateRecord();
+        await iosFlowNavigator.signIn();
+        await iosFlowNavigator.openCreateRecord();
         await iosFlowNavigator.selectVessel(journeyData.vessel);
         await iosFlowNavigator.selectTripToday('yes');
         await iosFlowNavigator.addPort(journeyData.port);

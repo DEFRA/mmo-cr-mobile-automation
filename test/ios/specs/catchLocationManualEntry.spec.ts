@@ -10,7 +10,8 @@ const INVALID_SUB_AREA = '99Z99';
 describe('iOS catch location statistical sub area manual entry', () => {
     beforeEach(async () => {
         logStep('beforeEach');
-        await iosFlowNavigator.signInAndOpenCreateRecord();
+        await iosFlowNavigator.signIn();
+        await iosFlowNavigator.openCreateRecord();
         await iosFlowNavigator.selectVessel('ACHILLES');
         await iosFlowNavigator.selectTripToday('yes');
         await iosFlowNavigator.addPort('Peterhead');

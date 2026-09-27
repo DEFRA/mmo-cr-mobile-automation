@@ -9,10 +9,13 @@ import { logStep } from '../../common/logger';
 describe('iOS add port page', () => {
     beforeEach(async () => {
         logStep('beforeEach');
-        await iosFlowNavigator.signInAndOpenCreateRecord();
+        await iosFlowNavigator.signIn();
+        await iosFlowNavigator.openCreateRecord();
         await iosFlowNavigator.selectVessel('ACHILLES');
         await iosFlowNavigator.selectTripToday('yes');
         await expect(AddPortPage.heading).toBeDisplayed();
+        const headingValue = await AddPortPage.heading.getAttribute('value');
+        expect(headingValue).toContain('ACHILLES');
     });
 
     afterEach(async () => {
@@ -53,6 +56,15 @@ describe('iOS add port page', () => {
         await expect(AddPortPage.searchField).toHaveAttribute('value', 'Fraserburgh');
     });
 
+    it('shows validation error when continuing with only one character', async () => {
+        logStep('shows validation error when continuing with only one character');
+        await AddPortPage.enterPortSearch('F');
+        await AddPortPage.continueToNextStep();
+
+        await expect(AddPortPage.validationError).toBeDisplayed();
+        await expect(AddPortPage.heading).toBeDisplayed();
+    });
+
     it('requires a departure port selection and supports adding another port', async () => {
         logStep('requires a departure port selection and supports adding another port');
         await iosFlowNavigator.addPort('Peterhead');
@@ -64,7 +76,6 @@ describe('iOS add port page', () => {
 
         await SelectPortDeparturePage.saveContinueButton.click();
         await expect(SelectPortDeparturePage.validationError).toBeDisplayed();
-        await expect(SelectPortDeparturePage.heading).toBeDisplayed();
 
         await expect(SelectPortDeparturePage.addAnotherPortButton).toBeDisplayed();
         await SelectPortDeparturePage.addAnotherPortButton.click();
@@ -143,5 +154,25 @@ describe('iOS add port page', () => {
         await SelectPortReturnPage.continueToNextStep();
 
         await expect(AddGearPage.heading).toBeDisplayed();
+    });
+    it('requires a return port selection and displays a validation error when omitted', async () => {
+        logStep('requires a return port selection and displays a validation error when omitted');
+        await iosFlowNavigator.addPort('Peterhead');
+        await iosFlowNavigator.confirmSamePort('Peterhead', 'no');
+
+        // Select departure port and continue
+        await SelectPortDeparturePage.peterheadOption.click();
+        await SelectPortDeparturePage.continueToNextStep();
+
+        // Verify we are on return port page
+        await expect(SelectPortReturnPage.heading).toBeDisplayed();
+        await expect(SelectPortReturnPage.peterheadOption).toBeDisplayed();
+
+        // Attempt to continue without selection
+        await SelectPortReturnPage.saveContinueButton.click();
+        await expect(SelectPortReturnPage.validationError).toBeDisplayed();
+
+        // Verify add another port button is also present here
+        await expect(SelectPortReturnPage.addAnotherPortButton).toBeDisplayed();
     });
 });

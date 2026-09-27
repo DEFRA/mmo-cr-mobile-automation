@@ -23,6 +23,10 @@ export class SelectPortReturnPage extends BaseCatchRecordPage {
         return $('~CatchRecord.selectPort.return.addAnother');
     }
 
+    get validationError() {
+        return $('~CatchRecord.selectPort.return.error');
+    }
+
     async selectPort(portName: string) {
         logStep('port selection');
         await this.clickFirstExisting(

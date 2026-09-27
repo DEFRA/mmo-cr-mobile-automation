@@ -7,5 +7,5 @@
         "skipLibCheck": true,
         "types": ["node", "@wdio/globals/types", "@wdio/mocha-framework"]
     },
-    "include": ["./config/**/*.ts", "./test/**/*.ts"]
+    "include": ["./config/**/*.ts", "./test/**/*.ts", "./scripts/**/*.ts"]
 }

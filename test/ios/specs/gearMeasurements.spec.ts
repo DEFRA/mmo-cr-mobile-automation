@@ -8,7 +8,8 @@ import iosFlowNavigator from '../support/iosFlowNavigator';
 describe('iOS gear measurements page', () => {
     beforeEach(async () => {
         logStep('beforeEach');
-        await iosFlowNavigator.signInAndOpenCreateRecord();
+        await iosFlowNavigator.signIn();
+        await iosFlowNavigator.openCreateRecord();
         await iosFlowNavigator.selectVessel('ACHILLES');
         await iosFlowNavigator.selectTripToday('yes');
         await iosFlowNavigator.addPort('Peterhead');

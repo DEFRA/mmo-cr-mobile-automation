@@ -10,7 +10,8 @@ const MAX_RECTANGLE_COUNT = 16;
 describe('iOS catch location page', () => {
     beforeEach(async () => {
         logStep('beforeEach');
-        await iosFlowNavigator.signInAndOpenCreateRecord();
+        await iosFlowNavigator.signIn();
+        await iosFlowNavigator.openCreateRecord();
         await iosFlowNavigator.selectVessel('ACHILLES');
         await iosFlowNavigator.selectTripToday('yes');
         await iosFlowNavigator.addPort('Peterhead');
