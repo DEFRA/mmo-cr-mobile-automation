@@ -59,11 +59,7 @@ describe(`iOS trip today page for vessel ${vessels[0]}`, () => {
         await TripDateDeparturePage.continueToNextStep();
 
         await expect(TripDateReturnPage.heading).toBeDisplayed();
-        await TripDateReturnPage.enterReturnDate(
-            returnDate.day,
-            returnDate.month,
-            returnDate.year,
-        );
+        await TripDateReturnPage.enterReturnDate(returnDate.day, returnDate.month, returnDate.year);
         await TripDateReturnPage.continueToNextStep();
 
         await expect(AddPortPage.heading).toBeDisplayed();
@@ -81,11 +77,7 @@ describe(`iOS trip today page for vessel ${vessels[0]}`, () => {
             departureDate.year,
         );
         await TripDateDeparturePage.continueToNextStep();
-        await TripDateReturnPage.enterReturnDate(
-            returnDate.day,
-            returnDate.month,
-            returnDate.year,
-        );
+        await TripDateReturnPage.enterReturnDate(returnDate.day, returnDate.month, returnDate.year);
         await TripDateReturnPage.continueToNextStep();
 
         await expect(SubmissionNudgePage.heading).toBeDisplayed();

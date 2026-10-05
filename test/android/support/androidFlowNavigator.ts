@@ -7,6 +7,8 @@ import selectVesselPage from '../pageobjects/selectVesselPage';
 import departurePortPage from '../pageobjects/departurePortPage';
 import returnPortPage from '../pageobjects/returnPortPage';
 import catchAreaPage from '../pageobjects/catchAreaPage';
+import catchSubAreaPage from '../pageobjects/catchSubAreaPage';
+import catchSubAreaSearchPage from '../pageobjects/catchSubAreaSearchPage';
 import gearPage from '../pageobjects/gearPage';
 import gearMeasurementPage from '../pageobjects/gearMeasurementPage';
 import selectedGearsPage from '../pageobjects/selectedGearsPage';
@@ -70,10 +72,33 @@ export class AndroidFlowNavigator {
         await returnPortPage.searchSelectAndContinue(returnPort, returnPort);
     }
 
-    async selectAreas(catchArea: string) {
-        await logStep(`Selecting catch area: ${catchArea}`);
+    async selectAreas(catchArea?: string, subArea?: string) {
+        await logStep(`Selecting catch area${catchArea ? `: ${catchArea}` : ' (random)'}`);
         await catchAreaPage.heading.waitForDisplayed();
-        await catchAreaPage.selectAreaAndContinue(catchArea);
+
+        if (catchArea === 'Other') {
+            await catchAreaPage.clickOtherAndContinue();
+            await this.selectSubAreas(subArea);
+        } else {
+            await catchAreaPage.selectRandomLocationAndContinue();
+            // If selecting from map, no sub-area selection is required.
+        }
+    }
+
+    async selectSubAreas(subArea?: string) {
+        await logStep(`Selecting sub area${subArea ? `: ${subArea}` : ' (first available)'}`);
+        await catchSubAreaPage.heading.waitForDisplayed();
+        if (subArea) {
+            await catchSubAreaPage.selectSubAreaAndContinue(subArea);
+        } else {
+            await catchSubAreaPage.selectFirstSubAreaAndContinue();
+        }
+    }
+
+    async searchAndSelectSubArea(searchText: string, areaCode: string) {
+        await logStep(`Searching and selecting sub area: ${areaCode}`);
+        await catchSubAreaSearchPage.heading.waitForDisplayed();
+        await catchSubAreaSearchPage.searchSelectAndContinue(searchText, areaCode);
     }
 
     async selectGear(gearName: string, meshSize: string | number, shots: string | number) {
@@ -100,7 +125,9 @@ export class AndroidFlowNavigator {
             `Selecting species: ${speciesName} (weights: ${retainedWeight} / ${belowMinWeight} / ${discardedWeight})`,
         );
         await speciesPage.heading.waitForDisplayed();
-        await speciesPage.searchSelectAndContinue(speciesName, speciesName);
+        // Mimic user behavior by typing a few characters to see the options
+        const searchText = speciesName.length > 2 ? speciesName.substring(0, 3) : speciesName;
+        await speciesPage.searchSelectAndContinue(searchText, speciesName);
 
         await selectedSpeciesPage.heading.waitForDisplayed();
         await selectedSpeciesPage.selectSpeciesCheckbox(speciesName);

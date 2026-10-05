@@ -47,11 +47,11 @@ export class BasePage extends CommonBasePage {
     async saveAndContinue() {
         logStep('Clicking Save and Continue');
         try {
-            await this.saveAndContinueButton.waitForDisplayed({ timeout: 2000 });
+            await this.saveAndContinueButton.waitForDisplayed({ timeout: 1000 });
         } catch (error) {
             logWarn('BasePage: Save and Continue button not visible, scrolling forward to find it');
             await $('android=new UiScrollable(new UiSelector().scrollable(true)).scrollForward()');
-            await this.saveAndContinueButton.waitForDisplayed({ timeout: 10000 });
+            await this.saveAndContinueButton.waitForDisplayed({ timeout: 1000 });
         }
         await this.saveAndContinueButton.click();
     }
@@ -59,5 +59,41 @@ export class BasePage extends CommonBasePage {
     async isOfflineBannerDisplayed(): Promise<boolean> {
         logStep('Checking if offline banner is displayed');
         return this.offlineBanner.isDisplayed();
+    }
+
+    get homeTab() {
+        return $(
+            '//android.view.View[@clickable="true"][.//android.widget.TextView[@text="Home"]]',
+        );
+    }
+
+    get notificationsTab() {
+        return $(
+            '//android.view.View[@clickable="true"][.//android.widget.TextView[@text="Notifications"]]',
+        );
+    }
+
+    get settingsTab() {
+        return $(
+            '//android.view.View[@clickable="true"][.//android.widget.TextView[@text="Settings"]]',
+        );
+    }
+
+    async goToHome() {
+        logStep('Going to home tab');
+        await this.homeTab.waitForDisplayed({ timeout: 10000 });
+        await this.homeTab.click();
+    }
+
+    async goToNotifications() {
+        logStep('Going to notifications tab');
+        await this.notificationsTab.waitForDisplayed({ timeout: 10000 });
+        await this.notificationsTab.click();
+    }
+
+    async goToSettings() {
+        logStep('Going to settings tab');
+        await this.settingsTab.waitForDisplayed({ timeout: 10000 });
+        await this.settingsTab.click();
     }
 }

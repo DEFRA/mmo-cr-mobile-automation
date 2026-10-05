@@ -66,24 +66,6 @@ export class HomePage extends BasePage {
         );
     }
 
-    get homeTab() {
-        return $(
-            '//android.view.View[@clickable="true"][.//android.widget.TextView[@text="Home"]]',
-        );
-    }
-
-    get notificationsTab() {
-        return $(
-            '//android.view.View[@clickable="true"][.//android.widget.TextView[@text="Notifications"]]',
-        );
-    }
-
-    get settingsTab() {
-        return $(
-            '//android.view.View[@clickable="true"][.//android.widget.TextView[@text="Settings"]]',
-        );
-    }
-
     tableRowDate(rowIndex: number, date: string) {
         return $(`(//android.widget.TextView[@text="${date}"])[${rowIndex + 1}]`);
     }
@@ -123,21 +105,6 @@ export class HomePage extends BasePage {
     async goToNextPage() {
         logStep('Going to next page');
         await this.nextButton.click();
-    }
-
-    async goToHome() {
-        logStep('Going to home tab');
-        await this.homeTab.click();
-    }
-
-    async goToNotifications() {
-        logStep('Going to notifications tab');
-        await this.notificationsTab.click();
-    }
-
-    async goToSettings() {
-        logStep('Going to settings tab');
-        await this.settingsTab.click();
     }
 }
 
