@@ -4,9 +4,7 @@ export async function logStep(message: string) {
     console.log(`[STEP] ${new Date().toISOString()} — ${message}`);
     try {
         await step(message, async () => {});
-    } catch {
-        // Allure reporter may not be available in all contexts
-    }
+    } catch {}
 }
 
 export async function logInfo(message: string) {

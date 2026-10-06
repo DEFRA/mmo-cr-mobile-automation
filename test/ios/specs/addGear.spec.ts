@@ -40,11 +40,9 @@ describe('iOS add gear page', () => {
         const gearName = 'Seine nets (not specified)';
         const gearResult = AddGearPage.gearResult(gearName);
 
-        // 1 character should not show results
         await AddGearPage.enterGearSearch('S');
         await expect(gearResult).not.toBeDisplayed();
 
-        // 2 characters should trigger the dropdown
         const searchTerm = 'Se';
         await AddGearPage.enterGearSearch(searchTerm);
         await gearResult.waitForExist({ timeout: 10000 });
@@ -59,7 +57,6 @@ describe('iOS add gear page', () => {
 
         await expect(gearResult).toBeDisplayed();
 
-        // Validate the dropdown list contains the characters associated ignoring the case
         const resultName = await gearResult.getAttribute('name');
         expect(resultName?.toLowerCase()).toContain(searchTerm.toLowerCase());
 

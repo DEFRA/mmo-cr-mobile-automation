@@ -81,7 +81,6 @@ export class AndroidFlowNavigator {
             await this.selectSubAreas(subArea);
         } else {
             await catchAreaPage.selectRandomLocationAndContinue();
-            // If selecting from map, no sub-area selection is required.
         }
     }
 
@@ -125,7 +124,6 @@ export class AndroidFlowNavigator {
             `Selecting species: ${speciesName} (weights: ${retainedWeight} / ${belowMinWeight} / ${discardedWeight})`,
         );
         await speciesPage.heading.waitForDisplayed();
-        // Mimic user behavior by typing a few characters to see the options
         const searchText = speciesName.length > 2 ? speciesName.substring(0, 3) : speciesName;
         await speciesPage.searchSelectAndContinue(searchText, speciesName);
 

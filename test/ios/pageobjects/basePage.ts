@@ -46,9 +46,7 @@ export class BasePage extends CommonBasePage {
                         name: selectorStr.substring(1),
                     });
                     return; // Fast scroll succeeded
-                } catch {
-                    // Fallback if scroll fails
-                }
+                } catch {}
             }
 
             await browser.execute('mobile: scrollToElement', {

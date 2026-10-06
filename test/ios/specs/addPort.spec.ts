@@ -160,19 +160,15 @@ describe('iOS add port page', () => {
         await iosFlowNavigator.addPort('Peterhead');
         await iosFlowNavigator.confirmSamePort('Peterhead', 'no');
 
-        // Select departure port and continue
         await SelectPortDeparturePage.peterheadOption.click();
         await SelectPortDeparturePage.continueToNextStep();
 
-        // Verify we are on return port page
         await expect(SelectPortReturnPage.heading).toBeDisplayed();
         await expect(SelectPortReturnPage.peterheadOption).toBeDisplayed();
 
-        // Attempt to continue without selection
         await SelectPortReturnPage.saveContinueButton.click();
         await expect(SelectPortReturnPage.validationError).toBeDisplayed();
 
-        // Verify add another port button is also present here
         await expect(SelectPortReturnPage.addAnotherPortButton).toBeDisplayed();
     });
 });

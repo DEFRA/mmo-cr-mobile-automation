@@ -9,8 +9,6 @@ if (existsSync(envPath)) {
     process.loadEnvFile(envPath);
 }
 
-// port the local Appium server binds to; @wdio/appium-service starts it before the
-// suite runs and kills it once the suite completes
 export const appiumPort = Number(process.env.APPIUM_PORT ?? 4723);
 
 export function cleanReports(): void {
@@ -22,8 +20,6 @@ export function cleanReports(): void {
 
 const execFileAsync = promisify(execFile);
 
-// Runs before the Appium service/session starts, so a stale build never lingers
-// on the device/simulator when the suite installs the fresh one from ./apps.
 export async function uninstallAndroidApp(appId: string, udid?: string): Promise<void> {
     const target = udid ? ['-s', udid] : [];
     try {

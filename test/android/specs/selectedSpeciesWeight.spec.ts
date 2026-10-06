@@ -32,7 +32,6 @@ describe('Selected Species Weight Validations', () => {
         await androidFlowNavigator.selectGear('Seine nets', 10, 10);
         await androidFlowNavigator.selectAreas('38E95');
 
-        // Now we are at the Species search page
         await speciesPage.heading.waitForDisplayed();
         await speciesPage.searchSelectAndContinue('br', 'Brown crab (TBC)');
         await selectedSpeciesPage.heading.waitForDisplayed();
@@ -46,10 +45,8 @@ describe('Selected Species Weight Validations', () => {
         logStep('AC1: Enter Catch Weight & AC2: Optional weights');
         await selectedSpeciesPage.selectSpeciesCheckbox('Brown crab (TBC)');
 
-        // Retained weight should appear (we know from the page object it exists)
         await expect(selectedSpeciesPage.retainedWeightField).toBeDisplayed();
 
-        // Verify optional fields can be added
         await selectedSpeciesPage.clickAddBelowMinWeight();
         await expect(selectedSpeciesPage.belowMinWeightField).toBeDisplayed();
 
@@ -74,7 +71,6 @@ describe('Selected Species Weight Validations', () => {
         await expect(higherDiscardedError).toBeDisplayed();
 
         logStep('AC8: entering weight incorrectly (two decimal places)');
-        // First fix the previous error to test the next one
         await selectedSpeciesPage.enterDiscardedWeight('');
         await selectedSpeciesPage.enterRetainedWeight('10.55');
         await selectedSpeciesPage.saveAndContinue();
@@ -112,14 +108,11 @@ describe('Selected Species Weight Validations', () => {
         await expect(letterError).toBeDisplayed();
 
         logStep('AC3: Edit Weights');
-        // We already demonstrated editing by clearing and entering multiple times above.
-        // Let's enter a valid weight and continue to ensure it works.
         await selectedSpeciesPage.enterRetainedWeight('5.5');
         await selectedSpeciesPage.enterBelowMinWeight('2');
         await selectedSpeciesPage.enterDiscardedWeight('1');
         await selectedSpeciesPage.saveAndContinue();
 
-        // The next page should be Delayed Landing page
         const delayedLandingHeading = await $(
             '//android.widget.TextView[contains(@text, "Are you delaying the landing")]',
         );
@@ -129,17 +122,13 @@ describe('Selected Species Weight Validations', () => {
     it('verifies add and remove species functions (AC4 & AC5)', async () => {
         logStep('AC4: add species function');
         await selectedSpeciesPage.clickAddSpecies();
-        // Should return to species search page
         await expect(speciesPage.heading).toBeDisplayed();
 
-        // Add another species to return to Selected Species page
         await speciesPage.searchSelectAndContinue('Atlantic cod', 'Atlantic cod');
         await expect(selectedSpeciesPage.heading).toBeDisplayed();
 
         logStep('AC5: remove species function');
         await selectedSpeciesPage.clickRemoveSpecies();
-        // Should go to a remove species page (out of scope for full flow, but we can verify the click works and navigates)
-        // Since we don't have the remove species page object yet, we just verify the heading changes or an element appears
         const removeHeading = await $('//android.widget.TextView[contains(@text, "Remove")]');
         await removeHeading.waitForDisplayed({ timeout: 10000 });
         await expect(removeHeading).toBeDisplayed();
