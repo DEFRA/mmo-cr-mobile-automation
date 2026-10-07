@@ -30,9 +30,9 @@ export class BasePage extends CommonBasePage {
 
     async scrollToElement(element: ReturnType<typeof $>) {
         logStep('scrollToElement');
-        await element.waitForExist({ timeout: 500 });
+        await element.waitForExist();
         await this.scrollToElementIfExisting(element);
-        await element.waitForDisplayed({ timeout: 500 });
+        await element.waitForDisplayed();
     }
 
     async scrollToElementIfExisting(element: ReturnType<typeof $>) {

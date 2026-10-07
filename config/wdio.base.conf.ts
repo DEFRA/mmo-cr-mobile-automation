@@ -11,6 +11,9 @@ if (existsSync(envPath)) {
 
 export const appiumPort = Number(process.env.APPIUM_PORT ?? 4723);
 
+// Must not exceed the BrowserStack plan's parallel sessions; extra session requests are rejected.
+export const browserStackMaxInstances = Number(process.env.BROWSERSTACK_MAX_INSTANCES ?? 2);
+
 export function cleanLogs(): void {
     for (const logDirectory of ['log', 'logs']) {
         rmSync(resolve(process.cwd(), logDirectory), { recursive: true, force: true });

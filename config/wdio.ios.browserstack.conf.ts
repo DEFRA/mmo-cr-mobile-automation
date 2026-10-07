@@ -1,4 +1,9 @@
-import { baseConfig, cleanReports, mergeCommonCapabilities } from './wdio.base.conf';
+import {
+    baseConfig,
+    browserStackMaxInstances,
+    cleanReports,
+    mergeCommonCapabilities,
+} from './wdio.base.conf';
 import { prepareBrowserStackApp } from './browserStackApp';
 import { logInfo } from '../test/common/logger';
 
@@ -25,6 +30,7 @@ export const config: WebdriverIO.Config = {
                 buildIdentifier: '${BUILD_NUMBER}',
                 app: appUrl,
                 browserstackLocal: false,
+                percy: false,
             },
         ],
     ],
@@ -41,7 +47,7 @@ export const config: WebdriverIO.Config = {
         },
     ],
 
-    maxInstances: 10,
+    maxInstances: browserStackMaxInstances,
 
     onPrepare: async () => {
         cleanReports();

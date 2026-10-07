@@ -183,6 +183,10 @@ and uses the returned `bs://` URL. If no matching file exists, it falls back to
 
 Each run (local or BrowserStack) starts by clearing the `log/` and `logs/` folders.
 
+BrowserStack runs use at most `BROWSERSTACK_MAX_INSTANCES` parallel sessions (default `2`).
+Keep it at or below your plan's parallel session limit; requests beyond the plan's
+parallel and queue limits are rejected, and those specs never run.
+
 `test/common/browserStackAppHelper.ts` provides upload, listing, and deletion helpers
 for the BrowserStack App Automate API. Set `BROWSERSTACK_USERNAME` and
 `BROWSERSTACK_ACCESS_KEY`, then use the class from a script or test:
