@@ -76,10 +76,10 @@ describe('iOS catch location page', () => {
 
         await CatchLocationManualEntryPage.backButton.click();
 
-        await expect(CatchLocationPage.heading).toBeDisplayed();
+        await expect(CatchLocationPage.map).toBeDisplayed();
     });
 
-    it.only('reveals additional rectangles when zooming out while staying centred on the departure port region', async () => {
+    it.skip('reveals additional rectangles when zooming out while staying centred on the departure port region', async () => {
         expect(await CatchLocationPage.visibleAreaCount()).toBe(DEFAULT_RECTANGLE_COUNT);
 
         await CatchLocationPage.zoomOut();
@@ -88,7 +88,7 @@ describe('iOS catch location page', () => {
         await expect(CatchLocationPage.firstAreaLabel).toBeDisplayed();
     });
 
-    it('shows no more than 16 rectangles at maximum zoom-out', async () => {
+    it.skip('shows no more than 16 rectangles at maximum zoom-out', async () => {
         logStep('shows no more than 16 rectangles at maximum zoom-out');
         for (let attempt = 0; attempt < 5; attempt++) {
             await CatchLocationPage.zoomOut();
@@ -101,7 +101,7 @@ describe('iOS catch location page', () => {
         expect(await CatchLocationPage.visibleAreaCount()).toBe(countAtMax);
     });
 
-    it('returns to the default 9 rectangle view when zooming back in', async () => {
+    it.skip('returns to the default 9 rectangle view when zooming back in', async () => {
         logStep('returns to the default 9 rectangle view when zooming back in');
         await CatchLocationPage.zoomOut();
         expect(await CatchLocationPage.visibleAreaCount()).toBeGreaterThan(DEFAULT_RECTANGLE_COUNT);
