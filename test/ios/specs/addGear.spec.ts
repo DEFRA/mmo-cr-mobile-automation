@@ -46,14 +46,7 @@ describe('iOS add gear page', () => {
         const searchTerm = 'Se';
         await AddGearPage.enterGearSearch(searchTerm);
         await gearResult.waitForExist({ timeout: 10000 });
-
-        let isDisplayed = await gearResult.isDisplayed();
-        let scrollAttempts = 0;
-        while (!isDisplayed && scrollAttempts < 10) {
-            await browser.execute('mobile: scroll', { direction: 'down' });
-            isDisplayed = await gearResult.isDisplayed();
-            scrollAttempts++;
-        }
+        await AddGearPage.scrollToElementIfExisting(gearResult);
 
         await expect(gearResult).toBeDisplayed();
 
