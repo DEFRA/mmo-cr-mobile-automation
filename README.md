@@ -175,6 +175,24 @@ npm run test:android:browserstack
 npm run test:ios:browserstack
 ```
 
+`test/common/browserStackAppHelper.ts` provides upload, listing, and deletion helpers
+for the BrowserStack App Automate API. Set `BROWSERSTACK_USERNAME` and
+`BROWSERSTACK_ACCESS_KEY`, then use the class from a script or test:
+
+```ts
+import BrowserStackAppHelper from './test/common/browserStackAppHelper';
+
+const browserStackApps = new BrowserStackAppHelper();
+const uploadedApp = await browserStackApps.uploadAppFromFile('apps/app-debug.apk', {
+    customId: 'android-test',
+});
+console.log(uploadedApp.app_url);
+```
+
+Use `uploadAppFromUrl` for a publicly accessible app URL, `listApps` or
+`listGroupApps` to retrieve uploaded apps, and `deleteApp` with the app ID to
+remove an upload.
+
 ## GitHub Actions
 
 The `Android E2E` and `iOS E2E` workflows run independently against BrowserStack. Add these
