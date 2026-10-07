@@ -16,9 +16,12 @@ describe('iOS catch location page', () => {
         await iosFlowNavigator.selectTripToday('yes');
         await iosFlowNavigator.addPort('Peel');
         await iosFlowNavigator.confirmSamePort('Peel', 'yes');
-        await iosFlowNavigator.addGear('Seine nets (not specified)');
+        await iosFlowNavigator.addGear('Gillnets (drift)');
         await iosFlowNavigator.enterGearMeasurements('12');
-        await iosFlowNavigator.selectGearDetails('2');
+        await iosFlowNavigator.selectGearDetails('gnd', {
+            netLengthHauled: '2',
+            netLengthLeft: '1',
+        });
         await expect(CatchLocationPage.heading).toBeDisplayed();
     });
 

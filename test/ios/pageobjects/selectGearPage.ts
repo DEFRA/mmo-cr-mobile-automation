@@ -16,21 +16,21 @@ export class SelectGearPage extends BaseCatchRecordPage {
         return this.selector(`CatchRecord.selectGear.option.${code.toLowerCase()}`);
     }
 
-    get seineNetsLabel() {
-        return $('~Seine nets (not specified)');
+    gearLabel(gearName: string) {
+        return $(`~${gearName}`);
     }
 
     meshDetailText(meshSize: string) {
         return $(`~Mesh size (mm): ${meshSize}`);
     }
 
-    get timesShotLabel() {
-        return $('~CatchRecord.selectGear.variable.seine nets (not specified).timesShot');
+    gearVariableLabel(gearCode: string, variableName: string) {
+        return $(`~CatchRecord.selectGear.variable.${gearCode.toLowerCase()}.${variableName}`);
     }
 
-    get timesShotField() {
+    gearVariableField(gearCode: string, variableName: string) {
         return $(
-            '//XCUIElementTypeTextField[@name="CatchRecord.selectGear.variable.sx.timesShot"]',
+            `//XCUIElementTypeTextField[@name="CatchRecord.selectGear.variable.${gearCode.toLowerCase()}.${variableName}"]`,
         );
     }
 
@@ -42,14 +42,14 @@ export class SelectGearPage extends BaseCatchRecordPage {
         return $('~CatchRecord.selectGear.addAnother');
     }
 
-    async selectSeineNets() {
-        logStep('selectSeineNets');
-        await this.gearOption('sx').click();
+    async selectGear(gearCode: string) {
+        logStep(`selectGear code: ${gearCode}`);
+        await this.gearOption(gearCode).click();
     }
 
-    async enterTimesShot(value: string) {
-        logStep('enterTimesShot');
-        await this.timesShotField.setValue(value);
+    async enterGearVariable(gearCode: string, variableName: string, value: string) {
+        logStep(`enterGearVariable code: ${gearCode} var: ${variableName}`);
+        await this.gearVariableField(gearCode, variableName).setValue(value);
     }
     async addAnotherGear() {
         await this.addAnotherGearButton.click();

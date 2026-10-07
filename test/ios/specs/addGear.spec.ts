@@ -30,14 +30,14 @@ describe('iOS add gear page', () => {
 
     it('accepts a gear search value', async () => {
         logStep('accepts a gear search value');
-        await AddGearPage.enterGearSearch('Seine nets');
+        await AddGearPage.enterGearSearch('Gillnets');
 
-        await expect(AddGearPage.searchField).toHaveAttribute('value', 'Seine nets');
+        await expect(AddGearPage.searchField).toHaveAttribute('value', 'Gillnets');
     });
 
     it('shows gear results after exactly two characters and allows selection', async () => {
         logStep('shows gear results after exactly two characters and allows selection');
-        const gearName = 'Seine nets (not specified)';
+        const gearName = 'Gillnets (drift)';
         const gearResult = AddGearPage.gearResult(gearName);
 
         await AddGearPage.enterGearSearch('S');

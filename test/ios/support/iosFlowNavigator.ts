@@ -20,7 +20,7 @@ export interface CatchRecordJourneyData {
     port: string;
     gear: string;
     meshSize: string;
-    timesShot: string;
+    gearVariables: Record<string, string>;
     catchArea: string;
     species: string;
     weight: string;
@@ -92,10 +92,12 @@ export class IosFlowNavigator {
         await GearMeasurementsPage.continueToNextStep();
     }
 
-    async selectGearDetails(timesShot: string) {
-        logStep(`selectGearDetails timesShot=${timesShot}`);
-        await SelectGearPage.selectSeineNets();
-        await SelectGearPage.enterTimesShot(timesShot);
+    async selectGearDetails(gearCode: string, variables: Record<string, string>) {
+        logStep(`selectGearDetails gearCode=${gearCode}`);
+        await SelectGearPage.selectGear(gearCode);
+        for (const [varName, varValue] of Object.entries(variables)) {
+            await SelectGearPage.enterGearVariable(gearCode, varName, varValue);
+        }
         await SelectGearPage.continueToNextStep();
     }
 

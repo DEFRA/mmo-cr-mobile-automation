@@ -14,7 +14,7 @@ describe('iOS gear measurements page', () => {
         await iosFlowNavigator.selectTripToday('yes');
         await iosFlowNavigator.addPort('Peel');
         await iosFlowNavigator.confirmSamePort('Peel', 'yes');
-        await AddGearPage.selectGear('Seine nets (not specified)');
+        await AddGearPage.selectGear('Gillnets (drift)');
         await AddGearPage.continueToNextStep();
         await expect(GearMeasurementsPage.heading).toBeDisplayed();
     });
@@ -47,11 +47,11 @@ describe('iOS gear measurements page', () => {
         await GearMeasurementsPage.continueToNextStep();
 
         await expect(SelectGearPage.heading).toBeDisplayed();
-        await expect(SelectGearPage.gearOption('sx')).toBeDisplayed();
-        await expect(SelectGearPage.gearOption('sx')).not.toBeSelected();
+        await expect(SelectGearPage.gearOption('gnd')).toBeDisplayed();
+        await expect(SelectGearPage.gearOption('gnd')).not.toBeSelected();
 
-        await SelectGearPage.selectSeineNets();
-        await expect(SelectGearPage.gearOption('sx')).toBeSelected();
+        await SelectGearPage.selectGear('gnd');
+        await expect(SelectGearPage.gearOption('gnd')).toBeSelected();
     });
 
     it.skip('accepts a whole times-shot value and allows adding another gear', async () => {
@@ -59,14 +59,17 @@ describe('iOS gear measurements page', () => {
         await GearMeasurementsPage.enterMeshSize('12');
         await GearMeasurementsPage.continueToNextStep();
 
-        await expect(SelectGearPage.gearOption('sx')).toBeDisplayed();
-        await expect(SelectGearPage.gearOption('sx')).not.toBeSelected();
-        await SelectGearPage.selectSeineNets();
+        await expect(SelectGearPage.gearOption('gnd')).toBeDisplayed();
+        await expect(SelectGearPage.gearOption('gnd')).not.toBeSelected();
+        await SelectGearPage.selectGear('gnd');
 
-        await expect(SelectGearPage.timesShotField).toBeDisplayed();
-        await SelectGearPage.enterTimesShot('2');
+        await expect(SelectGearPage.gearVariableField('gnd', 'netLengthHauled')).toBeDisplayed();
+        await SelectGearPage.enterGearVariable('gnd', 'netLengthHauled', '2');
         await SelectGearPage.saveContinueButton.click();
-        await expect(SelectGearPage.timesShotField).toHaveAttribute('value', '2');
+        await expect(SelectGearPage.gearVariableField('gnd', 'netLengthHauled')).toHaveAttribute(
+            'value',
+            '2',
+        );
         await expect(SelectGearPage.addAnotherGearButton).toBeDisplayed();
 
         await SelectGearPage.addAnotherGear();
@@ -78,9 +81,12 @@ describe('iOS gear measurements page', () => {
         await GearMeasurementsPage.enterMeshSize('12');
         await GearMeasurementsPage.continueToNextStep();
 
-        await SelectGearPage.selectSeineNets();
-        await SelectGearPage.enterTimesShot('2');
-        await expect(SelectGearPage.timesShotField).toHaveAttribute('value', '2');
+        await SelectGearPage.selectGear('gnd');
+        await SelectGearPage.enterGearVariable('gnd', 'netLengthHauled', '2');
+        await expect(SelectGearPage.gearVariableField('gnd', 'netLengthHauled')).toHaveAttribute(
+            'value',
+            '2',
+        );
         await SelectGearPage.continueToNextStep();
 
         await expect(CatchLocationPage.heading).toBeDisplayed();

@@ -4,7 +4,7 @@ import CatchLocationManualEntryPage from '../pageobjects/catchLocationManualEntr
 import { logStep } from '../../common/logger';
 import iosFlowNavigator from '../support/iosFlowNavigator';
 
-const VALID_SUB_AREA = '44E83';
+const VALID_SUB_AREA = '37E52';
 const INVALID_SUB_AREA = '99Z99';
 
 describe('iOS catch location statistical sub area manual entry', () => {
@@ -16,9 +16,12 @@ describe('iOS catch location statistical sub area manual entry', () => {
         await iosFlowNavigator.selectTripToday('yes');
         await iosFlowNavigator.addPort('Peel');
         await iosFlowNavigator.confirmSamePort('Peel', 'yes');
-        await iosFlowNavigator.addGear('Seine nets (not specified)');
+        await iosFlowNavigator.addGear('Gillnets (drift)');
         await iosFlowNavigator.enterGearMeasurements('12');
-        await iosFlowNavigator.selectGearDetails('2');
+        await iosFlowNavigator.selectGearDetails('gnd', {
+            netLengthHauled: '2',
+            netLengthLeft: '1',
+        });
         await expect(CatchLocationPage.heading).toBeDisplayed();
     });
 

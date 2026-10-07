@@ -24,10 +24,10 @@ const endToEndJourneyData = {
     tripToday: 'yes' as const,
     port: 'Peel',
     confirmSamePort: 'yes' as const,
-    gear: 'Seine nets (not specified)',
+    gear: 'Gillnets (drift)',
     meshSize: '12',
-    timesShot: '2',
-    catchArea: '44E83',
+    gearVariables: { netLengthHauled: '2', netLengthLeft: '1' },
+    catchArea: '37E52',
     species: 'Atlantic salmon (SAL)',
     weight: '500',
     weightBelowMin: '10',
@@ -93,8 +93,18 @@ describe('iOS end-to-end catch record journey', () => {
         await GearMeasurementsPage.continueToNextStep();
 
         await expect(SelectGearPage.heading).toBeDisplayed();
-        await SelectGearPage.selectSeineNets();
-        await SelectGearPage.enterTimesShot(endToEndJourneyData.timesShot);
+        await SelectGearPage.selectGear('gnd');
+        await SelectGearPage.enterGearVariable(
+            'gnd',
+            'netLengthHauled',
+            endToEndJourneyData.gearVariables.netLengthHauled,
+        );
+        await SelectGearPage.enterGearVariable(
+            'gnd',
+            'netLengthLeft',
+            endToEndJourneyData.gearVariables.netLengthLeft,
+        );
+
         await SelectGearPage.continueToNextStep();
 
         await expect(CatchLocationPage.heading).toBeDisplayed();
@@ -192,8 +202,18 @@ describe('iOS end-to-end catch record journey', () => {
         await GearMeasurementsPage.continueToNextStep();
 
         await expect(SelectGearPage.heading).toBeDisplayed();
-        await SelectGearPage.selectSeineNets();
-        await SelectGearPage.enterTimesShot(notSameDayJourneyData.timesShot);
+        await SelectGearPage.selectGear('gnd');
+        await SelectGearPage.enterGearVariable(
+            'gnd',
+            'netLengthHauled',
+            notSameDayJourneyData.gearVariables.netLengthHauled,
+        );
+        await SelectGearPage.enterGearVariable(
+            'gnd',
+            'netLengthLeft',
+            notSameDayJourneyData.gearVariables.netLengthLeft,
+        );
+
         await SelectGearPage.continueToNextStep();
 
         await expect(CatchLocationPage.heading).toBeDisplayed();

@@ -7,10 +7,10 @@ import { logStep } from '../../common/logger';
 const journeyData: CatchRecordJourneyData = {
     vessel: 'ACHILLES',
     port: 'Peel',
-    gear: 'Seine nets (not specified)',
+    gear: 'Gillnets (drift)',
     meshSize: '12',
-    timesShot: '2',
-    catchArea: '44E83',
+    gearVariables: { netLengthHauled: '2', netLengthLeft: '1' },
+    catchArea: '37E52',
     species: 'European lobster (LBE)',
     weight: '500',
     landingStorage: 'no',
@@ -29,7 +29,7 @@ describe('iOS record species weights page', () => {
         await iosFlowNavigator.confirmSamePort(journeyData.port, 'yes');
         await iosFlowNavigator.addGear(journeyData.gear);
         await iosFlowNavigator.enterGearMeasurements(journeyData.meshSize);
-        await iosFlowNavigator.selectGearDetails(journeyData.timesShot);
+        await iosFlowNavigator.selectGearDetails('gnd', journeyData.gearVariables);
         await iosFlowNavigator.completeCatchLocation(journeyData.catchArea);
         await iosFlowNavigator.addSpecies(journeyData.species);
         await expect(RecordSpeciesWeightsPage.heading).toBeDisplayed();
