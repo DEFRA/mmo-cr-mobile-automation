@@ -144,7 +144,7 @@ describe('iOS end-to-end catch record journey', () => {
         );
         await expect(HomePage.tableRowVessel(0, endToEndJourneyData.vessel)).toBeDisplayed();
         await expect(HomePage.tableRowStatus(0, 'Unsent')).toBeDisplayed();
-        */ 
+        */
     });
 
     it('completes and submits the catch record journey for a trip not today', async () => {
@@ -241,6 +241,6 @@ describe('iOS end-to-end catch record journey', () => {
             `View submission for ${expectedDateString}`,
         );
         await expect(HomePage.tableRowVessel(0, notSameDayJourneyData.vessel)).toBeDisplayed();
-        */ 
+        */
     });
 });
