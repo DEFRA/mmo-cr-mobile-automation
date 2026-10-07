@@ -25,7 +25,6 @@ export interface BrowserStackAppListOptions {
     customId?: string;
 }
 
-
 export class BrowserStackAppHelper {
     constructor(
         private readonly username = process.env.BROWSERSTACK_USERNAME,

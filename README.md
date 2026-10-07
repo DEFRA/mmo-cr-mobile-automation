@@ -175,6 +175,14 @@ npm run test:android:browserstack
 npm run test:ios:browserstack
 ```
 
+Before each BrowserStack run, the config deletes this project's previously uploaded app
+(custom ID `mmo-cr-android` or `mmo-cr-ios`), uploads the newest `.apk`/`.ipa` from `apps/`,
+and uses the returned `bs://` URL. If no matching file exists, it falls back to
+`BROWSERSTACK_ANDROID_APP_URL`/`BROWSERSTACK_IOS_APP_URL`. Set
+`BROWSERSTACK_SKIP_APP_UPLOAD=true` to always use those env vars instead.
+
+Each run (local or BrowserStack) starts by clearing the `log/` and `logs/` folders.
+
 `test/common/browserStackAppHelper.ts` provides upload, listing, and deletion helpers
 for the BrowserStack App Automate API. Set `BROWSERSTACK_USERNAME` and
 `BROWSERSTACK_ACCESS_KEY`, then use the class from a script or test:
