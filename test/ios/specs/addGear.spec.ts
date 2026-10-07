@@ -10,8 +10,8 @@ describe('iOS add gear page', () => {
         await iosFlowNavigator.openCreateRecord();
         await iosFlowNavigator.selectVessel('ACHILLES');
         await iosFlowNavigator.selectTripToday('yes');
-        await iosFlowNavigator.addPort('Peterhead');
-        await iosFlowNavigator.confirmSamePort('Peterhead', 'yes');
+        await iosFlowNavigator.addPort('Peel');
+        await iosFlowNavigator.confirmSamePort('Peel', 'yes');
         await expect(AddGearPage.heading).toBeDisplayed();
     });
 

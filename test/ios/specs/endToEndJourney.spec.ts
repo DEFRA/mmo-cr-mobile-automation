@@ -22,7 +22,7 @@ import { logStep } from '../../common/logger';
 const endToEndJourneyData = {
     vessel: 'ACHILLES' as const,
     tripToday: 'yes' as const,
-    port: 'Peterhead',
+    port: 'Peel',
     confirmSamePort: 'yes' as const,
     gear: 'Seine nets (not specified)',
     meshSize: '12',

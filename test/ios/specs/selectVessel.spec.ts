@@ -19,22 +19,22 @@ describe('iOS select vessel page', () => {
 
     it('shows both vessel options unselected initially', async () => {
         logStep('shows both vessel options unselected initially');
-        await expect(SelectVesselPage.achillesVesselOption).not.toBeSelected();
-        await expect(SelectVesselPage.herculesVesselOption).not.toBeSelected();
+        await expect(SelectVesselPage.vesselOption('achilles')).not.toBeSelected();
+        await expect(SelectVesselPage.vesselOption('hercules')).not.toBeSelected();
     });
 
     it('keeps the selected vessel selected and allows changing the selection', async () => {
         logStep('keeps the selected vessel selected and allows changing the selection');
-        await SelectVesselPage.achillesVesselOption.click();
-        await expect(SelectVesselPage.achillesVesselOption).toBeSelected();
-        await expect(SelectVesselPage.herculesVesselOption).not.toBeSelected();
+        await SelectVesselPage.vesselOption('achilles').click();
+        await expect(SelectVesselPage.vesselOption('achilles')).toBeSelected();
+        await expect(SelectVesselPage.vesselOption('hercules')).not.toBeSelected();
 
-        await SelectVesselPage.achillesVesselOption.click();
-        await expect(SelectVesselPage.achillesVesselOption).toBeSelected();
+        await SelectVesselPage.vesselOption('achilles').click();
+        await expect(SelectVesselPage.vesselOption('achilles')).toBeSelected();
 
-        await SelectVesselPage.herculesVesselOption.click();
-        await expect(SelectVesselPage.achillesVesselOption).not.toBeSelected();
-        await expect(SelectVesselPage.herculesVesselOption).toBeSelected();
+        await SelectVesselPage.vesselOption('hercules').click();
+        await expect(SelectVesselPage.vesselOption('achilles')).not.toBeSelected();
+        await expect(SelectVesselPage.vesselOption('hercules')).toBeSelected();
     });
 
     it('shows a validation error when continuing without selecting a vessel', async () => {
@@ -47,7 +47,7 @@ describe('iOS select vessel page', () => {
 
     it('continues to the trip-today page after selecting ACHILLES', async () => {
         logStep('continues to the trip-today page after selecting ACHILLES');
-        await SelectVesselPage.achillesVesselOption.click();
+        await SelectVesselPage.vesselOption('achilles').click();
         await SelectVesselPage.saveContinueButton.click();
 
         await expect(TripTodayPage.questionHeading).toBeDisplayed();
@@ -55,7 +55,7 @@ describe('iOS select vessel page', () => {
 
     it('continues to the trip-today page after selecting HERCULES', async () => {
         logStep('continues to the trip-today page after selecting HERCULES');
-        await SelectVesselPage.herculesVesselOption.click();
+        await SelectVesselPage.vesselOption('hercules').click();
         await SelectVesselPage.saveContinueButton.click();
 
         await expect(TripTodayPage.questionHeading).toBeDisplayed();

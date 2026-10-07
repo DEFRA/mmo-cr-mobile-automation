@@ -9,7 +9,7 @@ import iosFlowNavigator, { type CatchRecordJourneyData } from '../support/iosFlo
 
 const journeyData: CatchRecordJourneyData = {
     vessel: 'ACHILLES',
-    port: 'Peterhead',
+    port: 'Peel',
     gear: 'Seine nets (not specified)',
     meshSize: '12',
     timesShot: '2',

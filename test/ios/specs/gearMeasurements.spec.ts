@@ -12,8 +12,8 @@ describe('iOS gear measurements page', () => {
         await iosFlowNavigator.openCreateRecord();
         await iosFlowNavigator.selectVessel('ACHILLES');
         await iosFlowNavigator.selectTripToday('yes');
-        await iosFlowNavigator.addPort('Peterhead');
-        await iosFlowNavigator.confirmSamePort('Peterhead', 'yes');
+        await iosFlowNavigator.addPort('Peel');
+        await iosFlowNavigator.confirmSamePort('Peel', 'yes');
         await AddGearPage.selectGear('Seine nets (not specified)');
         await AddGearPage.continueToNextStep();
         await expect(GearMeasurementsPage.heading).toBeDisplayed();
@@ -47,11 +47,11 @@ describe('iOS gear measurements page', () => {
         await GearMeasurementsPage.continueToNextStep();
 
         await expect(SelectGearPage.heading).toBeDisplayed();
-        await expect(SelectGearPage.seineNetsOption).toBeDisplayed();
-        await expect(SelectGearPage.seineNetsOption).not.toBeSelected();
+        await expect(SelectGearPage.gearOption('sx')).toBeDisplayed();
+        await expect(SelectGearPage.gearOption('sx')).not.toBeSelected();
 
         await SelectGearPage.selectSeineNets();
-        await expect(SelectGearPage.seineNetsOption).toBeSelected();
+        await expect(SelectGearPage.gearOption('sx')).toBeSelected();
     });
 
     it.skip('accepts a whole times-shot value and allows adding another gear', async () => {
@@ -59,8 +59,8 @@ describe('iOS gear measurements page', () => {
         await GearMeasurementsPage.enterMeshSize('12');
         await GearMeasurementsPage.continueToNextStep();
 
-        await expect(SelectGearPage.seineNetsOption).toBeDisplayed();
-        await expect(SelectGearPage.seineNetsOption).not.toBeSelected();
+        await expect(SelectGearPage.gearOption('sx')).toBeDisplayed();
+        await expect(SelectGearPage.gearOption('sx')).not.toBeSelected();
         await SelectGearPage.selectSeineNets();
 
         await expect(SelectGearPage.timesShotField).toBeDisplayed();

@@ -14,8 +14,8 @@ describe('iOS catch location statistical sub area manual entry', () => {
         await iosFlowNavigator.openCreateRecord();
         await iosFlowNavigator.selectVessel('ACHILLES');
         await iosFlowNavigator.selectTripToday('yes');
-        await iosFlowNavigator.addPort('Peterhead');
-        await iosFlowNavigator.confirmSamePort('Peterhead', 'yes');
+        await iosFlowNavigator.addPort('Peel');
+        await iosFlowNavigator.confirmSamePort('Peel', 'yes');
         await iosFlowNavigator.addGear('Seine nets (not specified)');
         await iosFlowNavigator.enterGearMeasurements('12');
         await iosFlowNavigator.selectGearDetails('2');

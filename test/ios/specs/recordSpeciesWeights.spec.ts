@@ -6,7 +6,7 @@ import { logStep } from '../../common/logger';
 
 const journeyData: CatchRecordJourneyData = {
     vessel: 'ACHILLES',
-    port: 'Peterhead',
+    port: 'Peel',
     gear: 'Seine nets (not specified)',
     meshSize: '12',
     timesShot: '2',

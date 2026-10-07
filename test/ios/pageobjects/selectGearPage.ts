@@ -12,8 +12,8 @@ export class SelectGearPage extends BaseCatchRecordPage {
         return $('~CatchRecord.selectGear.checkboxGroup');
     }
 
-    get seineNetsOption() {
-        return $('~CatchRecord.selectGear.option.sx');
+    gearOption(code: string) {
+        return this.selector(`CatchRecord.selectGear.option.${code.toLowerCase()}`);
     }
 
     get seineNetsLabel() {
@@ -44,7 +44,7 @@ export class SelectGearPage extends BaseCatchRecordPage {
 
     async selectSeineNets() {
         logStep('selectSeineNets');
-        await this.seineNetsOption.click();
+        await this.gearOption('sx').click();
     }
 
     async enterTimesShot(value: string) {
