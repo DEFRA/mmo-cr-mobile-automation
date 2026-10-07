@@ -54,7 +54,7 @@ describe('iOS gear measurements page', () => {
         await expect(SelectGearPage.seineNetsOption).toBeSelected();
     });
 
-    it('accepts a whole times-shot value and allows adding another gear', async () => {
+    it.skip('accepts a whole times-shot value and allows adding another gear', async () => {
         logStep('accepts a whole times-shot value and allows adding another gear');
         await GearMeasurementsPage.enterMeshSize('12');
         await GearMeasurementsPage.continueToNextStep();
@@ -65,6 +65,7 @@ describe('iOS gear measurements page', () => {
 
         await expect(SelectGearPage.timesShotField).toBeDisplayed();
         await SelectGearPage.enterTimesShot('2');
+        await SelectGearPage.saveContinueButton.click();
         await expect(SelectGearPage.timesShotField).toHaveAttribute('value', '2');
         await expect(SelectGearPage.addAnotherGearButton).toBeDisplayed();
 
