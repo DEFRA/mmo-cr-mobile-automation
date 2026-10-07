@@ -189,8 +189,7 @@ const uploadedApp = await browserStackApps.uploadAppFromFile('apps/app-debug.apk
 console.log(uploadedApp.app_url);
 ```
 
-Use `uploadAppFromUrl` for a publicly accessible app URL, `listApps` or
-`listGroupApps` to retrieve uploaded apps, and `deleteApp` with the app ID to
+Use `listApps` to retrieve uploaded apps, and `deleteApp` with the app ID to
 remove an upload.
 
 ## GitHub Actions

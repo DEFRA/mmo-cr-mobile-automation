@@ -25,7 +25,6 @@ export interface BrowserStackAppListOptions {
     customId?: string;
 }
 
-export type BrowserStackGroupAppsResponse = BrowserStackApp[] | { message: string };
 
 export class BrowserStackAppHelper {
     constructor(
@@ -40,20 +39,6 @@ export class BrowserStackAppHelper {
         const file = await readFile(filePath);
         const form = new FormData();
         form.append('file', new Blob([new Uint8Array(file)]), basename(filePath));
-        this.addUploadOptions(form, options);
-
-        return this.request('/upload', {
-            method: 'POST',
-            body: form,
-        });
-    }
-
-    async uploadAppFromUrl(
-        appUrl: string,
-        options: BrowserStackUploadOptions = {},
-    ): Promise<{ app_url: string; custom_id?: string; shareable_id?: string }> {
-        const form = new FormData();
-        form.append('url', appUrl);
         this.addUploadOptions(form, options);
 
         return this.request('/upload', {
@@ -80,13 +65,6 @@ export class BrowserStackAppHelper {
         return apps;
     }
 
-    async listGroupApps(
-        options: BrowserStackAppListOptions = {},
-    ): Promise<BrowserStackGroupAppsResponse> {
-        const query = this.buildListQuery(options, true);
-        return this.request(`/recent_group_apps${query}`);
-    }
-
     async deleteApp(appId: string): Promise<{ success: boolean }> {
         if (!appId.trim()) {
             throw new Error('BrowserStack app ID must not be empty.');
@@ -105,7 +83,7 @@ export class BrowserStackAppHelper {
         }
     }
 
-    private buildListQuery(options: BrowserStackAppListOptions, useCustomIdQuery = false): string {
+    private buildListQuery(options: BrowserStackAppListOptions): string {
         const params = new URLSearchParams();
         if (options.limit !== undefined) {
             if (!Number.isInteger(options.limit) || options.limit < 1 || options.limit > 100) {
@@ -118,9 +96,6 @@ export class BrowserStackAppHelper {
                 throw new Error('BrowserStack app list offset must be a non-negative integer.');
             }
             params.set('offset', String(options.offset));
-        }
-        if (useCustomIdQuery && options.customId) {
-            params.set('custom_id', options.customId);
         }
         const query = params.toString();
         return query ? `?${query}` : '';
