@@ -12,10 +12,6 @@ export class SelectPortReturnPage extends BaseCatchRecordPage {
         return $('~CatchRecord.selectPort.return.radioGroup');
     }
 
-    get peterheadOption() {
-        return $('~CatchRecord.selectPort.return.option.peterhead');
-    }
-
     portOption(portName: string) {
         return this.selector(`CatchRecord.selectPort.return.option.${portName.toLowerCase()}`);
     }
@@ -35,9 +31,6 @@ export class SelectPortReturnPage extends BaseCatchRecordPage {
         );
     }
 
-    async selectPeterhead() {
-        await this.selectPort('Peterhead');
-    }
     async addAnotherPort() {
         await this.addAnotherPortButton.click();
     }

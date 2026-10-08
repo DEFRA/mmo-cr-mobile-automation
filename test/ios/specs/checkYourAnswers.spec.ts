@@ -9,11 +9,11 @@ import iosFlowNavigator, { type CatchRecordJourneyData } from '../support/iosFlo
 
 const journeyData: CatchRecordJourneyData = {
     vessel: 'ACHILLES',
-    port: 'Peterhead',
-    gear: 'Seine nets (not specified)',
+    port: 'Peel',
+    gear: 'Gillnets (drift)',
     meshSize: '12',
-    timesShot: '2',
-    catchArea: '44E83',
+    gearVariables: { netLengthHauled: '2', netLengthLeft: '1' },
+    catchArea: '37E52',
     species: 'European lobster (LBE)',
     weight: '500',
     landingStorage: 'no',
@@ -30,7 +30,7 @@ describe('iOS check your answers page', () => {
         await iosFlowNavigator.confirmSamePort(journeyData.port, 'yes');
         await iosFlowNavigator.addGear(journeyData.gear);
         await iosFlowNavigator.enterGearMeasurements(journeyData.meshSize);
-        await iosFlowNavigator.selectGearDetails(journeyData.timesShot);
+        await iosFlowNavigator.selectGearDetails('gnd', journeyData.gearVariables);
         await iosFlowNavigator.completeCatchLocation(journeyData.catchArea);
         await iosFlowNavigator.addSpecies(journeyData.species);
         await iosFlowNavigator.enterSpeciesWeights(journeyData.species, journeyData.weight);
@@ -76,7 +76,10 @@ describe('iOS check your answers page', () => {
             CheckYourAnswersPage.meshSizeValue(journeyData.meshSize),
         );
         await CheckYourAnswersPage.scrollToElement(
-            CheckYourAnswersPage.timesShotValue(journeyData.timesShot),
+            CheckYourAnswersPage.gearVariableValue(journeyData.gearVariables.netLengthHauled),
+        );
+        await CheckYourAnswersPage.scrollToElement(
+            CheckYourAnswersPage.gearVariableValue(journeyData.gearVariables.netLengthLeft),
         );
     });
 

@@ -42,7 +42,7 @@ export class CheckYourAnswersPage extends BaseCatchRecordPage {
         return this.selector(value);
     }
 
-    timesShotValue(value: string) {
+    gearVariableValue(value: string) {
         return this.selector(value);
     }
 
@@ -83,9 +83,9 @@ export class CheckYourAnswersPage extends BaseCatchRecordPage {
         );
     }
 
-    get changeTimesShotButton() {
+    changeGearVariableButton(varName: string) {
         return $(
-            '-ios predicate string:name BEGINSWITH "CatchRecord.checkYourAnswers.change.gear." AND name ENDSWITH ".variableMeasurement.timesShot"',
+            `-ios predicate string:name BEGINSWITH "CatchRecord.checkYourAnswers.change.gear." AND name ENDSWITH ".variableMeasurement.${varName}"`,
         );
     }
 
@@ -128,9 +128,9 @@ export class CheckYourAnswersPage extends BaseCatchRecordPage {
         await this.changeMeshSizeButton.click();
     }
 
-    async changeTimesShot() {
-        logStep('changeTimesShot');
-        await this.changeTimesShotButton.click();
+    async changeGearVariable(varName: string) {
+        logStep('changeGearVariable');
+        await this.changeGearVariableButton(varName).click();
     }
 
     async changeSpeciesName() {

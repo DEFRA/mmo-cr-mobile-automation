@@ -55,14 +55,8 @@ describe('iOS home page', () => {
         await expect(HomePage.tableRowStatus(0, 'Submitted')).toBeDisplayed();
         await expect(HomePage.tableRowCreatedBy(0, 'J.Smith')).toBeDisplayed();
 
-        const pagination = await HomePage.pagination;
-        await pagination.waitForExist();
-
-        if (!(await pagination.isDisplayed())) {
-            await HomePage.scrollToElement(pagination);
-        }
-
-        await pagination.waitForDisplayed({ timeout: 10000 });
+        await HomePage.scrollToElement(HomePage.pagination);
+        await expect(HomePage.pagination).toBeDisplayed();
         await expect(HomePage.currentPage).toBeDisplayed();
     });
 

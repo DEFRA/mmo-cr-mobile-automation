@@ -175,6 +175,35 @@ npm run test:android:browserstack
 npm run test:ios:browserstack
 ```
 
+Before each BrowserStack run, the config deletes this project's previously uploaded app
+(custom ID `mmo-cr-android` or `mmo-cr-ios`), uploads the newest `.apk`/`.ipa` from `apps/`,
+and uses the returned `bs://` URL. If no matching file exists, it falls back to
+`BROWSERSTACK_ANDROID_APP_URL`/`BROWSERSTACK_IOS_APP_URL`. Set
+`BROWSERSTACK_SKIP_APP_UPLOAD=true` to always use those env vars instead.
+
+Each run (local or BrowserStack) starts by clearing the `log/` and `logs/` folders.
+
+BrowserStack runs use at most `BROWSERSTACK_MAX_INSTANCES` parallel sessions (default `2`).
+Keep it at or below your plan's parallel session limit; requests beyond the plan's
+parallel and queue limits are rejected, and those specs never run.
+
+`test/common/browserStackAppHelper.ts` provides upload, listing, and deletion helpers
+for the BrowserStack App Automate API. Set `BROWSERSTACK_USERNAME` and
+`BROWSERSTACK_ACCESS_KEY`, then use the class from a script or test:
+
+```ts
+import BrowserStackAppHelper from './test/common/browserStackAppHelper';
+
+const browserStackApps = new BrowserStackAppHelper();
+const uploadedApp = await browserStackApps.uploadAppFromFile('apps/app-debug.apk', {
+    customId: 'android-test',
+});
+console.log(uploadedApp.app_url);
+```
+
+Use `listApps` to retrieve uploaded apps, and `deleteApp` with the app ID to
+remove an upload.
+
 ## GitHub Actions
 
 The `Android E2E` and `iOS E2E` workflows run independently against BrowserStack. Add these

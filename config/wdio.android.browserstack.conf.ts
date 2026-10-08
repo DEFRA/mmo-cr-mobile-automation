@@ -1,5 +1,18 @@
-import { baseConfig, cleanReports, mergeCommonCapabilities } from './wdio.base.conf';
+import {
+    baseConfig,
+    browserStackMaxInstances,
+    cleanReports,
+    mergeCommonCapabilities,
+} from './wdio.base.conf';
+import { prepareBrowserStackApp } from './browserStackApp';
 import { logInfo } from '../test/common/logger';
+
+const appUrl = await prepareBrowserStackApp({
+    platform: 'Android',
+    extension: '.apk',
+    customId: 'mmo-cr-android',
+    appUrlEnvVar: 'BROWSERSTACK_ANDROID_APP_URL',
+});
 
 export const config: WebdriverIO.Config = {
     ...baseConfig,
@@ -15,8 +28,9 @@ export const config: WebdriverIO.Config = {
             'browserstack',
             {
                 buildIdentifier: '${BUILD_NUMBER}',
-                app: process.env.BROWSERSTACK_ANDROID_APP_URL,
+                app: appUrl,
                 browserstackLocal: false,
+                percy: false,
             },
         ],
     ],
@@ -42,7 +56,7 @@ export const config: WebdriverIO.Config = {
         },
     ],
 
-    maxInstances: 10,
+    maxInstances: browserStackMaxInstances,
 
     onPrepare: async () => {
         cleanReports();

@@ -10,8 +10,8 @@ describe('iOS add gear page', () => {
         await iosFlowNavigator.openCreateRecord();
         await iosFlowNavigator.selectVessel('ACHILLES');
         await iosFlowNavigator.selectTripToday('yes');
-        await iosFlowNavigator.addPort('Peterhead');
-        await iosFlowNavigator.confirmSamePort('Peterhead', 'yes');
+        await iosFlowNavigator.addPort('Peel');
+        await iosFlowNavigator.confirmSamePort('Peel', 'yes');
         await expect(AddGearPage.heading).toBeDisplayed();
     });
 
@@ -30,14 +30,14 @@ describe('iOS add gear page', () => {
 
     it('accepts a gear search value', async () => {
         logStep('accepts a gear search value');
-        await AddGearPage.enterGearSearch('Seine nets');
+        await AddGearPage.enterGearSearch('Gillnets');
 
-        await expect(AddGearPage.searchField).toHaveAttribute('value', 'Seine nets');
+        await expect(AddGearPage.searchField).toHaveAttribute('value', 'Gillnets');
     });
 
     it('shows gear results after exactly two characters and allows selection', async () => {
         logStep('shows gear results after exactly two characters and allows selection');
-        const gearName = 'Seine nets (not specified)';
+        const gearName = 'Gillnets (drift)';
         const gearResult = AddGearPage.gearResult(gearName);
 
         await AddGearPage.enterGearSearch('S');
@@ -46,14 +46,7 @@ describe('iOS add gear page', () => {
         const searchTerm = 'Se';
         await AddGearPage.enterGearSearch(searchTerm);
         await gearResult.waitForExist({ timeout: 10000 });
-
-        let isDisplayed = await gearResult.isDisplayed();
-        let scrollAttempts = 0;
-        while (!isDisplayed && scrollAttempts < 10) {
-            await browser.execute('mobile: scroll', { direction: 'down' });
-            isDisplayed = await gearResult.isDisplayed();
-            scrollAttempts++;
-        }
+        await AddGearPage.scrollToElementIfExisting(gearResult);
 
         await expect(gearResult).toBeDisplayed();
 

@@ -30,9 +30,9 @@ export class BasePage extends CommonBasePage {
 
     async scrollToElement(element: ReturnType<typeof $>) {
         logStep('scrollToElement');
-        await element.waitForExist({ timeout: 500 });
+        await element.waitForExist();
         await this.scrollToElementIfExisting(element);
-        await element.waitForDisplayed({ timeout: 500 });
+        await element.waitForDisplayed();
     }
 
     async scrollToElementIfExisting(element: ReturnType<typeof $>) {
@@ -49,9 +49,30 @@ export class BasePage extends CommonBasePage {
                 } catch {}
             }
 
-            await browser.execute('mobile: scrollToElement', {
-                element: await element.elementId,
-            });
+            const elementId = await element.elementId;
+
+            try {
+                await browser.execute('mobile: scrollToElement', {
+                    element: elementId,
+                });
+                return;
+            } catch {}
+
+            // 'mobile: scrollToElement' is missing on older XCUITest drivers (e.g. BrowserStack defaults)
+            try {
+                await browser.execute('mobile: scroll', {
+                    elementId: elementId,
+                    toVisible: true,
+                });
+                return;
+            } catch {}
+
+            for (let i = 0; i < 10; i++) {
+                await browser.execute('mobile: swipe', { direction: 'up' });
+                if (await element.isDisplayed()) {
+                    return;
+                }
+            }
         }
     }
 

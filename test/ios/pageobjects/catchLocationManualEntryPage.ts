@@ -17,18 +17,6 @@ export class CatchLocationManualEntryPage extends BaseCatchRecordPage {
         return $(`~SearchDropdownField.result.${code}`);
     }
 
-    resultCoordinates(code: string) {
-        return $(`~SearchDropdownField.result.${code}.coordinates`);
-    }
-
-    resultIcesRectangle(code: string) {
-        return $(`~SearchDropdownField.result.${code}.icesRectangle`);
-    }
-
-    get coordinates() {
-        return $('~CatchRecord.catchLocationManualEntry.coordinates');
-    }
-
     get validationError() {
         return $('~Select a statistical subrectangle');
     }

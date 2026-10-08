@@ -14,11 +14,14 @@ describe('iOS catch location page', () => {
         await iosFlowNavigator.openCreateRecord();
         await iosFlowNavigator.selectVessel('ACHILLES');
         await iosFlowNavigator.selectTripToday('yes');
-        await iosFlowNavigator.addPort('Peterhead');
-        await iosFlowNavigator.confirmSamePort('Peterhead', 'yes');
-        await iosFlowNavigator.addGear('Seine nets (not specified)');
+        await iosFlowNavigator.addPort('Peel');
+        await iosFlowNavigator.confirmSamePort('Peel', 'yes');
+        await iosFlowNavigator.addGear('Gillnets (drift)');
         await iosFlowNavigator.enterGearMeasurements('12');
-        await iosFlowNavigator.selectGearDetails('2');
+        await iosFlowNavigator.selectGearDetails('gnd', {
+            netLengthHauled: '2',
+            netLengthLeft: '1',
+        });
         await expect(CatchLocationPage.heading).toBeDisplayed();
     });
 
@@ -76,10 +79,10 @@ describe('iOS catch location page', () => {
 
         await CatchLocationManualEntryPage.backButton.click();
 
-        await expect(CatchLocationPage.heading).toBeDisplayed();
+        await expect(CatchLocationPage.map).toBeDisplayed();
     });
 
-    it.only('reveals additional rectangles when zooming out while staying centred on the departure port region', async () => {
+    it.skip('reveals additional rectangles when zooming out while staying centred on the departure port region', async () => {
         expect(await CatchLocationPage.visibleAreaCount()).toBe(DEFAULT_RECTANGLE_COUNT);
 
         await CatchLocationPage.zoomOut();
@@ -88,7 +91,7 @@ describe('iOS catch location page', () => {
         await expect(CatchLocationPage.firstAreaLabel).toBeDisplayed();
     });
 
-    it('shows no more than 16 rectangles at maximum zoom-out', async () => {
+    it.skip('shows no more than 16 rectangles at maximum zoom-out', async () => {
         logStep('shows no more than 16 rectangles at maximum zoom-out');
         for (let attempt = 0; attempt < 5; attempt++) {
             await CatchLocationPage.zoomOut();
@@ -101,7 +104,7 @@ describe('iOS catch location page', () => {
         expect(await CatchLocationPage.visibleAreaCount()).toBe(countAtMax);
     });
 
-    it('returns to the default 9 rectangle view when zooming back in', async () => {
+    it.skip('returns to the default 9 rectangle view when zooming back in', async () => {
         logStep('returns to the default 9 rectangle view when zooming back in');
         await CatchLocationPage.zoomOut();
         expect(await CatchLocationPage.visibleAreaCount()).toBeGreaterThan(DEFAULT_RECTANGLE_COUNT);

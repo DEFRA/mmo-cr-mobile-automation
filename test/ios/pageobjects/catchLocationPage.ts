@@ -75,7 +75,7 @@ export class CatchLocationPage extends BaseCatchRecordPage {
 
     async openManualEntry() {
         logStep('openManualEntry');
-        await this.otherButton.waitForDisplayed({ timeout: 10000 });
+        await this.scrollToElement(this.otherButton);
         await this.otherButton.click();
     }
 

@@ -12,12 +12,8 @@ export class SelectVesselPage extends BaseCatchRecordPage {
         return $('~CatchRecord.selectVessel.radioGroup');
     }
 
-    get achillesVesselOption() {
-        return $('~CatchRecord.selectVessel.option.achilles');
-    }
-
-    get herculesVesselOption() {
-        return $('~CatchRecord.selectVessel.option.hercules');
+    vesselOption(vesselName: string) {
+        return this.selector(`CatchRecord.selectVessel.option.${vesselName.toLowerCase()}`);
     }
     get vesselValidationError() {
         return $('~CatchRecord.selectVessel.error');
@@ -25,10 +21,7 @@ export class SelectVesselPage extends BaseCatchRecordPage {
 
     async selectVessel(vesselName: 'ACHILLES' | 'HERCULES') {
         logStep('selectVessel with vessel name: ' + vesselName);
-        const vesselOption =
-            vesselName === 'ACHILLES' ? this.achillesVesselOption : this.herculesVesselOption;
-
-        await vesselOption.click();
+        await this.vesselOption(vesselName).click();
         await this.saveContinueButton.click();
     }
 }
